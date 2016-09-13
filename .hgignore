@@ -1,0 +1,8 @@
+syntax: glob
+EasyRino/bin/*
+EasyRino/obj/*
+GriffinSoft.EasyRino.RinoCore/bin/*
+GriffinSoft.EasyRino.RinoCore/obj/*
+GriffinSoft.EasyRino.RinoXmlFilter/bin/*
+GriffinSoft.EasyRino.RinoXmlFilter/obj/*
+.vs/EasyRino-DotNet/v14/.suo
