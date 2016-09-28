@@ -1,5 +1,5 @@
 ﻿/*
- *  RINO exporter interface
+ *  RINO specific type definition class
  *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -21,24 +21,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace GriffinSoft.EasyRino.RinoCore
 {
-    public interface IRinoExporter
+    /// <summary>
+    /// Action type enumeration.
+    /// </summary>
+    public enum RinoActionType
     {
         /// <summary>
-        /// Exports RINO obligation XML file
+        /// Inserting new obligation or reconcilment.
         /// </summary>
-        /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
-        /// <param name="outPath">Output file path</param>
-        void ExportRinoObligationXml(XmlDocument rinoXmlDoc, string outPath);
-
+        Unos,
         /// <summary>
-        /// Exports RINO reconcilement XML file
+        /// Changing existing obligation or reconcilement.
         /// </summary>
-        /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
-        /// <param name="outPath">Output file path</param>
-        void ExportRinoReconcilementXml(XmlDocument rinoXmlDoc, string outPath);
+        Izmena,
+        /// <summary>
+        /// Cancel existing obligation or reconcilement.
+        /// </summary>
+        Otkazivanje
+    }
+
+    /// <summary>
+    /// Obligation type enumeration.
+    /// </summary>
+    public enum RinoVrstaPoverioca
+    {
+        /// <summary>
+        /// Normal business.
+        /// </summary>
+        PravnaLica = 0,
+        /// <summary>
+        /// Public sector.
+        /// </summary>
+        JavniSektor = 1,
+        /// <summary>
+        /// Agriculture and farming sector.
+        /// </summary>
+        PoljoprivrednaGazdinstva = 8,
+        /// <summary>
+        /// Compensation.
+        /// </summary>
+        Kompenzacija = 9
     }
 }
