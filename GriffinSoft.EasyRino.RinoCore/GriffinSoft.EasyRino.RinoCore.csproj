@@ -43,8 +43,9 @@
     <Compile Include="IRinoImport.cs" />
     <Compile Include="IRinoExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RinoRazduzenjeItem.cs" />
-    <Compile Include="RinoZaduzenjeItem.cs" />
+    <Compile Include="RinoObligationItem.cs" />
+    <Compile Include="RinoReconcilementItem.cs" />
+    <Compile Include="RinoTypes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
