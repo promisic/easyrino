@@ -1,5 +1,5 @@
 ﻿/*
- *  RINO obligation converter class
+ *  RINO obligation manager class
  *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ using GriffinSoft.EasyRino.RinoCore;
 
 namespace GriffinSoft.EasyRino.Core
 {
-    internal class RinoObligationConverter
+    internal class RinoObligationManager
     {
 
         /// <summary>
@@ -61,9 +61,10 @@ namespace GriffinSoft.EasyRino.Core
         /// <summary>
         /// Constructor.
         /// </summary>
-        internal RinoObligationConverter()
+        internal RinoObligationManager()
         {
-
+            // Filling datatable with columns
+            this.FillDataTableWithColumns();
         }
 
         /// <summary>
@@ -100,9 +101,6 @@ namespace GriffinSoft.EasyRino.Core
             // Execute parsing stage ONLY if it is valid obligation XML file
             if (this.ValidObligation)
             {
-                // Creating ROI object to add to existing list
-                RinoObligationItem roiObj = new RinoObligationItem();
-
                 // Doing XPath search query
                 XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Obaveze/Obaveza");
 
@@ -112,6 +110,9 @@ namespace GriffinSoft.EasyRino.Core
                 // Iterating each XmlNode
                 foreach (XmlNode xmlNode in xmlNodes)
                 {
+                    // Creating ROI object to add to existing list
+                    RinoObligationItem roiObj = new RinoObligationItem();
+
                     // Checking type of current XmlNode
                     if (xmlNode.Attributes["VrstaPosla"].Value == "U")
                     {
@@ -133,7 +134,7 @@ namespace GriffinSoft.EasyRino.Core
                     XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
 
                     // Setting amount
-                    roiObj.Iznos = Convert.ToDecimal(iznosNode.InnerText);
+                    roiObj.Iznos = Convert.ToDecimal(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
 
                     // Getting name
                     XmlNode nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
@@ -241,12 +242,15 @@ namespace GriffinSoft.EasyRino.Core
             XmlDocument rinoXml = new XmlDocument();
 
             // Creating XML declaration
-            XmlDeclaration xmlOrderDecl = rinoXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlDeclaration xmlOrderDecl = rinoXml.CreateXmlDeclaration("1.0", "UTF-8", "yes");
 
             // Creating RINO root node
             XmlNode rinoRootNode = rinoXml.CreateElement("RINO");
             // Append node
             rinoXml.AppendChild(rinoRootNode);
+
+            // Inserting XML declaration
+            rinoXml.InsertBefore(xmlOrderDecl, rinoRootNode);
 
             // Creating JBBK node
             XmlNode rinoJbbkNode = rinoXml.CreateElement("JBBK");
@@ -299,7 +303,7 @@ namespace GriffinSoft.EasyRino.Core
                 // Creating Iznos node
                 XmlNode rinoIznosNode = rinoXml.CreateElement("Iznos");
                 // Setting Iznos value
-                rinoIznosNode.InnerText = roiItem.Iznos.ToString("#.##", null);
+                rinoIznosNode.InnerText = roiItem.Iznos.ToString("#.##", CultureInfo.GetCultureInfo("en-US"));
                 // Append node
                 rinoObavezaNode.AppendChild(rinoIznosNode);
 
@@ -379,7 +383,7 @@ namespace GriffinSoft.EasyRino.Core
                 rinoObavezaNode.AppendChild(rinoDnNode);
 
                 // Checking for optional DatumRokaZaIzmirenje
-                if (roiItem.DatumRokaZaIzmirenje != null)
+                if (this.CheckUninitializedDate(roiItem.DatumRokaZaIzmirenje) != true)
                 {
                     // Creating DatumRokaZaIzmirenje node
                     XmlNode rinoDrziNode = rinoXml.CreateElement("DatumRokaZaIzmirenje");
@@ -392,12 +396,15 @@ namespace GriffinSoft.EasyRino.Core
                 // Checking for optional RazlogIzmene
                 if (roiItem.RazlogIzmene != null)
                 {
-                    // Creating RazlogIzmene node
-                    XmlNode rinoRiNode = rinoXml.CreateElement("RazlogIzmene");
-                    // Setting RazlogIzmene value
-                    rinoRiNode.InnerText = roiItem.RazlogIzmene;
-                    // Append node
-                    rinoObavezaNode.AppendChild(rinoRiNode);
+                    if (roiItem.RazlogIzmene.Length > 0)
+                    {
+                        // Creating RazlogIzmene node
+                        XmlNode rinoRiNode = rinoXml.CreateElement("RazlogIzmene");
+                        // Setting RazlogIzmene value
+                        rinoRiNode.InnerText = roiItem.RazlogIzmene;
+                        // Append node
+                        rinoObavezaNode.AppendChild(rinoRiNode);
+                    }
                 }
             }
 
@@ -490,7 +497,8 @@ namespace GriffinSoft.EasyRino.Core
                 // RINO due date variable
                 string rinoDueDate = null;
 
-                if (listItem.DatumRokaZaIzmirenje != null)
+                // RINO due date validity check
+                if (this.CheckUninitializedDate(listItem.DatumRokaZaIzmirenje) != true)
                 {
                     rinoDueDate = listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy");
                 }
@@ -526,6 +534,41 @@ namespace GriffinSoft.EasyRino.Core
                     rinoDueDate,
                     rinoReasonForChange);
             }
+        }
+
+        /// <summary>
+        /// Checks for uninitialized date.
+        /// </summary>
+        /// <param name="dateToCheck">DateTime object to check.</param>
+        /// <returns>True if date is "default uninitialized one", fasle if otherwise.</returns>
+        public bool CheckUninitializedDate(DateTime dateToCheck)
+        {
+            // Creating DateTime object similar to uninitialized datetime
+            DateTime uninDateTime = new DateTime(0001, 1, 1, 0, 0, 0); // Target date is: 1.1.0001. 00.00.00
+
+            // Comparing dates
+            int dateCompResult = DateTime.Compare(dateToCheck, uninDateTime);
+
+            if (dateCompResult == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Get's RinoObligationItem at selected index.
+        /// </summary>
+        /// <param name="roiList">List of RinoObligationItem's objects.</param>
+        /// <param name="index">Index position in the list.</param>
+        /// <returns>RinoObligationItem object at requested index position.</returns>
+        public RinoObligationItem GetRoiItemAt(List<RinoObligationItem> roiList, int index)
+        {
+            return roiList.ElementAt(index);
         }
 
         /// <summary>

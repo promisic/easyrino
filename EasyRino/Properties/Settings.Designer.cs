@@ -22,5 +22,29 @@ namespace GriffinSoft.EasyRino.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string jbbk {
+            get {
+                return ((string)(this["jbbk"]));
+            }
+            set {
+                this["jbbk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool startMaximized {
+            get {
+                return ((bool)(this["startMaximized"]));
+            }
+            set {
+                this["startMaximized"] = value;
+            }
+        }
     }
 }
