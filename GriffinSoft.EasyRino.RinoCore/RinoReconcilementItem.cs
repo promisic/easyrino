@@ -63,6 +63,7 @@ namespace GriffinSoft.EasyRino.RinoCore
             this.PIBPoverioca = pibPoverioca;
             this.Banka = banka;
             this.ReklPodZaRek = reklPodZaRek;
+            this.DatumIzmirenja = datumIzmirenja; 
             this.Iznos = iznos;
             this.RazlogIzmene = razlogIzmene;
         }
