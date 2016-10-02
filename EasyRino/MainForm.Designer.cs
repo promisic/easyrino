@@ -30,12 +30,26 @@
         {
             this.rinoTabControl = new System.Windows.Forms.TabControl();
             this.zaduzenjaTabPage = new System.Windows.Forms.TabPage();
+            this.cloneObliationBtn = new System.Windows.Forms.Button();
             this.modifyObligationBtn = new System.Windows.Forms.Button();
             this.deleteObligationBtn = new System.Windows.Forms.Button();
             this.deleteAllObligationsBtn = new System.Windows.Forms.Button();
             this.rinoObligationDataGridView = new System.Windows.Forms.DataGridView();
+            this.rinoActionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoIznosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoNazivPoveriocaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoPibColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoMbColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoVrstaPoveriocaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoNazivDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoBrojDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoDatumDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoDatumNastankaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoDatumRokaZaIzmirenjeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rinoRazlogZaIzmenuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.zaduzenjaGroupBox = new System.Windows.Forms.GroupBox();
             this.noDueDateCheckBox = new System.Windows.Forms.CheckBox();
+            this.saveObligationChangesBtn = new System.Windows.Forms.Button();
             this.datumRokaIzmirenjaLabel = new System.Windows.Forms.Label();
             this.datumRokaIzmirenjaDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,39 +78,57 @@
             this.loadObligationXmlBtn = new System.Windows.Forms.Button();
             this.saveObligationXmlBtn = new System.Windows.Forms.Button();
             this.razduzenjaTabPage = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.removeUnpopReconBtn = new System.Windows.Forms.Button();
+            this.cloneReconcilementBtn = new System.Windows.Forms.Button();
+            this.modifyReconcilementBtn = new System.Windows.Forms.Button();
+            this.deleteReconcilementBtn = new System.Windows.Forms.Button();
+            this.removeAllReconcilementsBtn = new System.Windows.Forms.Button();
+            this.rinoReconcilementDataGridView = new System.Windows.Forms.DataGridView();
+            this.razduzenjaGroupBox = new System.Windows.Forms.GroupBox();
+            this.reconBankLabel = new System.Windows.Forms.Label();
+            this.reconBankTextBox = new System.Windows.Forms.TextBox();
+            this.reconIznosLabel = new System.Windows.Forms.Label();
+            this.reconIznosTextBox = new System.Windows.Forms.TextBox();
+            this.saveReconcilementChangesBtn = new System.Windows.Forms.Button();
+            this.reconDatumIzmirenjaLabel = new System.Windows.Forms.Label();
+            this.reconDatumIzmirenjaDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.reconRazlogIzmeneLabel = new System.Windows.Forms.Label();
+            this.reconRazlogIzmeneTextBox = new System.Windows.Forms.TextBox();
+            this.reconBrojDokumentaLabel = new System.Windows.Forms.Label();
+            this.reconBrojDokumentaTextBox = new System.Windows.Forms.TextBox();
+            this.reconPodZaReklLabel = new System.Windows.Forms.Label();
+            this.reconPodZaReklTextBox = new System.Windows.Forms.TextBox();
+            this.reconPibLabel = new System.Windows.Forms.Label();
+            this.reconPibTextBox = new System.Windows.Forms.TextBox();
+            this.rinoIdLabel = new System.Windows.Forms.Label();
+            this.rinoIdTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.reconRinoActionTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.insertAsNewReconBtn = new System.Windows.Forms.Button();
+            this.loadReconcilementXmlBtn = new System.Windows.Forms.Button();
+            this.saveReconcilementXmlBtn = new System.Windows.Forms.Button();
             this.aboutLinkLabel = new System.Windows.Forms.LinkLabel();
             this.openObligationXmlDialog = new System.Windows.Forms.OpenFileDialog();
             this.jbbkConfigLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.saveObligationChangesBtn = new System.Windows.Forms.Button();
-            this.cloneObliationBtn = new System.Windows.Forms.Button();
             this.saveObligationXmlDialog = new System.Windows.Forms.SaveFileDialog();
-            this.rinoActionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoIznosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoNazivPoveriocaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoPibColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoMbColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoVrstaPoveriocaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoNazivDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoBrojDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoDatumDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoDatumNastankaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoDatumRokaZaIzmirenjeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rinoRazlogZaIzmenuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openReconcilementXmlDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveReconcilementXmlDialog = new System.Windows.Forms.SaveFileDialog();
+            this.reconRinoAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconBrojDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoPibColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoBankaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconDatumIzmirenjaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoDatumIzmirenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoIznosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRazlogZaIzmenuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rinoTabControl.SuspendLayout();
             this.zaduzenjaTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rinoObligationDataGridView)).BeginInit();
             this.zaduzenjaGroupBox.SuspendLayout();
             this.razduzenjaTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rinoReconcilementDataGridView)).BeginInit();
+            this.razduzenjaGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // rinoTabControl
@@ -129,6 +161,17 @@
             this.zaduzenjaTabPage.Text = "Zaduženja";
             this.zaduzenjaTabPage.UseVisualStyleBackColor = true;
             // 
+            // cloneObliationBtn
+            // 
+            this.cloneObliationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cloneObliationBtn.Location = new System.Drawing.Point(248, 229);
+            this.cloneObliationBtn.Name = "cloneObliationBtn";
+            this.cloneObliationBtn.Size = new System.Drawing.Size(115, 22);
+            this.cloneObliationBtn.TabIndex = 6;
+            this.cloneObliationBtn.Text = "Kloniraj stavku";
+            this.cloneObliationBtn.UseVisualStyleBackColor = true;
+            this.cloneObliationBtn.Click += new System.EventHandler(this.cloneObliationBtn_Click);
+            // 
             // modifyObligationBtn
             // 
             this.modifyObligationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -136,7 +179,7 @@
             this.modifyObligationBtn.Name = "modifyObligationBtn";
             this.modifyObligationBtn.Size = new System.Drawing.Size(115, 22);
             this.modifyObligationBtn.TabIndex = 4;
-            this.modifyObligationBtn.Text = "Izmeni";
+            this.modifyObligationBtn.Text = "Izmeni stavku";
             this.modifyObligationBtn.UseVisualStyleBackColor = true;
             this.modifyObligationBtn.Click += new System.EventHandler(this.modifyObligationBtn_Click);
             // 
@@ -147,7 +190,7 @@
             this.deleteObligationBtn.Name = "deleteObligationBtn";
             this.deleteObligationBtn.Size = new System.Drawing.Size(115, 22);
             this.deleteObligationBtn.TabIndex = 3;
-            this.deleteObligationBtn.Text = "Obriši";
+            this.deleteObligationBtn.Text = "Obriši stavku";
             this.deleteObligationBtn.UseVisualStyleBackColor = true;
             this.deleteObligationBtn.Click += new System.EventHandler(this.deleteObligationBtn_Click);
             // 
@@ -189,6 +232,82 @@
             this.rinoObligationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rinoObligationDataGridView.Size = new System.Drawing.Size(843, 217);
             this.rinoObligationDataGridView.TabIndex = 1;
+            // 
+            // rinoActionColumn
+            // 
+            this.rinoActionColumn.DataPropertyName = "rinoAction";
+            this.rinoActionColumn.HeaderText = "Vrsta posla";
+            this.rinoActionColumn.Name = "rinoActionColumn";
+            // 
+            // rinoIznosColumn
+            // 
+            this.rinoIznosColumn.DataPropertyName = "rinoIznos";
+            this.rinoIznosColumn.HeaderText = "Iznos";
+            this.rinoIznosColumn.Name = "rinoIznosColumn";
+            // 
+            // rinoNazivPoveriocaColumn
+            // 
+            this.rinoNazivPoveriocaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rinoNazivPoveriocaColumn.DataPropertyName = "rinoNazivPoverioca";
+            this.rinoNazivPoveriocaColumn.HeaderText = "Naziv poverioca";
+            this.rinoNazivPoveriocaColumn.MinimumWidth = 100;
+            this.rinoNazivPoveriocaColumn.Name = "rinoNazivPoveriocaColumn";
+            // 
+            // rinoPibColumn
+            // 
+            this.rinoPibColumn.DataPropertyName = "rinoPIB";
+            this.rinoPibColumn.HeaderText = "PIB";
+            this.rinoPibColumn.Name = "rinoPibColumn";
+            this.rinoPibColumn.Width = 75;
+            // 
+            // rinoMbColumn
+            // 
+            this.rinoMbColumn.DataPropertyName = "rinoMB";
+            this.rinoMbColumn.HeaderText = "MB";
+            this.rinoMbColumn.Name = "rinoMbColumn";
+            this.rinoMbColumn.Width = 75;
+            // 
+            // rinoVrstaPoveriocaColumn
+            // 
+            this.rinoVrstaPoveriocaColumn.DataPropertyName = "rinoVrstaPoverioca";
+            this.rinoVrstaPoveriocaColumn.HeaderText = "Vrsta poverioca";
+            this.rinoVrstaPoveriocaColumn.Name = "rinoVrstaPoveriocaColumn";
+            // 
+            // rinoNazivDokumentaColumn
+            // 
+            this.rinoNazivDokumentaColumn.DataPropertyName = "rinoNazivDokumenta";
+            this.rinoNazivDokumentaColumn.HeaderText = "Naziv dokumenta";
+            this.rinoNazivDokumentaColumn.Name = "rinoNazivDokumentaColumn";
+            // 
+            // rinoBrojDokumentaColumn
+            // 
+            this.rinoBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
+            this.rinoBrojDokumentaColumn.HeaderText = "Broj dokumenta";
+            this.rinoBrojDokumentaColumn.Name = "rinoBrojDokumentaColumn";
+            // 
+            // rinoDatumDokumentaColumn
+            // 
+            this.rinoDatumDokumentaColumn.DataPropertyName = "rinoDatumDokumenta";
+            this.rinoDatumDokumentaColumn.HeaderText = "Datum dokumenta";
+            this.rinoDatumDokumentaColumn.Name = "rinoDatumDokumentaColumn";
+            // 
+            // rinoDatumNastankaColumn
+            // 
+            this.rinoDatumNastankaColumn.DataPropertyName = "rinoDatumNastanka";
+            this.rinoDatumNastankaColumn.HeaderText = "Datum nastanka";
+            this.rinoDatumNastankaColumn.Name = "rinoDatumNastankaColumn";
+            // 
+            // rinoDatumRokaZaIzmirenjeColumn
+            // 
+            this.rinoDatumRokaZaIzmirenjeColumn.DataPropertyName = "rinoDatumRokaZaIzmirenje";
+            this.rinoDatumRokaZaIzmirenjeColumn.HeaderText = "Datum roka za izmirenje";
+            this.rinoDatumRokaZaIzmirenjeColumn.Name = "rinoDatumRokaZaIzmirenjeColumn";
+            // 
+            // rinoRazlogZaIzmenuColumn
+            // 
+            this.rinoRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
+            this.rinoRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
+            this.rinoRazlogZaIzmenuColumn.Name = "rinoRazlogZaIzmenuColumn";
             // 
             // zaduzenjaGroupBox
             // 
@@ -239,6 +358,18 @@
             this.noDueDateCheckBox.Text = "Dokument nema valutu";
             this.noDueDateCheckBox.UseVisualStyleBackColor = true;
             this.noDueDateCheckBox.CheckedChanged += new System.EventHandler(this.noDueDateCheckBox_CheckedChanged);
+            // 
+            // saveObligationChangesBtn
+            // 
+            this.saveObligationChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveObligationChangesBtn.Location = new System.Drawing.Point(480, 144);
+            this.saveObligationChangesBtn.Name = "saveObligationChangesBtn";
+            this.saveObligationChangesBtn.Size = new System.Drawing.Size(115, 22);
+            this.saveObligationChangesBtn.TabIndex = 5;
+            this.saveObligationChangesBtn.Text = "Snimi izmenu";
+            this.saveObligationChangesBtn.UseVisualStyleBackColor = true;
+            this.saveObligationChangesBtn.Visible = false;
+            this.saveObligationChangesBtn.Click += new System.EventHandler(this.saveObligationChangesBtn_Click);
             // 
             // datumRokaIzmirenjaLabel
             // 
@@ -496,11 +627,13 @@
             // 
             // razduzenjaTabPage
             // 
-            this.razduzenjaTabPage.Controls.Add(this.button1);
-            this.razduzenjaTabPage.Controls.Add(this.button2);
-            this.razduzenjaTabPage.Controls.Add(this.button3);
-            this.razduzenjaTabPage.Controls.Add(this.dataGridView2);
-            this.razduzenjaTabPage.Controls.Add(this.groupBox1);
+            this.razduzenjaTabPage.Controls.Add(this.removeUnpopReconBtn);
+            this.razduzenjaTabPage.Controls.Add(this.cloneReconcilementBtn);
+            this.razduzenjaTabPage.Controls.Add(this.modifyReconcilementBtn);
+            this.razduzenjaTabPage.Controls.Add(this.deleteReconcilementBtn);
+            this.razduzenjaTabPage.Controls.Add(this.removeAllReconcilementsBtn);
+            this.razduzenjaTabPage.Controls.Add(this.rinoReconcilementDataGridView);
+            this.razduzenjaTabPage.Controls.Add(this.razduzenjaGroupBox);
             this.razduzenjaTabPage.Location = new System.Drawing.Point(4, 4);
             this.razduzenjaTabPage.Name = "razduzenjaTabPage";
             this.razduzenjaTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -509,89 +642,330 @@
             this.razduzenjaTabPage.Text = "Razduženja";
             this.razduzenjaTabPage.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // removeUnpopReconBtn
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(6, 229);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 22);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Izmeni";
-            this.button1.UseVisualStyleBackColor = true;
+            this.removeUnpopReconBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeUnpopReconBtn.Location = new System.Drawing.Point(613, 229);
+            this.removeUnpopReconBtn.Name = "removeUnpopReconBtn";
+            this.removeUnpopReconBtn.Size = new System.Drawing.Size(115, 22);
+            this.removeUnpopReconBtn.TabIndex = 13;
+            this.removeUnpopReconBtn.Text = "Obriši nepopunjeno";
+            this.removeUnpopReconBtn.UseVisualStyleBackColor = true;
+            this.removeUnpopReconBtn.Click += new System.EventHandler(this.removeUnpopReconBtn_Click);
             // 
-            // button2
+            // cloneReconcilementBtn
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(127, 229);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 22);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Obriši";
-            this.button2.UseVisualStyleBackColor = true;
+            this.cloneReconcilementBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cloneReconcilementBtn.Location = new System.Drawing.Point(248, 229);
+            this.cloneReconcilementBtn.Name = "cloneReconcilementBtn";
+            this.cloneReconcilementBtn.Size = new System.Drawing.Size(115, 22);
+            this.cloneReconcilementBtn.TabIndex = 12;
+            this.cloneReconcilementBtn.Text = "Kloniraj stavku";
+            this.cloneReconcilementBtn.UseVisualStyleBackColor = true;
+            this.cloneReconcilementBtn.Click += new System.EventHandler(this.cloneReconcilementBtn_Click);
             // 
-            // button3
+            // modifyReconcilementBtn
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(734, 229);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(115, 22);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Obriši sve";
-            this.button3.UseVisualStyleBackColor = true;
+            this.modifyReconcilementBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.modifyReconcilementBtn.Location = new System.Drawing.Point(6, 229);
+            this.modifyReconcilementBtn.Name = "modifyReconcilementBtn";
+            this.modifyReconcilementBtn.Size = new System.Drawing.Size(115, 22);
+            this.modifyReconcilementBtn.TabIndex = 11;
+            this.modifyReconcilementBtn.Text = "Izmeni stavku";
+            this.modifyReconcilementBtn.UseVisualStyleBackColor = true;
+            this.modifyReconcilementBtn.Click += new System.EventHandler(this.modifyReconcilementBtn_Click);
             // 
-            // dataGridView2
+            // deleteReconcilementBtn
             // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.deleteReconcilementBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.deleteReconcilementBtn.Location = new System.Drawing.Point(127, 229);
+            this.deleteReconcilementBtn.Name = "deleteReconcilementBtn";
+            this.deleteReconcilementBtn.Size = new System.Drawing.Size(115, 22);
+            this.deleteReconcilementBtn.TabIndex = 10;
+            this.deleteReconcilementBtn.Text = "Obriši stavku";
+            this.deleteReconcilementBtn.UseVisualStyleBackColor = true;
+            this.deleteReconcilementBtn.Click += new System.EventHandler(this.deleteReconcilementBtn_Click);
+            // 
+            // removeAllReconcilementsBtn
+            // 
+            this.removeAllReconcilementsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeAllReconcilementsBtn.Location = new System.Drawing.Point(734, 229);
+            this.removeAllReconcilementsBtn.Name = "removeAllReconcilementsBtn";
+            this.removeAllReconcilementsBtn.Size = new System.Drawing.Size(115, 22);
+            this.removeAllReconcilementsBtn.TabIndex = 9;
+            this.removeAllReconcilementsBtn.Text = "Obriši sve";
+            this.removeAllReconcilementsBtn.UseVisualStyleBackColor = true;
+            this.removeAllReconcilementsBtn.Click += new System.EventHandler(this.removeAllReconcilementsBtn_Click);
+            // 
+            // rinoReconcilementDataGridView
+            // 
+            this.rinoReconcilementDataGridView.AllowUserToAddRows = false;
+            this.rinoReconcilementDataGridView.AllowUserToDeleteRows = false;
+            this.rinoReconcilementDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(843, 217);
-            this.dataGridView2.TabIndex = 6;
+            this.rinoReconcilementDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.rinoReconcilementDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.reconRinoAction,
+            this.reconRinoIdColumn,
+            this.reconBrojDokumentaColumn,
+            this.reconRinoPibColumn,
+            this.reconRinoBankaColumn,
+            this.reconDatumIzmirenjaColumn,
+            this.reconRinoDatumIzmirenja,
+            this.reconRinoIznosColumn,
+            this.reconRazlogZaIzmenuColumn});
+            this.rinoReconcilementDataGridView.Location = new System.Drawing.Point(6, 6);
+            this.rinoReconcilementDataGridView.Name = "rinoReconcilementDataGridView";
+            this.rinoReconcilementDataGridView.RowHeadersVisible = false;
+            this.rinoReconcilementDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.rinoReconcilementDataGridView.Size = new System.Drawing.Size(843, 217);
+            this.rinoReconcilementDataGridView.TabIndex = 8;
             // 
-            // groupBox1
+            // razduzenjaGroupBox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.razduzenjaGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button6);
-            this.groupBox1.Location = new System.Drawing.Point(6, 257);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(843, 172);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
+            this.razduzenjaGroupBox.Controls.Add(this.reconBankLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconBankTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.reconIznosLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconIznosTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.saveReconcilementChangesBtn);
+            this.razduzenjaGroupBox.Controls.Add(this.reconDatumIzmirenjaLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconDatumIzmirenjaDateTimePicker);
+            this.razduzenjaGroupBox.Controls.Add(this.reconRazlogIzmeneLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconRazlogIzmeneTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.reconBrojDokumentaLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconBrojDokumentaTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.reconPodZaReklLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconPodZaReklTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.reconPibLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.reconPibTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.rinoIdLabel);
+            this.razduzenjaGroupBox.Controls.Add(this.rinoIdTextBox);
+            this.razduzenjaGroupBox.Controls.Add(this.label16);
+            this.razduzenjaGroupBox.Controls.Add(this.reconRinoActionTypeComboBox);
+            this.razduzenjaGroupBox.Controls.Add(this.insertAsNewReconBtn);
+            this.razduzenjaGroupBox.Controls.Add(this.loadReconcilementXmlBtn);
+            this.razduzenjaGroupBox.Controls.Add(this.saveReconcilementXmlBtn);
+            this.razduzenjaGroupBox.Location = new System.Drawing.Point(6, 257);
+            this.razduzenjaGroupBox.Name = "razduzenjaGroupBox";
+            this.razduzenjaGroupBox.Size = new System.Drawing.Size(843, 172);
+            this.razduzenjaGroupBox.TabIndex = 7;
+            this.razduzenjaGroupBox.TabStop = false;
             // 
-            // button4
+            // reconBankLabel
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(601, 144);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(115, 22);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Ubaci novi";
-            this.button4.UseVisualStyleBackColor = true;
+            this.reconBankLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconBankLabel.AutoSize = true;
+            this.reconBankLabel.Location = new System.Drawing.Point(598, 19);
+            this.reconBankLabel.Name = "reconBankLabel";
+            this.reconBankLabel.Size = new System.Drawing.Size(41, 13);
+            this.reconBankLabel.TabIndex = 31;
+            this.reconBankLabel.Text = "Banka:";
             // 
-            // button5
+            // reconBankTextBox
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(6, 144);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(115, 22);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Učitaj XML fajl";
-            this.button5.UseVisualStyleBackColor = true;
+            this.reconBankTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconBankTextBox.Location = new System.Drawing.Point(601, 35);
+            this.reconBankTextBox.Name = "reconBankTextBox";
+            this.reconBankTextBox.Size = new System.Drawing.Size(97, 20);
+            this.reconBankTextBox.TabIndex = 30;
             // 
-            // button6
+            // reconIznosLabel
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(722, 144);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(115, 22);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Snimi XML fajl";
-            this.button6.UseVisualStyleBackColor = true;
+            this.reconIznosLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconIznosLabel.AutoSize = true;
+            this.reconIznosLabel.Location = new System.Drawing.Point(472, 75);
+            this.reconIznosLabel.Name = "reconIznosLabel";
+            this.reconIznosLabel.Size = new System.Drawing.Size(35, 13);
+            this.reconIznosLabel.TabIndex = 29;
+            this.reconIznosLabel.Text = "Iznos:";
+            // 
+            // reconIznosTextBox
+            // 
+            this.reconIznosTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconIznosTextBox.Location = new System.Drawing.Point(475, 91);
+            this.reconIznosTextBox.Name = "reconIznosTextBox";
+            this.reconIznosTextBox.Size = new System.Drawing.Size(137, 20);
+            this.reconIznosTextBox.TabIndex = 28;
+            // 
+            // saveReconcilementChangesBtn
+            // 
+            this.saveReconcilementChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveReconcilementChangesBtn.Location = new System.Drawing.Point(480, 144);
+            this.saveReconcilementChangesBtn.Name = "saveReconcilementChangesBtn";
+            this.saveReconcilementChangesBtn.Size = new System.Drawing.Size(115, 22);
+            this.saveReconcilementChangesBtn.TabIndex = 5;
+            this.saveReconcilementChangesBtn.Text = "Snimi izmenu";
+            this.saveReconcilementChangesBtn.UseVisualStyleBackColor = true;
+            this.saveReconcilementChangesBtn.Visible = false;
+            this.saveReconcilementChangesBtn.Click += new System.EventHandler(this.saveReconcilementChangesBtn_Click);
+            // 
+            // reconDatumIzmirenjaLabel
+            // 
+            this.reconDatumIzmirenjaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconDatumIzmirenjaLabel.AutoSize = true;
+            this.reconDatumIzmirenjaLabel.Location = new System.Drawing.Point(260, 75);
+            this.reconDatumIzmirenjaLabel.Name = "reconDatumIzmirenjaLabel";
+            this.reconDatumIzmirenjaLabel.Size = new System.Drawing.Size(84, 13);
+            this.reconDatumIzmirenjaLabel.TabIndex = 27;
+            this.reconDatumIzmirenjaLabel.Text = "Datum izmirenja:";
+            // 
+            // reconDatumIzmirenjaDateTimePicker
+            // 
+            this.reconDatumIzmirenjaDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconDatumIzmirenjaDateTimePicker.Location = new System.Drawing.Point(263, 91);
+            this.reconDatumIzmirenjaDateTimePicker.Name = "reconDatumIzmirenjaDateTimePicker";
+            this.reconDatumIzmirenjaDateTimePicker.Size = new System.Drawing.Size(175, 20);
+            this.reconDatumIzmirenjaDateTimePicker.TabIndex = 26;
+            this.reconDatumIzmirenjaDateTimePicker.Value = new System.DateTime(2016, 10, 1, 11, 44, 31, 0);
+            // 
+            // reconRazlogIzmeneLabel
+            // 
+            this.reconRazlogIzmeneLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconRazlogIzmeneLabel.AutoSize = true;
+            this.reconRazlogIzmeneLabel.Location = new System.Drawing.Point(643, 74);
+            this.reconRazlogIzmeneLabel.Name = "reconRazlogIzmeneLabel";
+            this.reconRazlogIzmeneLabel.Size = new System.Drawing.Size(79, 13);
+            this.reconRazlogIzmeneLabel.TabIndex = 25;
+            this.reconRazlogIzmeneLabel.Text = "Razlog izmene:";
+            // 
+            // reconRazlogIzmeneTextBox
+            // 
+            this.reconRazlogIzmeneTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconRazlogIzmeneTextBox.Location = new System.Drawing.Point(646, 90);
+            this.reconRazlogIzmeneTextBox.Name = "reconRazlogIzmeneTextBox";
+            this.reconRazlogIzmeneTextBox.Size = new System.Drawing.Size(187, 20);
+            this.reconRazlogIzmeneTextBox.TabIndex = 24;
+            // 
+            // reconBrojDokumentaLabel
+            // 
+            this.reconBrojDokumentaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.reconBrojDokumentaLabel.AutoSize = true;
+            this.reconBrojDokumentaLabel.Location = new System.Drawing.Point(319, 19);
+            this.reconBrojDokumentaLabel.Name = "reconBrojDokumentaLabel";
+            this.reconBrojDokumentaLabel.Size = new System.Drawing.Size(84, 13);
+            this.reconBrojDokumentaLabel.TabIndex = 23;
+            this.reconBrojDokumentaLabel.Text = "Broj dokumenta:";
+            // 
+            // reconBrojDokumentaTextBox
+            // 
+            this.reconBrojDokumentaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconBrojDokumentaTextBox.Location = new System.Drawing.Point(322, 35);
+            this.reconBrojDokumentaTextBox.Name = "reconBrojDokumentaTextBox";
+            this.reconBrojDokumentaTextBox.Size = new System.Drawing.Size(130, 20);
+            this.reconBrojDokumentaTextBox.TabIndex = 22;
+            // 
+            // reconPodZaReklLabel
+            // 
+            this.reconPodZaReklLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.reconPodZaReklLabel.AutoSize = true;
+            this.reconPodZaReklLabel.Location = new System.Drawing.Point(6, 75);
+            this.reconPodZaReklLabel.Name = "reconPodZaReklLabel";
+            this.reconPodZaReklLabel.Size = new System.Drawing.Size(120, 13);
+            this.reconPodZaReklLabel.TabIndex = 20;
+            this.reconPodZaReklLabel.Text = "Podatak za reklamaciju:";
+            // 
+            // reconPodZaReklTextBox
+            // 
+            this.reconPodZaReklTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconPodZaReklTextBox.Location = new System.Drawing.Point(9, 91);
+            this.reconPodZaReklTextBox.Name = "reconPodZaReklTextBox";
+            this.reconPodZaReklTextBox.Size = new System.Drawing.Size(228, 20);
+            this.reconPodZaReklTextBox.TabIndex = 19;
+            // 
+            // reconPibLabel
+            // 
+            this.reconPibLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconPibLabel.AutoSize = true;
+            this.reconPibLabel.Location = new System.Drawing.Point(472, 19);
+            this.reconPibLabel.Name = "reconPibLabel";
+            this.reconPibLabel.Size = new System.Drawing.Size(77, 13);
+            this.reconPibLabel.TabIndex = 15;
+            this.reconPibLabel.Text = "PIB poverioca:";
+            // 
+            // reconPibTextBox
+            // 
+            this.reconPibTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.reconPibTextBox.Location = new System.Drawing.Point(475, 35);
+            this.reconPibTextBox.Name = "reconPibTextBox";
+            this.reconPibTextBox.Size = new System.Drawing.Size(97, 20);
+            this.reconPibTextBox.TabIndex = 14;
+            // 
+            // rinoIdLabel
+            // 
+            this.rinoIdLabel.AutoSize = true;
+            this.rinoIdLabel.Location = new System.Drawing.Point(161, 19);
+            this.rinoIdLabel.Name = "rinoIdLabel";
+            this.rinoIdLabel.Size = new System.Drawing.Size(71, 13);
+            this.rinoIdLabel.TabIndex = 11;
+            this.rinoIdLabel.Text = "RINO ID broj:";
+            // 
+            // rinoIdTextBox
+            // 
+            this.rinoIdTextBox.Location = new System.Drawing.Point(164, 35);
+            this.rinoIdTextBox.Name = "rinoIdTextBox";
+            this.rinoIdTextBox.Size = new System.Drawing.Size(137, 20);
+            this.rinoIdTextBox.TabIndex = 10;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 18);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 13);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "Vrsta posla:";
+            // 
+            // reconRinoActionTypeComboBox
+            // 
+            this.reconRinoActionTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.reconRinoActionTypeComboBox.FormattingEnabled = true;
+            this.reconRinoActionTypeComboBox.Items.AddRange(new object[] {
+            "Unos",
+            "Izmena",
+            "Otkazivanje"});
+            this.reconRinoActionTypeComboBox.Location = new System.Drawing.Point(6, 34);
+            this.reconRinoActionTypeComboBox.Name = "reconRinoActionTypeComboBox";
+            this.reconRinoActionTypeComboBox.Size = new System.Drawing.Size(133, 21);
+            this.reconRinoActionTypeComboBox.TabIndex = 8;
+            // 
+            // insertAsNewReconBtn
+            // 
+            this.insertAsNewReconBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.insertAsNewReconBtn.Location = new System.Drawing.Point(601, 144);
+            this.insertAsNewReconBtn.Name = "insertAsNewReconBtn";
+            this.insertAsNewReconBtn.Size = new System.Drawing.Size(115, 22);
+            this.insertAsNewReconBtn.TabIndex = 7;
+            this.insertAsNewReconBtn.Text = "Ubaci kao novu stavku";
+            this.insertAsNewReconBtn.UseVisualStyleBackColor = true;
+            this.insertAsNewReconBtn.Visible = false;
+            this.insertAsNewReconBtn.Click += new System.EventHandler(this.insertAsNewReconBtn_Click);
+            // 
+            // loadReconcilementXmlBtn
+            // 
+            this.loadReconcilementXmlBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.loadReconcilementXmlBtn.Location = new System.Drawing.Point(6, 144);
+            this.loadReconcilementXmlBtn.Name = "loadReconcilementXmlBtn";
+            this.loadReconcilementXmlBtn.Size = new System.Drawing.Size(115, 22);
+            this.loadReconcilementXmlBtn.TabIndex = 6;
+            this.loadReconcilementXmlBtn.Text = "Učitaj XML fajl";
+            this.loadReconcilementXmlBtn.UseVisualStyleBackColor = true;
+            this.loadReconcilementXmlBtn.Click += new System.EventHandler(this.loadReconcilementXmlBtn_Click);
+            // 
+            // saveReconcilementXmlBtn
+            // 
+            this.saveReconcilementXmlBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveReconcilementXmlBtn.Location = new System.Drawing.Point(722, 144);
+            this.saveReconcilementXmlBtn.Name = "saveReconcilementXmlBtn";
+            this.saveReconcilementXmlBtn.Size = new System.Drawing.Size(115, 22);
+            this.saveReconcilementXmlBtn.TabIndex = 5;
+            this.saveReconcilementXmlBtn.Text = "Snimi XML fajl";
+            this.saveReconcilementXmlBtn.UseVisualStyleBackColor = true;
+            this.saveReconcilementXmlBtn.Click += new System.EventHandler(this.saveReconcilementXmlBtn_Click);
             // 
             // aboutLinkLabel
             // 
@@ -622,108 +996,76 @@
             this.jbbkConfigLinkLabel.Text = "Podesi JBBK broj";
             this.jbbkConfigLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.jbbkConfigLinkLabel_LinkClicked);
             // 
-            // saveObligationChangesBtn
-            // 
-            this.saveObligationChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.saveObligationChangesBtn.Location = new System.Drawing.Point(480, 144);
-            this.saveObligationChangesBtn.Name = "saveObligationChangesBtn";
-            this.saveObligationChangesBtn.Size = new System.Drawing.Size(115, 22);
-            this.saveObligationChangesBtn.TabIndex = 5;
-            this.saveObligationChangesBtn.Text = "Snimi izmenu";
-            this.saveObligationChangesBtn.UseVisualStyleBackColor = true;
-            this.saveObligationChangesBtn.Visible = false;
-            this.saveObligationChangesBtn.Click += new System.EventHandler(this.saveObligationChangesBtn_Click);
-            // 
-            // cloneObliationBtn
-            // 
-            this.cloneObliationBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cloneObliationBtn.Location = new System.Drawing.Point(248, 229);
-            this.cloneObliationBtn.Name = "cloneObliationBtn";
-            this.cloneObliationBtn.Size = new System.Drawing.Size(115, 22);
-            this.cloneObliationBtn.TabIndex = 6;
-            this.cloneObliationBtn.Text = "Kloniraj stavku";
-            this.cloneObliationBtn.UseVisualStyleBackColor = true;
-            this.cloneObliationBtn.Click += new System.EventHandler(this.cloneObliationBtn_Click);
-            // 
             // saveObligationXmlDialog
             // 
             this.saveObligationXmlDialog.Filter = "RINO XML zaduzenje|*.xml";
             // 
-            // rinoActionColumn
+            // openReconcilementXmlDialog
             // 
-            this.rinoActionColumn.DataPropertyName = "rinoAction";
-            this.rinoActionColumn.HeaderText = "Vrsta posla";
-            this.rinoActionColumn.Name = "rinoActionColumn";
+            this.openReconcilementXmlDialog.Filter = "RINO XML izmirenje|*.xml";
             // 
-            // rinoIznosColumn
+            // saveReconcilementXmlDialog
             // 
-            this.rinoIznosColumn.DataPropertyName = "rinoIznos";
-            this.rinoIznosColumn.HeaderText = "Iznos";
-            this.rinoIznosColumn.Name = "rinoIznosColumn";
+            this.saveReconcilementXmlDialog.Filter = "RINO XML izmirenje|*.xml";
             // 
-            // rinoNazivPoveriocaColumn
+            // reconRinoAction
             // 
-            this.rinoNazivPoveriocaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rinoNazivPoveriocaColumn.DataPropertyName = "rinoNazivPoverioca";
-            this.rinoNazivPoveriocaColumn.HeaderText = "Naziv poverioca";
-            this.rinoNazivPoveriocaColumn.MinimumWidth = 100;
-            this.rinoNazivPoveriocaColumn.Name = "rinoNazivPoveriocaColumn";
+            this.reconRinoAction.DataPropertyName = "rinoAction";
+            this.reconRinoAction.HeaderText = "Vrsta posla";
+            this.reconRinoAction.Name = "reconRinoAction";
             // 
-            // rinoPibColumn
+            // reconRinoIdColumn
             // 
-            this.rinoPibColumn.DataPropertyName = "rinoPIB";
-            this.rinoPibColumn.HeaderText = "PIB";
-            this.rinoPibColumn.Name = "rinoPibColumn";
-            this.rinoPibColumn.Width = 75;
+            this.reconRinoIdColumn.DataPropertyName = "rinoId";
+            this.reconRinoIdColumn.HeaderText = "RINO ID";
+            this.reconRinoIdColumn.Name = "reconRinoIdColumn";
             // 
-            // rinoMbColumn
+            // reconBrojDokumentaColumn
             // 
-            this.rinoMbColumn.DataPropertyName = "rinoMB";
-            this.rinoMbColumn.HeaderText = "MB";
-            this.rinoMbColumn.Name = "rinoMbColumn";
-            this.rinoMbColumn.Width = 75;
+            this.reconBrojDokumentaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.reconBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
+            this.reconBrojDokumentaColumn.HeaderText = "Broj dokumenta";
+            this.reconBrojDokumentaColumn.MinimumWidth = 125;
+            this.reconBrojDokumentaColumn.Name = "reconBrojDokumentaColumn";
             // 
-            // rinoVrstaPoveriocaColumn
+            // reconRinoPibColumn
             // 
-            this.rinoVrstaPoveriocaColumn.DataPropertyName = "rinoVrstaPoverioca";
-            this.rinoVrstaPoveriocaColumn.HeaderText = "Vrsta poverioca";
-            this.rinoVrstaPoveriocaColumn.Name = "rinoVrstaPoveriocaColumn";
+            this.reconRinoPibColumn.DataPropertyName = "rinoPIB";
+            this.reconRinoPibColumn.HeaderText = "PIB";
+            this.reconRinoPibColumn.Name = "reconRinoPibColumn";
+            this.reconRinoPibColumn.Width = 75;
             // 
-            // rinoNazivDokumentaColumn
+            // reconRinoBankaColumn
             // 
-            this.rinoNazivDokumentaColumn.DataPropertyName = "rinoNazivDokumenta";
-            this.rinoNazivDokumentaColumn.HeaderText = "Naziv dokumenta";
-            this.rinoNazivDokumentaColumn.Name = "rinoNazivDokumentaColumn";
+            this.reconRinoBankaColumn.DataPropertyName = "rinoBanka";
+            this.reconRinoBankaColumn.HeaderText = "Banka";
+            this.reconRinoBankaColumn.Name = "reconRinoBankaColumn";
             // 
-            // rinoBrojDokumentaColumn
+            // reconDatumIzmirenjaColumn
             // 
-            this.rinoBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
-            this.rinoBrojDokumentaColumn.HeaderText = "Broj dokumenta";
-            this.rinoBrojDokumentaColumn.Name = "rinoBrojDokumentaColumn";
+            this.reconDatumIzmirenjaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.reconDatumIzmirenjaColumn.DataPropertyName = "rinoReklPodZaRek";
+            this.reconDatumIzmirenjaColumn.HeaderText = "Podatak za reklamaciju";
+            this.reconDatumIzmirenjaColumn.MinimumWidth = 100;
+            this.reconDatumIzmirenjaColumn.Name = "reconDatumIzmirenjaColumn";
             // 
-            // rinoDatumDokumentaColumn
+            // reconRinoDatumIzmirenja
             // 
-            this.rinoDatumDokumentaColumn.DataPropertyName = "rinoDatumDokumenta";
-            this.rinoDatumDokumentaColumn.HeaderText = "Datum dokumenta";
-            this.rinoDatumDokumentaColumn.Name = "rinoDatumDokumentaColumn";
+            this.reconRinoDatumIzmirenja.DataPropertyName = "rinoDatumIzmirenja";
+            this.reconRinoDatumIzmirenja.HeaderText = "Datum izmirenja";
+            this.reconRinoDatumIzmirenja.Name = "reconRinoDatumIzmirenja";
             // 
-            // rinoDatumNastankaColumn
+            // reconRinoIznosColumn
             // 
-            this.rinoDatumNastankaColumn.DataPropertyName = "rinoDatumNastanka";
-            this.rinoDatumNastankaColumn.HeaderText = "Datum nastanka";
-            this.rinoDatumNastankaColumn.Name = "rinoDatumNastankaColumn";
+            this.reconRinoIznosColumn.DataPropertyName = "rinoIznos";
+            this.reconRinoIznosColumn.HeaderText = "Iznos";
+            this.reconRinoIznosColumn.Name = "reconRinoIznosColumn";
             // 
-            // rinoDatumRokaZaIzmirenjeColumn
+            // reconRazlogZaIzmenuColumn
             // 
-            this.rinoDatumRokaZaIzmirenjeColumn.DataPropertyName = "rinoDatumRokaZaIzmirenje";
-            this.rinoDatumRokaZaIzmirenjeColumn.HeaderText = "Datum roka za izmirenje";
-            this.rinoDatumRokaZaIzmirenjeColumn.Name = "rinoDatumRokaZaIzmirenjeColumn";
-            // 
-            // rinoRazlogZaIzmenuColumn
-            // 
-            this.rinoRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
-            this.rinoRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
-            this.rinoRazlogZaIzmenuColumn.Name = "rinoRazlogZaIzmenuColumn";
+            this.reconRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
+            this.reconRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
+            this.reconRazlogZaIzmenuColumn.Name = "reconRazlogZaIzmenuColumn";
             // 
             // MainForm
             // 
@@ -742,8 +1084,9 @@
             this.zaduzenjaGroupBox.ResumeLayout(false);
             this.zaduzenjaGroupBox.PerformLayout();
             this.razduzenjaTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rinoReconcilementDataGridView)).EndInit();
+            this.razduzenjaGroupBox.ResumeLayout(false);
+            this.razduzenjaGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -763,14 +1106,6 @@
         private System.Windows.Forms.Button insertNewObligationBtn;
         private System.Windows.Forms.Button loadObligationXmlBtn;
         private System.Windows.Forms.Button saveObligationXmlBtn;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.OpenFileDialog openObligationXmlDialog;
         private System.Windows.Forms.ComboBox rinoActionTypeComboBox;
         private System.Windows.Forms.Label rinoActionTypeLabel;
@@ -813,6 +1148,46 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rinoDatumNastankaColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rinoDatumRokaZaIzmirenjeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rinoRazlogZaIzmenuColumn;
+        private System.Windows.Forms.Button cloneReconcilementBtn;
+        private System.Windows.Forms.Button modifyReconcilementBtn;
+        private System.Windows.Forms.Button deleteReconcilementBtn;
+        private System.Windows.Forms.Button removeAllReconcilementsBtn;
+        private System.Windows.Forms.DataGridView rinoReconcilementDataGridView;
+        private System.Windows.Forms.GroupBox razduzenjaGroupBox;
+        private System.Windows.Forms.Button saveReconcilementChangesBtn;
+        private System.Windows.Forms.Label reconDatumIzmirenjaLabel;
+        private System.Windows.Forms.DateTimePicker reconDatumIzmirenjaDateTimePicker;
+        private System.Windows.Forms.Label reconRazlogIzmeneLabel;
+        private System.Windows.Forms.TextBox reconRazlogIzmeneTextBox;
+        private System.Windows.Forms.Label reconBrojDokumentaLabel;
+        private System.Windows.Forms.TextBox reconBrojDokumentaTextBox;
+        private System.Windows.Forms.Label reconPodZaReklLabel;
+        private System.Windows.Forms.TextBox reconPodZaReklTextBox;
+        private System.Windows.Forms.Label reconPibLabel;
+        private System.Windows.Forms.TextBox reconPibTextBox;
+        private System.Windows.Forms.Label rinoIdLabel;
+        private System.Windows.Forms.TextBox rinoIdTextBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox reconRinoActionTypeComboBox;
+        private System.Windows.Forms.Button insertAsNewReconBtn;
+        private System.Windows.Forms.Button loadReconcilementXmlBtn;
+        private System.Windows.Forms.Button saveReconcilementXmlBtn;
+        private System.Windows.Forms.OpenFileDialog openReconcilementXmlDialog;
+        private System.Windows.Forms.SaveFileDialog saveReconcilementXmlDialog;
+        private System.Windows.Forms.Button removeUnpopReconBtn;
+        private System.Windows.Forms.Label reconIznosLabel;
+        private System.Windows.Forms.TextBox reconIznosTextBox;
+        private System.Windows.Forms.Label reconBankLabel;
+        private System.Windows.Forms.TextBox reconBankTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoAction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconBrojDokumentaColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoPibColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoBankaColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconDatumIzmirenjaColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoDatumIzmirenja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRinoIznosColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reconRazlogZaIzmenuColumn;
     }
 }
 
