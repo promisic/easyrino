@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.rinoTabControl = new System.Windows.Forms.TabControl();
             this.zaduzenjaTabPage = new System.Windows.Forms.TabPage();
             this.cloneObliationBtn = new System.Windows.Forms.Button();
@@ -84,6 +85,15 @@
             this.deleteReconcilementBtn = new System.Windows.Forms.Button();
             this.removeAllReconcilementsBtn = new System.Windows.Forms.Button();
             this.rinoReconcilementDataGridView = new System.Windows.Forms.DataGridView();
+            this.reconRinoAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconBrojDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoPibColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoBankaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconDatumIzmirenjaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoDatumIzmirenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRinoIznosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reconRazlogZaIzmenuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.razduzenjaGroupBox = new System.Windows.Forms.GroupBox();
             this.reconBankLabel = new System.Windows.Forms.Label();
             this.reconBankTextBox = new System.Windows.Forms.TextBox();
@@ -113,15 +123,6 @@
             this.saveObligationXmlDialog = new System.Windows.Forms.SaveFileDialog();
             this.openReconcilementXmlDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveReconcilementXmlDialog = new System.Windows.Forms.SaveFileDialog();
-            this.reconRinoAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRinoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconBrojDokumentaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRinoPibColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRinoBankaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconDatumIzmirenjaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRinoDatumIzmirenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRinoIznosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reconRazlogZaIzmenuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rinoTabControl.SuspendLayout();
             this.zaduzenjaTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rinoObligationDataGridView)).BeginInit();
@@ -227,7 +228,9 @@
             this.rinoDatumRokaZaIzmirenjeColumn,
             this.rinoRazlogZaIzmenuColumn});
             this.rinoObligationDataGridView.Location = new System.Drawing.Point(6, 6);
+            this.rinoObligationDataGridView.MultiSelect = false;
             this.rinoObligationDataGridView.Name = "rinoObligationDataGridView";
+            this.rinoObligationDataGridView.ReadOnly = true;
             this.rinoObligationDataGridView.RowHeadersVisible = false;
             this.rinoObligationDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rinoObligationDataGridView.Size = new System.Drawing.Size(843, 217);
@@ -238,12 +241,14 @@
             this.rinoActionColumn.DataPropertyName = "rinoAction";
             this.rinoActionColumn.HeaderText = "Vrsta posla";
             this.rinoActionColumn.Name = "rinoActionColumn";
+            this.rinoActionColumn.ReadOnly = true;
             // 
             // rinoIznosColumn
             // 
             this.rinoIznosColumn.DataPropertyName = "rinoIznos";
             this.rinoIznosColumn.HeaderText = "Iznos";
             this.rinoIznosColumn.Name = "rinoIznosColumn";
+            this.rinoIznosColumn.ReadOnly = true;
             // 
             // rinoNazivPoveriocaColumn
             // 
@@ -252,12 +257,14 @@
             this.rinoNazivPoveriocaColumn.HeaderText = "Naziv poverioca";
             this.rinoNazivPoveriocaColumn.MinimumWidth = 100;
             this.rinoNazivPoveriocaColumn.Name = "rinoNazivPoveriocaColumn";
+            this.rinoNazivPoveriocaColumn.ReadOnly = true;
             // 
             // rinoPibColumn
             // 
             this.rinoPibColumn.DataPropertyName = "rinoPIB";
             this.rinoPibColumn.HeaderText = "PIB";
             this.rinoPibColumn.Name = "rinoPibColumn";
+            this.rinoPibColumn.ReadOnly = true;
             this.rinoPibColumn.Width = 75;
             // 
             // rinoMbColumn
@@ -265,6 +272,7 @@
             this.rinoMbColumn.DataPropertyName = "rinoMB";
             this.rinoMbColumn.HeaderText = "MB";
             this.rinoMbColumn.Name = "rinoMbColumn";
+            this.rinoMbColumn.ReadOnly = true;
             this.rinoMbColumn.Width = 75;
             // 
             // rinoVrstaPoveriocaColumn
@@ -272,42 +280,49 @@
             this.rinoVrstaPoveriocaColumn.DataPropertyName = "rinoVrstaPoverioca";
             this.rinoVrstaPoveriocaColumn.HeaderText = "Vrsta poverioca";
             this.rinoVrstaPoveriocaColumn.Name = "rinoVrstaPoveriocaColumn";
+            this.rinoVrstaPoveriocaColumn.ReadOnly = true;
             // 
             // rinoNazivDokumentaColumn
             // 
             this.rinoNazivDokumentaColumn.DataPropertyName = "rinoNazivDokumenta";
             this.rinoNazivDokumentaColumn.HeaderText = "Naziv dokumenta";
             this.rinoNazivDokumentaColumn.Name = "rinoNazivDokumentaColumn";
+            this.rinoNazivDokumentaColumn.ReadOnly = true;
             // 
             // rinoBrojDokumentaColumn
             // 
             this.rinoBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
             this.rinoBrojDokumentaColumn.HeaderText = "Broj dokumenta";
             this.rinoBrojDokumentaColumn.Name = "rinoBrojDokumentaColumn";
+            this.rinoBrojDokumentaColumn.ReadOnly = true;
             // 
             // rinoDatumDokumentaColumn
             // 
             this.rinoDatumDokumentaColumn.DataPropertyName = "rinoDatumDokumenta";
             this.rinoDatumDokumentaColumn.HeaderText = "Datum dokumenta";
             this.rinoDatumDokumentaColumn.Name = "rinoDatumDokumentaColumn";
+            this.rinoDatumDokumentaColumn.ReadOnly = true;
             // 
             // rinoDatumNastankaColumn
             // 
             this.rinoDatumNastankaColumn.DataPropertyName = "rinoDatumNastanka";
             this.rinoDatumNastankaColumn.HeaderText = "Datum nastanka";
             this.rinoDatumNastankaColumn.Name = "rinoDatumNastankaColumn";
+            this.rinoDatumNastankaColumn.ReadOnly = true;
             // 
             // rinoDatumRokaZaIzmirenjeColumn
             // 
             this.rinoDatumRokaZaIzmirenjeColumn.DataPropertyName = "rinoDatumRokaZaIzmirenje";
             this.rinoDatumRokaZaIzmirenjeColumn.HeaderText = "Datum roka za izmirenje";
             this.rinoDatumRokaZaIzmirenjeColumn.Name = "rinoDatumRokaZaIzmirenjeColumn";
+            this.rinoDatumRokaZaIzmirenjeColumn.ReadOnly = true;
             // 
             // rinoRazlogZaIzmenuColumn
             // 
             this.rinoRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
             this.rinoRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
             this.rinoRazlogZaIzmenuColumn.Name = "rinoRazlogZaIzmenuColumn";
+            this.rinoRazlogZaIzmenuColumn.ReadOnly = true;
             // 
             // zaduzenjaGroupBox
             // 
@@ -361,7 +376,7 @@
             // 
             // saveObligationChangesBtn
             // 
-            this.saveObligationChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveObligationChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveObligationChangesBtn.Location = new System.Drawing.Point(480, 144);
             this.saveObligationChangesBtn.Name = "saveObligationChangesBtn";
             this.saveObligationChangesBtn.Size = new System.Drawing.Size(115, 22);
@@ -716,11 +731,81 @@
             this.reconRinoIznosColumn,
             this.reconRazlogZaIzmenuColumn});
             this.rinoReconcilementDataGridView.Location = new System.Drawing.Point(6, 6);
+            this.rinoReconcilementDataGridView.MultiSelect = false;
             this.rinoReconcilementDataGridView.Name = "rinoReconcilementDataGridView";
+            this.rinoReconcilementDataGridView.ReadOnly = true;
             this.rinoReconcilementDataGridView.RowHeadersVisible = false;
             this.rinoReconcilementDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rinoReconcilementDataGridView.Size = new System.Drawing.Size(843, 217);
             this.rinoReconcilementDataGridView.TabIndex = 8;
+            // 
+            // reconRinoAction
+            // 
+            this.reconRinoAction.DataPropertyName = "rinoAction";
+            this.reconRinoAction.HeaderText = "Vrsta posla";
+            this.reconRinoAction.Name = "reconRinoAction";
+            this.reconRinoAction.ReadOnly = true;
+            // 
+            // reconRinoIdColumn
+            // 
+            this.reconRinoIdColumn.DataPropertyName = "rinoId";
+            this.reconRinoIdColumn.HeaderText = "RINO ID";
+            this.reconRinoIdColumn.Name = "reconRinoIdColumn";
+            this.reconRinoIdColumn.ReadOnly = true;
+            // 
+            // reconBrojDokumentaColumn
+            // 
+            this.reconBrojDokumentaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.reconBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
+            this.reconBrojDokumentaColumn.HeaderText = "Broj dokumenta";
+            this.reconBrojDokumentaColumn.MinimumWidth = 125;
+            this.reconBrojDokumentaColumn.Name = "reconBrojDokumentaColumn";
+            this.reconBrojDokumentaColumn.ReadOnly = true;
+            // 
+            // reconRinoPibColumn
+            // 
+            this.reconRinoPibColumn.DataPropertyName = "rinoPIB";
+            this.reconRinoPibColumn.HeaderText = "PIB";
+            this.reconRinoPibColumn.Name = "reconRinoPibColumn";
+            this.reconRinoPibColumn.ReadOnly = true;
+            this.reconRinoPibColumn.Width = 75;
+            // 
+            // reconRinoBankaColumn
+            // 
+            this.reconRinoBankaColumn.DataPropertyName = "rinoBanka";
+            this.reconRinoBankaColumn.HeaderText = "Banka";
+            this.reconRinoBankaColumn.Name = "reconRinoBankaColumn";
+            this.reconRinoBankaColumn.ReadOnly = true;
+            // 
+            // reconDatumIzmirenjaColumn
+            // 
+            this.reconDatumIzmirenjaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.reconDatumIzmirenjaColumn.DataPropertyName = "rinoReklPodZaRek";
+            this.reconDatumIzmirenjaColumn.HeaderText = "Podatak za reklamaciju";
+            this.reconDatumIzmirenjaColumn.MinimumWidth = 100;
+            this.reconDatumIzmirenjaColumn.Name = "reconDatumIzmirenjaColumn";
+            this.reconDatumIzmirenjaColumn.ReadOnly = true;
+            // 
+            // reconRinoDatumIzmirenja
+            // 
+            this.reconRinoDatumIzmirenja.DataPropertyName = "rinoDatumIzmirenja";
+            this.reconRinoDatumIzmirenja.HeaderText = "Datum izmirenja";
+            this.reconRinoDatumIzmirenja.Name = "reconRinoDatumIzmirenja";
+            this.reconRinoDatumIzmirenja.ReadOnly = true;
+            // 
+            // reconRinoIznosColumn
+            // 
+            this.reconRinoIznosColumn.DataPropertyName = "rinoIznos";
+            this.reconRinoIznosColumn.HeaderText = "Iznos";
+            this.reconRinoIznosColumn.Name = "reconRinoIznosColumn";
+            this.reconRinoIznosColumn.ReadOnly = true;
+            // 
+            // reconRazlogZaIzmenuColumn
+            // 
+            this.reconRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
+            this.reconRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
+            this.reconRazlogZaIzmenuColumn.Name = "reconRazlogZaIzmenuColumn";
+            this.reconRazlogZaIzmenuColumn.ReadOnly = true;
             // 
             // razduzenjaGroupBox
             // 
@@ -792,7 +877,7 @@
             // 
             // saveReconcilementChangesBtn
             // 
-            this.saveReconcilementChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.saveReconcilementChangesBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveReconcilementChangesBtn.Location = new System.Drawing.Point(480, 144);
             this.saveReconcilementChangesBtn.Name = "saveReconcilementChangesBtn";
             this.saveReconcilementChangesBtn.Size = new System.Drawing.Size(115, 22);
@@ -908,13 +993,14 @@
             // 
             this.rinoIdTextBox.Location = new System.Drawing.Point(164, 35);
             this.rinoIdTextBox.Name = "rinoIdTextBox";
+            this.rinoIdTextBox.ReadOnly = true;
             this.rinoIdTextBox.Size = new System.Drawing.Size(137, 20);
             this.rinoIdTextBox.TabIndex = 10;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 18);
+            this.label16.Location = new System.Drawing.Point(9, 18);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(62, 13);
             this.label16.TabIndex = 9;
@@ -928,7 +1014,7 @@
             "Unos",
             "Izmena",
             "Otkazivanje"});
-            this.reconRinoActionTypeComboBox.Location = new System.Drawing.Point(6, 34);
+            this.reconRinoActionTypeComboBox.Location = new System.Drawing.Point(9, 34);
             this.reconRinoActionTypeComboBox.Name = "reconRinoActionTypeComboBox";
             this.reconRinoActionTypeComboBox.Size = new System.Drawing.Size(133, 21);
             this.reconRinoActionTypeComboBox.TabIndex = 8;
@@ -978,6 +1064,7 @@
             this.aboutLinkLabel.TabIndex = 1;
             this.aboutLinkLabel.TabStop = true;
             this.aboutLinkLabel.Text = "O programu ....";
+            this.aboutLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.aboutLinkLabel_LinkClicked);
             // 
             // openObligationXmlDialog
             // 
@@ -1008,65 +1095,6 @@
             // 
             this.saveReconcilementXmlDialog.Filter = "RINO XML izmirenje|*.xml";
             // 
-            // reconRinoAction
-            // 
-            this.reconRinoAction.DataPropertyName = "rinoAction";
-            this.reconRinoAction.HeaderText = "Vrsta posla";
-            this.reconRinoAction.Name = "reconRinoAction";
-            // 
-            // reconRinoIdColumn
-            // 
-            this.reconRinoIdColumn.DataPropertyName = "rinoId";
-            this.reconRinoIdColumn.HeaderText = "RINO ID";
-            this.reconRinoIdColumn.Name = "reconRinoIdColumn";
-            // 
-            // reconBrojDokumentaColumn
-            // 
-            this.reconBrojDokumentaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.reconBrojDokumentaColumn.DataPropertyName = "rinoBrojDokumenta";
-            this.reconBrojDokumentaColumn.HeaderText = "Broj dokumenta";
-            this.reconBrojDokumentaColumn.MinimumWidth = 125;
-            this.reconBrojDokumentaColumn.Name = "reconBrojDokumentaColumn";
-            // 
-            // reconRinoPibColumn
-            // 
-            this.reconRinoPibColumn.DataPropertyName = "rinoPIB";
-            this.reconRinoPibColumn.HeaderText = "PIB";
-            this.reconRinoPibColumn.Name = "reconRinoPibColumn";
-            this.reconRinoPibColumn.Width = 75;
-            // 
-            // reconRinoBankaColumn
-            // 
-            this.reconRinoBankaColumn.DataPropertyName = "rinoBanka";
-            this.reconRinoBankaColumn.HeaderText = "Banka";
-            this.reconRinoBankaColumn.Name = "reconRinoBankaColumn";
-            // 
-            // reconDatumIzmirenjaColumn
-            // 
-            this.reconDatumIzmirenjaColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.reconDatumIzmirenjaColumn.DataPropertyName = "rinoReklPodZaRek";
-            this.reconDatumIzmirenjaColumn.HeaderText = "Podatak za reklamaciju";
-            this.reconDatumIzmirenjaColumn.MinimumWidth = 100;
-            this.reconDatumIzmirenjaColumn.Name = "reconDatumIzmirenjaColumn";
-            // 
-            // reconRinoDatumIzmirenja
-            // 
-            this.reconRinoDatumIzmirenja.DataPropertyName = "rinoDatumIzmirenja";
-            this.reconRinoDatumIzmirenja.HeaderText = "Datum izmirenja";
-            this.reconRinoDatumIzmirenja.Name = "reconRinoDatumIzmirenja";
-            // 
-            // reconRinoIznosColumn
-            // 
-            this.reconRinoIznosColumn.DataPropertyName = "rinoIznos";
-            this.reconRinoIznosColumn.HeaderText = "Iznos";
-            this.reconRinoIznosColumn.Name = "reconRinoIznosColumn";
-            // 
-            // reconRazlogZaIzmenuColumn
-            // 
-            this.reconRazlogZaIzmenuColumn.DataPropertyName = "rinoRazlogIzmene";
-            this.reconRazlogZaIzmenuColumn.HeaderText = "Razlog za izmenu";
-            this.reconRazlogZaIzmenuColumn.Name = "reconRazlogZaIzmenuColumn";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1075,9 +1103,12 @@
             this.Controls.Add(this.jbbkConfigLinkLabel);
             this.Controls.Add(this.aboutLinkLabel);
             this.Controls.Add(this.rinoTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EasyRino";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.rinoTabControl.ResumeLayout(false);
             this.zaduzenjaTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rinoObligationDataGridView)).EndInit();

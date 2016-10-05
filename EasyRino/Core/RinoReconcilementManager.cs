@@ -183,7 +183,7 @@ namespace GriffinSoft.EasyRino.Core
                     XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
 
                     // Setting amount
-                    rriObj.Iznos = Convert.ToDecimal(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
+                    rriObj.Iznos = Decimal.Parse(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
 
                     // This node may be missing / is optional.
                     if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
@@ -301,7 +301,7 @@ namespace GriffinSoft.EasyRino.Core
                 rinoIzmirenjeNode.AppendChild(rinoBankaNode);
 
                 // Creating ReklPodZaRekl node
-                XmlNode rinoRpzrNode = rinoXml.CreateElement("ReklPodZaRekl");
+                XmlNode rinoRpzrNode = rinoXml.CreateElement("ReklPodZaRek");
                 // Setting ReklPodZaRekl value
                 rinoRpzrNode.InnerText = rriItem.ReklPodZaRek;
                 // Append node

@@ -134,7 +134,7 @@ namespace GriffinSoft.EasyRino.Core
                     XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
 
                     // Setting amount
-                    roiObj.Iznos = Convert.ToDecimal(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
+                    roiObj.Iznos = Decimal.Parse(iznosNode.InnerText, CultureInfo.CreateSpecificCulture("en-US"));
 
                     // Getting name
                     XmlNode nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
@@ -479,19 +479,19 @@ namespace GriffinSoft.EasyRino.Core
 
                 if (listItem.VrstaPoverioca == RinoVrstaPoverioca.PravnaLica)
                 {
-                    rinoVrstaPoverica = "0";
+                    rinoVrstaPoverica = "Pravno lice";
                 }
                 else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.JavniSektor)
                 {
-                    rinoVrstaPoverica = "1";
+                    rinoVrstaPoverica = "Javni sektor";
                 }
                 else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.PoljoprivrednaGazdinstva)
                 {
-                    rinoVrstaPoverica = "8";
+                    rinoVrstaPoverica = "Polj. gazdinstva";
                 }
                 else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.Kompenzacija)
                 {
-                    rinoVrstaPoverica = "9";
+                    rinoVrstaPoverica = "Kompenzacija";
                 }
 
                 // RINO due date variable

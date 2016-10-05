@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EasyRinoConfigForm));
             this.jbbkGroupBox = new System.Windows.Forms.GroupBox();
             this.jbbkTextBox = new System.Windows.Forms.TextBox();
             this.saveJbbkBtn = new System.Windows.Forms.Button();
@@ -82,6 +83,7 @@
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.saveJbbkBtn);
             this.Controls.Add(this.jbbkGroupBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EasyRinoConfigForm";
