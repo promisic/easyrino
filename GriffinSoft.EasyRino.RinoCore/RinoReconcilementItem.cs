@@ -63,7 +63,7 @@ namespace GriffinSoft.EasyRino.RinoCore
             this.PIBPoverioca = pibPoverioca;
             this.Banka = banka;
             this.ReklPodZaRek = reklPodZaRek;
-            this.DatumIzmirenja = datumIzmirenja; 
+            this.DatumIzmirenja = datumIzmirenja;
             this.Iznos = iznos;
             this.RazlogIzmene = razlogIzmene;
         }
@@ -128,6 +128,69 @@ namespace GriffinSoft.EasyRino.RinoCore
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Check if ReklPodZaRek is valid.
+        /// </summary>
+        /// <returns>True if ReklPodZaRek is 16 character long, false if otherwise.</returns>
+        public bool IsReklPodZaRekValid()
+        {
+            // Checking if ReklPodZaRek is 16 character long
+            if (this.ReklPodZaRek.Length == 16)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if RazlogIzmene is valid in given context.
+        /// </summary>
+        /// <returns>True if valid, false if otherwise.</returns>
+        public bool ReasonForChangeValid()
+        {
+            // Result holding variable
+            bool result = false;
+
+            if (this.Action == RinoActionType.Izmena || this.Action == RinoActionType.Otkazivanje)
+            {
+                if (this.RazlogIzmene.Length > 3)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Checks if all fields and properties are "filled".
+        /// </summary>
+        /// <returns>True if valid, false if not.</returns>
+        public bool CheckForGeneralValidity()
+        {
+            // Result holding variable
+            bool result = false;
+
+            if (this.RinoId > 0 && this.BrojDokumenta.Length > 2 && this.IsPibValid() &&
+                this.Banka.Length > 2 && this.IsReklPodZaRekValid() && this.Iznos > 0)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }

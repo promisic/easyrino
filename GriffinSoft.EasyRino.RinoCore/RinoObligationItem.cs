@@ -158,10 +158,10 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <summary>
         /// Checks if MB is valid.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if valid, false if otherwise.</returns>
         public bool IsMbValid()
         {
-            if (this.MBPoverioca.Length == 8 || this.MBPoverioca.Length == 5)
+            if (this.MBPoverioca.Length == 8 || this.MBPoverioca.Length == 5 || this.MBPoverioca.Length == 13)
             {
                 return true;
             }
@@ -169,6 +169,53 @@ namespace GriffinSoft.EasyRino.RinoCore
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Checks if RazlogIzmene is valid in given context.
+        /// </summary>
+        /// <returns>True if valid, false if otherwise.</returns>
+        public bool ReasonForChangeValid()
+        {
+            // Result holding variable
+            bool result = false;
+
+            if (this.Action == RinoActionType.Izmena || this.Action == RinoActionType.Otkazivanje)
+            {
+                if (this.RazlogIzmene.Length > 3)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Checks if all fields and properties are "filled".
+        /// </summary>
+        /// <returns>True if valid, false if not.</returns>
+        public bool CheckForGeneralValidity()
+        {
+            // Result holding variable
+            bool result = false;
+
+            if (this.Iznos > 0 && this.NazivPoverioca.Length > 2 &&
+                this.IsPibValid() && this.IsMbValid() && this.NazivDokumenta.Length > 2 &&
+                this.BrojDokumenta.Length > 2)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }
