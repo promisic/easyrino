@@ -44,7 +44,7 @@ namespace GriffinSoft.EasyRino
         /// <returns>EasyRino version</returns>
         public static string GetEasyRinoVersion()
         {
-            return "1.0 Beta 1";
+            return "1.0 Beta 2";
         }
 
         #endregion
@@ -107,11 +107,21 @@ namespace GriffinSoft.EasyRino
                 // Populating roiList object
                 roiList = rom.ConvertXmlToRinoList(rinoObligationXmlImport.ImportRinoObligationXml(xmlPath));
 
-                // Converting ROI list to DataTable for display
-                rom.ConvertRinoListToDataTable(roiList);
+                // Checking if XML file is valid reconcilement type
+                if (rom.ValidObligation == true)
+                {
+                    // Converting ROI list to DataTable for display
+                    rom.ConvertRinoListToDataTable(roiList);
 
-                // Setting data to datagrid
-                this.rinoObligationDataGridView.DataSource = rom.RinoDataTable;
+                    // Setting data to datagrid
+                    this.rinoObligationDataGridView.DataSource = rom.RinoDataTable;
+                }
+                else
+                {
+                    // Display error message
+                    string errMsg = "XML fajl koji ste izabrali nije validan RINO XML fajl za zaduženje.";
+                    MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 // Reset fields
                 this.ResetObligationFields();
@@ -924,11 +934,21 @@ namespace GriffinSoft.EasyRino
                 // Populating roiList object
                 rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoObligationXml(xmlPath));
 
-                // Converting ROI list to DataTable for display
-                rrm.ConvertRinoListToDataTable(rriList);
+                // Checking if XML file is valid reconcilement type
+                if (rrm.ValidReconcilement == true)
+                {
+                    // Converting ROI list to DataTable for display
+                    rrm.ConvertRinoListToDataTable(rriList);
 
-                // Setting data to datagrid
-                this.rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
+                    // Setting data to datagrid
+                    this.rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
+                }
+                else
+                {
+                    // Display error message
+                    string errMsg = "XML fajl koji ste izabrali nije validan RINO XML fajl za razduženje.";
+                    MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 // Reset fields
                 this.ResetReconcilementFields();
