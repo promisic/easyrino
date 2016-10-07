@@ -129,6 +129,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EasyRinoAboutForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "O EasyRino programu ....";
             this.Load += new System.EventHandler(this.EasyRinoAboutForm_Load);

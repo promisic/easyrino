@@ -5,4 +5,7 @@ GriffinSoft.EasyRino.RinoCore/bin/*
 GriffinSoft.EasyRino.RinoCore/obj/*
 GriffinSoft.EasyRino.RinoXmlFilter/bin/*
 GriffinSoft.EasyRino.RinoXmlFilter/obj/*
+Installer_scripts/*.exe
+doc/~$syrino_manual.docx
+doc/easyrino_manual.pdf
 .vs/EasyRino-DotNet/v14/.suo

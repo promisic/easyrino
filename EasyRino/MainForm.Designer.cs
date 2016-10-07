@@ -168,7 +168,7 @@
             this.cloneObliationBtn.Location = new System.Drawing.Point(248, 229);
             this.cloneObliationBtn.Name = "cloneObliationBtn";
             this.cloneObliationBtn.Size = new System.Drawing.Size(115, 22);
-            this.cloneObliationBtn.TabIndex = 6;
+            this.cloneObliationBtn.TabIndex = 4;
             this.cloneObliationBtn.Text = "Kloniraj stavku";
             this.cloneObliationBtn.UseVisualStyleBackColor = true;
             this.cloneObliationBtn.Click += new System.EventHandler(this.cloneObliationBtn_Click);
@@ -179,7 +179,7 @@
             this.modifyObligationBtn.Location = new System.Drawing.Point(6, 229);
             this.modifyObligationBtn.Name = "modifyObligationBtn";
             this.modifyObligationBtn.Size = new System.Drawing.Size(115, 22);
-            this.modifyObligationBtn.TabIndex = 4;
+            this.modifyObligationBtn.TabIndex = 2;
             this.modifyObligationBtn.Text = "Izmeni stavku";
             this.modifyObligationBtn.UseVisualStyleBackColor = true;
             this.modifyObligationBtn.Click += new System.EventHandler(this.modifyObligationBtn_Click);
@@ -201,7 +201,7 @@
             this.deleteAllObligationsBtn.Location = new System.Drawing.Point(734, 229);
             this.deleteAllObligationsBtn.Name = "deleteAllObligationsBtn";
             this.deleteAllObligationsBtn.Size = new System.Drawing.Size(115, 22);
-            this.deleteAllObligationsBtn.TabIndex = 2;
+            this.deleteAllObligationsBtn.TabIndex = 5;
             this.deleteAllObligationsBtn.Text = "Obriši sve";
             this.deleteAllObligationsBtn.UseVisualStyleBackColor = true;
             this.deleteAllObligationsBtn.Click += new System.EventHandler(this.deleteAllObligationsBtn_Click);
@@ -369,7 +369,7 @@
             this.noDueDateCheckBox.Location = new System.Drawing.Point(205, 117);
             this.noDueDateCheckBox.Name = "noDueDateCheckBox";
             this.noDueDateCheckBox.Size = new System.Drawing.Size(136, 17);
-            this.noDueDateCheckBox.TabIndex = 32;
+            this.noDueDateCheckBox.TabIndex = 12;
             this.noDueDateCheckBox.Text = "Dokument nema valutu";
             this.noDueDateCheckBox.UseVisualStyleBackColor = true;
             this.noDueDateCheckBox.CheckedChanged += new System.EventHandler(this.noDueDateCheckBox_CheckedChanged);
@@ -380,7 +380,7 @@
             this.saveObligationChangesBtn.Location = new System.Drawing.Point(480, 144);
             this.saveObligationChangesBtn.Name = "saveObligationChangesBtn";
             this.saveObligationChangesBtn.Size = new System.Drawing.Size(115, 22);
-            this.saveObligationChangesBtn.TabIndex = 5;
+            this.saveObligationChangesBtn.TabIndex = 16;
             this.saveObligationChangesBtn.Text = "Snimi izmenu";
             this.saveObligationChangesBtn.UseVisualStyleBackColor = true;
             this.saveObligationChangesBtn.Visible = false;
@@ -400,7 +400,8 @@
             this.datumRokaIzmirenjaDateTimePicker.Location = new System.Drawing.Point(6, 115);
             this.datumRokaIzmirenjaDateTimePicker.Name = "datumRokaIzmirenjaDateTimePicker";
             this.datumRokaIzmirenjaDateTimePicker.Size = new System.Drawing.Size(173, 20);
-            this.datumRokaIzmirenjaDateTimePicker.TabIndex = 30;
+            this.datumRokaIzmirenjaDateTimePicker.TabIndex = 11;
+            this.datumRokaIzmirenjaDateTimePicker.Value = new System.DateTime(2016, 10, 7, 9, 45, 54, 0);
             // 
             // label5
             // 
@@ -418,7 +419,8 @@
             this.datumNastankaDateTimePicker.Location = new System.Drawing.Point(652, 76);
             this.datumNastankaDateTimePicker.Name = "datumNastankaDateTimePicker";
             this.datumNastankaDateTimePicker.Size = new System.Drawing.Size(173, 20);
-            this.datumNastankaDateTimePicker.TabIndex = 28;
+            this.datumNastankaDateTimePicker.TabIndex = 10;
+            this.datumNastankaDateTimePicker.Value = new System.DateTime(2016, 10, 7, 9, 45, 39, 0);
             // 
             // datumDokumentaLabel
             // 
@@ -436,8 +438,8 @@
             this.datumDokumentaDateTimePicker.Location = new System.Drawing.Point(460, 76);
             this.datumDokumentaDateTimePicker.Name = "datumDokumentaDateTimePicker";
             this.datumDokumentaDateTimePicker.Size = new System.Drawing.Size(175, 20);
-            this.datumDokumentaDateTimePicker.TabIndex = 26;
-            this.datumDokumentaDateTimePicker.Value = new System.DateTime(2016, 10, 1, 11, 44, 31, 0);
+            this.datumDokumentaDateTimePicker.TabIndex = 9;
+            this.datumDokumentaDateTimePicker.Value = new System.DateTime(2016, 10, 7, 0, 0, 0, 0);
             // 
             // razlogIzmeneLabel
             // 
@@ -453,7 +455,7 @@
             this.razlogIzmeneTextBox.Location = new System.Drawing.Point(362, 115);
             this.razlogIzmeneTextBox.Name = "razlogIzmeneTextBox";
             this.razlogIzmeneTextBox.Size = new System.Drawing.Size(187, 20);
-            this.razlogIzmeneTextBox.TabIndex = 24;
+            this.razlogIzmeneTextBox.TabIndex = 13;
             // 
             // label4
             // 
@@ -472,7 +474,7 @@
             this.brojDokumentaTextBox.Location = new System.Drawing.Point(308, 76);
             this.brojDokumentaTextBox.Name = "brojDokumentaTextBox";
             this.brojDokumentaTextBox.Size = new System.Drawing.Size(130, 20);
-            this.brojDokumentaTextBox.TabIndex = 22;
+            this.brojDokumentaTextBox.TabIndex = 8;
             // 
             // label3
             // 
@@ -499,7 +501,7 @@
             this.nazivDokumentaTextBox.Location = new System.Drawing.Point(162, 75);
             this.nazivDokumentaTextBox.Name = "nazivDokumentaTextBox";
             this.nazivDokumentaTextBox.Size = new System.Drawing.Size(123, 20);
-            this.nazivDokumentaTextBox.TabIndex = 19;
+            this.nazivDokumentaTextBox.TabIndex = 7;
             // 
             // vrstaPoveriocaComboBox
             // 
@@ -513,7 +515,7 @@
             this.vrstaPoveriocaComboBox.Location = new System.Drawing.Point(7, 75);
             this.vrstaPoveriocaComboBox.Name = "vrstaPoveriocaComboBox";
             this.vrstaPoveriocaComboBox.Size = new System.Drawing.Size(131, 21);
-            this.vrstaPoveriocaComboBox.TabIndex = 18;
+            this.vrstaPoveriocaComboBox.TabIndex = 6;
             // 
             // label2
             // 
@@ -531,7 +533,7 @@
             this.mbTextBox.Location = new System.Drawing.Point(728, 35);
             this.mbTextBox.Name = "mbTextBox";
             this.mbTextBox.Size = new System.Drawing.Size(97, 20);
-            this.mbTextBox.TabIndex = 16;
+            this.mbTextBox.TabIndex = 5;
             // 
             // pibLabel
             // 
@@ -549,7 +551,7 @@
             this.pibTextBox.Location = new System.Drawing.Point(601, 35);
             this.pibTextBox.Name = "pibTextBox";
             this.pibTextBox.Size = new System.Drawing.Size(97, 20);
-            this.pibTextBox.TabIndex = 14;
+            this.pibTextBox.TabIndex = 4;
             // 
             // nazivPoveriocaLabel
             // 
@@ -567,7 +569,7 @@
             this.nazivPoveriocaTextBox.Location = new System.Drawing.Point(331, 35);
             this.nazivPoveriocaTextBox.Name = "nazivPoveriocaTextBox";
             this.nazivPoveriocaTextBox.Size = new System.Drawing.Size(249, 20);
-            this.nazivPoveriocaTextBox.TabIndex = 12;
+            this.nazivPoveriocaTextBox.TabIndex = 3;
             // 
             // rinoIznosLabel
             // 
@@ -583,7 +585,7 @@
             this.rinoIznosTextBox.Location = new System.Drawing.Point(164, 35);
             this.rinoIznosTextBox.Name = "rinoIznosTextBox";
             this.rinoIznosTextBox.Size = new System.Drawing.Size(137, 20);
-            this.rinoIznosTextBox.TabIndex = 10;
+            this.rinoIznosTextBox.TabIndex = 2;
             // 
             // rinoActionTypeLabel
             // 
@@ -605,7 +607,7 @@
             this.rinoActionTypeComboBox.Location = new System.Drawing.Point(6, 34);
             this.rinoActionTypeComboBox.Name = "rinoActionTypeComboBox";
             this.rinoActionTypeComboBox.Size = new System.Drawing.Size(133, 21);
-            this.rinoActionTypeComboBox.TabIndex = 8;
+            this.rinoActionTypeComboBox.TabIndex = 1;
             // 
             // insertNewObligationBtn
             // 
@@ -613,7 +615,7 @@
             this.insertNewObligationBtn.Location = new System.Drawing.Point(601, 144);
             this.insertNewObligationBtn.Name = "insertNewObligationBtn";
             this.insertNewObligationBtn.Size = new System.Drawing.Size(115, 22);
-            this.insertNewObligationBtn.TabIndex = 7;
+            this.insertNewObligationBtn.TabIndex = 14;
             this.insertNewObligationBtn.Text = "Ubaci novi";
             this.insertNewObligationBtn.UseVisualStyleBackColor = true;
             this.insertNewObligationBtn.Click += new System.EventHandler(this.insertNewObligationBtn_Click);
@@ -624,7 +626,7 @@
             this.loadObligationXmlBtn.Location = new System.Drawing.Point(6, 144);
             this.loadObligationXmlBtn.Name = "loadObligationXmlBtn";
             this.loadObligationXmlBtn.Size = new System.Drawing.Size(115, 22);
-            this.loadObligationXmlBtn.TabIndex = 6;
+            this.loadObligationXmlBtn.TabIndex = 17;
             this.loadObligationXmlBtn.Text = "Učitaj XML fajl";
             this.loadObligationXmlBtn.UseVisualStyleBackColor = true;
             this.loadObligationXmlBtn.Click += new System.EventHandler(this.loadObligationXmlBtn_Click);
@@ -635,7 +637,7 @@
             this.saveObligationXmlBtn.Location = new System.Drawing.Point(722, 144);
             this.saveObligationXmlBtn.Name = "saveObligationXmlBtn";
             this.saveObligationXmlBtn.Size = new System.Drawing.Size(115, 22);
-            this.saveObligationXmlBtn.TabIndex = 5;
+            this.saveObligationXmlBtn.TabIndex = 15;
             this.saveObligationXmlBtn.Text = "Snimi XML fajl";
             this.saveObligationXmlBtn.UseVisualStyleBackColor = true;
             this.saveObligationXmlBtn.Click += new System.EventHandler(this.saveObligationXmlBtn_Click);
@@ -663,7 +665,7 @@
             this.removeUnpopReconBtn.Location = new System.Drawing.Point(613, 229);
             this.removeUnpopReconBtn.Name = "removeUnpopReconBtn";
             this.removeUnpopReconBtn.Size = new System.Drawing.Size(115, 22);
-            this.removeUnpopReconBtn.TabIndex = 13;
+            this.removeUnpopReconBtn.TabIndex = 4;
             this.removeUnpopReconBtn.Text = "Obriši nepopunjeno";
             this.removeUnpopReconBtn.UseVisualStyleBackColor = true;
             this.removeUnpopReconBtn.Click += new System.EventHandler(this.removeUnpopReconBtn_Click);
@@ -674,7 +676,7 @@
             this.cloneReconcilementBtn.Location = new System.Drawing.Point(248, 229);
             this.cloneReconcilementBtn.Name = "cloneReconcilementBtn";
             this.cloneReconcilementBtn.Size = new System.Drawing.Size(115, 22);
-            this.cloneReconcilementBtn.TabIndex = 12;
+            this.cloneReconcilementBtn.TabIndex = 3;
             this.cloneReconcilementBtn.Text = "Kloniraj stavku";
             this.cloneReconcilementBtn.UseVisualStyleBackColor = true;
             this.cloneReconcilementBtn.Click += new System.EventHandler(this.cloneReconcilementBtn_Click);
@@ -685,7 +687,7 @@
             this.modifyReconcilementBtn.Location = new System.Drawing.Point(6, 229);
             this.modifyReconcilementBtn.Name = "modifyReconcilementBtn";
             this.modifyReconcilementBtn.Size = new System.Drawing.Size(115, 22);
-            this.modifyReconcilementBtn.TabIndex = 11;
+            this.modifyReconcilementBtn.TabIndex = 1;
             this.modifyReconcilementBtn.Text = "Izmeni stavku";
             this.modifyReconcilementBtn.UseVisualStyleBackColor = true;
             this.modifyReconcilementBtn.Click += new System.EventHandler(this.modifyReconcilementBtn_Click);
@@ -696,7 +698,7 @@
             this.deleteReconcilementBtn.Location = new System.Drawing.Point(127, 229);
             this.deleteReconcilementBtn.Name = "deleteReconcilementBtn";
             this.deleteReconcilementBtn.Size = new System.Drawing.Size(115, 22);
-            this.deleteReconcilementBtn.TabIndex = 10;
+            this.deleteReconcilementBtn.TabIndex = 2;
             this.deleteReconcilementBtn.Text = "Obriši stavku";
             this.deleteReconcilementBtn.UseVisualStyleBackColor = true;
             this.deleteReconcilementBtn.Click += new System.EventHandler(this.deleteReconcilementBtn_Click);
@@ -707,7 +709,7 @@
             this.removeAllReconcilementsBtn.Location = new System.Drawing.Point(734, 229);
             this.removeAllReconcilementsBtn.Name = "removeAllReconcilementsBtn";
             this.removeAllReconcilementsBtn.Size = new System.Drawing.Size(115, 22);
-            this.removeAllReconcilementsBtn.TabIndex = 9;
+            this.removeAllReconcilementsBtn.TabIndex = 5;
             this.removeAllReconcilementsBtn.Text = "Obriši sve";
             this.removeAllReconcilementsBtn.UseVisualStyleBackColor = true;
             this.removeAllReconcilementsBtn.Click += new System.EventHandler(this.removeAllReconcilementsBtn_Click);
@@ -737,7 +739,7 @@
             this.rinoReconcilementDataGridView.RowHeadersVisible = false;
             this.rinoReconcilementDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rinoReconcilementDataGridView.Size = new System.Drawing.Size(843, 217);
-            this.rinoReconcilementDataGridView.TabIndex = 8;
+            this.rinoReconcilementDataGridView.TabIndex = 0;
             // 
             // reconRinoAction
             // 
@@ -855,7 +857,7 @@
             this.reconBankTextBox.Location = new System.Drawing.Point(601, 35);
             this.reconBankTextBox.Name = "reconBankTextBox";
             this.reconBankTextBox.Size = new System.Drawing.Size(97, 20);
-            this.reconBankTextBox.TabIndex = 30;
+            this.reconBankTextBox.TabIndex = 5;
             // 
             // reconIznosLabel
             // 
@@ -873,7 +875,7 @@
             this.reconIznosTextBox.Location = new System.Drawing.Point(475, 91);
             this.reconIznosTextBox.Name = "reconIznosTextBox";
             this.reconIznosTextBox.Size = new System.Drawing.Size(137, 20);
-            this.reconIznosTextBox.TabIndex = 28;
+            this.reconIznosTextBox.TabIndex = 8;
             // 
             // saveReconcilementChangesBtn
             // 
@@ -881,7 +883,7 @@
             this.saveReconcilementChangesBtn.Location = new System.Drawing.Point(480, 144);
             this.saveReconcilementChangesBtn.Name = "saveReconcilementChangesBtn";
             this.saveReconcilementChangesBtn.Size = new System.Drawing.Size(115, 22);
-            this.saveReconcilementChangesBtn.TabIndex = 5;
+            this.saveReconcilementChangesBtn.TabIndex = 10;
             this.saveReconcilementChangesBtn.Text = "Snimi izmenu";
             this.saveReconcilementChangesBtn.UseVisualStyleBackColor = true;
             this.saveReconcilementChangesBtn.Visible = false;
@@ -903,8 +905,8 @@
             this.reconDatumIzmirenjaDateTimePicker.Location = new System.Drawing.Point(263, 91);
             this.reconDatumIzmirenjaDateTimePicker.Name = "reconDatumIzmirenjaDateTimePicker";
             this.reconDatumIzmirenjaDateTimePicker.Size = new System.Drawing.Size(175, 20);
-            this.reconDatumIzmirenjaDateTimePicker.TabIndex = 26;
-            this.reconDatumIzmirenjaDateTimePicker.Value = new System.DateTime(2016, 10, 1, 11, 44, 31, 0);
+            this.reconDatumIzmirenjaDateTimePicker.TabIndex = 7;
+            this.reconDatumIzmirenjaDateTimePicker.Value = new System.DateTime(2016, 10, 7, 0, 0, 0, 0);
             // 
             // reconRazlogIzmeneLabel
             // 
@@ -922,7 +924,7 @@
             this.reconRazlogIzmeneTextBox.Location = new System.Drawing.Point(646, 90);
             this.reconRazlogIzmeneTextBox.Name = "reconRazlogIzmeneTextBox";
             this.reconRazlogIzmeneTextBox.Size = new System.Drawing.Size(187, 20);
-            this.reconRazlogIzmeneTextBox.TabIndex = 24;
+            this.reconRazlogIzmeneTextBox.TabIndex = 9;
             // 
             // reconBrojDokumentaLabel
             // 
@@ -941,7 +943,7 @@
             this.reconBrojDokumentaTextBox.Location = new System.Drawing.Point(322, 35);
             this.reconBrojDokumentaTextBox.Name = "reconBrojDokumentaTextBox";
             this.reconBrojDokumentaTextBox.Size = new System.Drawing.Size(130, 20);
-            this.reconBrojDokumentaTextBox.TabIndex = 22;
+            this.reconBrojDokumentaTextBox.TabIndex = 3;
             // 
             // reconPodZaReklLabel
             // 
@@ -960,7 +962,7 @@
             this.reconPodZaReklTextBox.Location = new System.Drawing.Point(9, 91);
             this.reconPodZaReklTextBox.Name = "reconPodZaReklTextBox";
             this.reconPodZaReklTextBox.Size = new System.Drawing.Size(228, 20);
-            this.reconPodZaReklTextBox.TabIndex = 19;
+            this.reconPodZaReklTextBox.TabIndex = 6;
             // 
             // reconPibLabel
             // 
@@ -978,7 +980,7 @@
             this.reconPibTextBox.Location = new System.Drawing.Point(475, 35);
             this.reconPibTextBox.Name = "reconPibTextBox";
             this.reconPibTextBox.Size = new System.Drawing.Size(97, 20);
-            this.reconPibTextBox.TabIndex = 14;
+            this.reconPibTextBox.TabIndex = 4;
             // 
             // rinoIdLabel
             // 
@@ -995,7 +997,7 @@
             this.rinoIdTextBox.Name = "rinoIdTextBox";
             this.rinoIdTextBox.ReadOnly = true;
             this.rinoIdTextBox.Size = new System.Drawing.Size(137, 20);
-            this.rinoIdTextBox.TabIndex = 10;
+            this.rinoIdTextBox.TabIndex = 2;
             // 
             // label16
             // 
@@ -1017,7 +1019,7 @@
             this.reconRinoActionTypeComboBox.Location = new System.Drawing.Point(9, 34);
             this.reconRinoActionTypeComboBox.Name = "reconRinoActionTypeComboBox";
             this.reconRinoActionTypeComboBox.Size = new System.Drawing.Size(133, 21);
-            this.reconRinoActionTypeComboBox.TabIndex = 8;
+            this.reconRinoActionTypeComboBox.TabIndex = 1;
             // 
             // insertAsNewReconBtn
             // 
@@ -1025,7 +1027,7 @@
             this.insertAsNewReconBtn.Location = new System.Drawing.Point(601, 144);
             this.insertAsNewReconBtn.Name = "insertAsNewReconBtn";
             this.insertAsNewReconBtn.Size = new System.Drawing.Size(115, 22);
-            this.insertAsNewReconBtn.TabIndex = 7;
+            this.insertAsNewReconBtn.TabIndex = 11;
             this.insertAsNewReconBtn.Text = "Ubaci kao novu stavku";
             this.insertAsNewReconBtn.UseVisualStyleBackColor = true;
             this.insertAsNewReconBtn.Visible = false;
@@ -1037,7 +1039,7 @@
             this.loadReconcilementXmlBtn.Location = new System.Drawing.Point(6, 144);
             this.loadReconcilementXmlBtn.Name = "loadReconcilementXmlBtn";
             this.loadReconcilementXmlBtn.Size = new System.Drawing.Size(115, 22);
-            this.loadReconcilementXmlBtn.TabIndex = 6;
+            this.loadReconcilementXmlBtn.TabIndex = 13;
             this.loadReconcilementXmlBtn.Text = "Učitaj XML fajl";
             this.loadReconcilementXmlBtn.UseVisualStyleBackColor = true;
             this.loadReconcilementXmlBtn.Click += new System.EventHandler(this.loadReconcilementXmlBtn_Click);
@@ -1048,7 +1050,7 @@
             this.saveReconcilementXmlBtn.Location = new System.Drawing.Point(722, 144);
             this.saveReconcilementXmlBtn.Name = "saveReconcilementXmlBtn";
             this.saveReconcilementXmlBtn.Size = new System.Drawing.Size(115, 22);
-            this.saveReconcilementXmlBtn.TabIndex = 5;
+            this.saveReconcilementXmlBtn.TabIndex = 12;
             this.saveReconcilementXmlBtn.Text = "Snimi XML fajl";
             this.saveReconcilementXmlBtn.UseVisualStyleBackColor = true;
             this.saveReconcilementXmlBtn.Click += new System.EventHandler(this.saveReconcilementXmlBtn_Click);

@@ -42,7 +42,7 @@ namespace GriffinSoft.EasyRino
             this.easyRinoLabel.Text = this.easyRinoLabel.Text + " " + MainForm.GetEasyRinoVersion();
         }
 
-        // 
+        // Event fired when user clicks on USC Bor link
         private void uscBorLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(this.uscBorLinkLabel.Text);
