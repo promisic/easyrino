@@ -9,7 +9,7 @@
 ; Application information section
 AppId=EasyRino
 AppName=EasyRino
-AppVersion=1.0 Beta 2
+AppVersion=1.0 Release candidate
 AppCopyright=Dusan Misic
 AppPublisher=Dusan Misic
 AppPublisherURL=https://sourceforge.net/projects/easyrino/
@@ -30,7 +30,7 @@ Compression=lzma2/ultra64
 ; Output directory (. means current directory)
 OutputDir=.
 ; Output setup filename 
-OutputBaseFilename= easyrino_1.0_beta_2_setup
+OutputBaseFilename= easyrino_1.0_release_candidate_setup
 ; Specifying that minimal OS version is Windows 7
 MinVersion=0, 6.1
 ; Uninstall section
