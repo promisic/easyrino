@@ -31,6 +31,8 @@ namespace GriffinSoft.EasyRino.Core
 {
     internal class RinoReconcilementManager
     {
+        #region Internal DataTable and properties region
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -65,6 +67,10 @@ namespace GriffinSoft.EasyRino.Core
         /// Property to get or set valid obligation field.
         /// </summary>
         public bool ValidReconcilement { get; set; }
+
+        #endregion
+
+        #region Convert XML to Rino List region
 
         /// <summary>
         /// Converts XmlDocument object to RinoReconcilementItem object.
@@ -203,6 +209,10 @@ namespace GriffinSoft.EasyRino.Core
             return rri;
         }
 
+        #endregion
+
+        #region Convert Rino List to XML region
+
         /// <summary>
         /// Converts list of RinoReconcilementItem's to RINO XmlDocument object
         /// </summary>
@@ -339,6 +349,10 @@ namespace GriffinSoft.EasyRino.Core
             return rinoXml;
         }
 
+        #endregion
+
+        #region DataTable manipulation methods region
+
         /// <summary>
         /// Destroy everything inside internal DataTable object.
         /// </summary>
@@ -439,6 +453,10 @@ namespace GriffinSoft.EasyRino.Core
             }
         }
 
+        #endregion
+
+        #region Utility method region
+
         /// <summary>
         /// Checks for uninitialized date.
         /// </summary>
@@ -462,6 +480,10 @@ namespace GriffinSoft.EasyRino.Core
             }
 
         }
+
+        #endregion
+
+        #region Rino List manipulation methods region
 
         /// <summary>
         /// Get's RinoReconcilementItem at selected index.
@@ -518,5 +540,7 @@ namespace GriffinSoft.EasyRino.Core
 
             return rriList;
         }
+
+        #endregion
     }
 }
