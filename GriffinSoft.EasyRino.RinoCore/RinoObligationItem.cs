@@ -26,6 +26,8 @@ namespace GriffinSoft.EasyRino.RinoCore
 {
     public class RinoObligationItem
     {
+        #region Constructor region
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -77,6 +79,10 @@ namespace GriffinSoft.EasyRino.RinoCore
             this.DatumRokaZaIzmirenje = datumRokaZaIzmirenje;
             this.RazlogIzmene = razlogIzmene;
         }
+
+        #endregion
+
+        #region Property holder region
 
         /// <summary>
         /// Property holds requested action operation.
@@ -137,6 +143,10 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// Property holds reason for change.
         /// </summary>
         public string RazlogIzmene { get; set; }
+
+        #endregion
+
+        #region Validity checks region
 
         /// <summary>
         /// Checks if PIB is valid.
@@ -217,5 +227,7 @@ namespace GriffinSoft.EasyRino.RinoCore
 
             return result;
         }
+
+        #endregion
     }
 }

@@ -44,7 +44,7 @@ namespace GriffinSoft.EasyRino
         /// <returns>EasyRino version</returns>
         public static string GetEasyRinoVersion()
         {
-            return "1.0 Beta 2";
+            return "1.0 RC";
         }
 
         #endregion
@@ -192,13 +192,32 @@ namespace GriffinSoft.EasyRino
                 dueDate = this.datumRokaIzmirenjaDateTimePicker.Value.Date;
             }
 
+            // Iznos variable
+            decimal iznos = 0;
+
+            try
+            {
+                // Trying to parse value from text box
+                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+            }
+            catch (FormatException)
+            {
+                // Error message
+                string errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
+                    "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
+                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Setting iznos to 1 din
+                iznos = 1;
+            }
+
             // Checking if Iznos is not empty
             if (this.rinoIznosTextBox.Text.Length > 0)
             {
                 // Creating new RinoObligationItem object
                 RinoObligationItem roi = new RinoObligationItem(
                     actionType,
-                    Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US")),
+                    iznos,
                     this.nazivPoveriocaTextBox.Text,
                     this.pibTextBox.Text,
                     this.mbTextBox.Text,
@@ -662,6 +681,25 @@ namespace GriffinSoft.EasyRino
                 dueDate = this.datumRokaIzmirenjaDateTimePicker.Value.Date;
             }
 
+            // Iznos variable
+            decimal iznos = 0;
+
+            try
+            {
+                // Trying to parse value from text box
+                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+            }
+            catch (FormatException)
+            {
+                // Error message
+                string errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
+                    "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
+                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Setting iznos to 1 din
+                iznos = 1;
+            }
+
             // Checking if Iznos is not empty
             if (this.rinoIznosTextBox.Text.Length > 0)
             {
@@ -669,7 +707,7 @@ namespace GriffinSoft.EasyRino
                 // Creating new RinoObligationItem object
                 RinoObligationItem roi = new RinoObligationItem(
                 actionType,
-                Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US")),
+                iznos,
                 this.nazivPoveriocaTextBox.Text,
                 this.pibTextBox.Text,
                 this.mbTextBox.Text,
@@ -682,61 +720,14 @@ namespace GriffinSoft.EasyRino
                 this.razlogIzmeneTextBox.Text
                 );
 
-                // Variable holds ROI check result
-                bool RoiDoesNotAlreadyExist = true;
-
-                foreach (RinoObligationItem roiItem in this.roiList)
+                // Checking for data validity
+                if (roi.IsPibValid() == true)
                 {
-                    if (((roi.PIBPoverioca == roiItem.PIBPoverioca) &&
-                        (roi.BrojDokumenta == roiItem.BrojDokumenta)) == true)
+                    if (roi.IsMbValid() == true)
                     {
-                        // ROI already exists
-                        RoiDoesNotAlreadyExist = false;
-                        break;
-                    }
-                }
-
-                // If ROI does not already exists in the list, then continue
-                if (RoiDoesNotAlreadyExist == true)
-                {
-                    // Checking for data validity
-                    if (roi.IsPibValid() == true)
-                    {
-                        if (roi.IsMbValid() == true)
+                        if (roi.Action == RinoActionType.Izmena || roi.Action == RinoActionType.Otkazivanje)
                         {
-                            if (roi.Action == RinoActionType.Izmena || roi.Action == RinoActionType.Otkazivanje)
-                            {
-                                if (roi.ReasonForChangeValid() == true)
-                                {
-                                    if (roi.CheckForGeneralValidity() == true)
-                                    {
-                                        // Creating RinoObligationManager object
-                                        RinoObligationManager rom = new RinoObligationManager();
-
-                                        // Inserting new item and setting new value to roiList object
-                                        this.roiList = rom.ModifyExistingItem(this.roiList, roi, this.rowNumber);
-
-                                        // Converting roiList to DataTable object to display data
-                                        rom.ConvertRinoListToDataTable(this.roiList);
-
-                                        // Setting DataSource property to dataGridView object
-                                        this.rinoObligationDataGridView.DataSource = rom.RinoDataTable;
-                                    }
-                                    else
-                                    {
-                                        // Show error message
-                                        string errMsg = "Niste uneli sve obavezne podatke";
-                                        MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                }
-                                else
-                                {
-                                    // Show error message
-                                    string errMsg = "Morate uneti razlog izmene ili otkazivanja.";
-                                    MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            else
+                            if (roi.ReasonForChangeValid() == true)
                             {
                                 if (roi.CheckForGeneralValidity() == true)
                                 {
@@ -759,36 +750,59 @@ namespace GriffinSoft.EasyRino
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
+                            else
+                            {
+                                // Show error message
+                                string errMsg = "Morate uneti razlog izmene ili otkazivanja.";
+                                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         else
                         {
-                            // Show error message
-                            string errMsg = "Niste uneli validan MB.";
-                            MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (roi.CheckForGeneralValidity() == true)
+                            {
+                                // Creating RinoObligationManager object
+                                RinoObligationManager rom = new RinoObligationManager();
+
+                                // Inserting new item and setting new value to roiList object
+                                this.roiList = rom.ModifyExistingItem(this.roiList, roi, this.rowNumber);
+
+                                // Converting roiList to DataTable object to display data
+                                rom.ConvertRinoListToDataTable(this.roiList);
+
+                                // Setting DataSource property to dataGridView object
+                                this.rinoObligationDataGridView.DataSource = rom.RinoDataTable;
+                            }
+                            else
+                            {
+                                // Show error message
+                                string errMsg = "Niste uneli sve obavezne podatke";
+                                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                     else
                     {
                         // Show error message
-                        string errMsg = "Niste uneli validan PIB.";
+                        string errMsg = "Niste uneli validan MB.";
                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-                    // Setting row index to 0
-                    this.rowNumber = 0;
-
-                    // Hide save obligation changes button
-                    this.saveObligationChangesBtn.Visible = false;
-
-                    // Reset fields
-                    this.ResetObligationFields();
                 }
                 else
                 {
                     // Show error message
-                    string errMsg = "Već ste uneli jedno zaduženje koje ima isti PIB i broj računa u listu obaveza.";
+                    string errMsg = "Niste uneli validan PIB.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                // Setting row index to 0
+                this.rowNumber = 0;
+
+                // Hide save obligation changes button
+                this.saveObligationChangesBtn.Visible = false;
+
+                // Reset fields
+                this.ResetObligationFields();
             }
             else
             {
@@ -798,6 +812,7 @@ namespace GriffinSoft.EasyRino
 
             }
         }
+
 
         #endregion
 
@@ -1038,6 +1053,25 @@ namespace GriffinSoft.EasyRino
                 this.reconRinoActionTypeComboBox.SelectedIndex = 0;
             }
 
+            // Iznos variable
+            decimal iznos = 0;
+
+            try
+            {
+                // Trying to parse value from text box
+                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+            }
+            catch (FormatException)
+            {
+                // Error message
+                string errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
+                    "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
+                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Setting iznos to 1 din
+                iznos = 1;
+            }
+
             if (this.reconIznosTextBox.Text.Length > 0)
             {
                 // Creating new RinoReconcilementItem object
@@ -1049,7 +1083,7 @@ namespace GriffinSoft.EasyRino
                     this.reconBankTextBox.Text,
                     this.reconPodZaReklTextBox.Text,
                     this.reconDatumIzmirenjaDateTimePicker.Value.Date,
-                    Decimal.Parse(this.reconIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US")),
+                    iznos,
                     this.razlogIzmeneTextBox.Text
                     );
 
@@ -1175,6 +1209,25 @@ namespace GriffinSoft.EasyRino
                 this.reconRinoActionTypeComboBox.SelectedIndex = 0;
             }
 
+            // Iznos variable
+            decimal iznos = 0;
+
+            try
+            {
+                // Trying to parse value from text box
+                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+            }
+            catch (FormatException)
+            {
+                // Error message
+                string errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
+                    "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
+                MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Setting iznos to 1 din
+                iznos = 1;
+            }
+
             if (this.reconIznosTextBox.Text.Length > 0)
             {
                 // Creating new RinoReconcilementItem object
@@ -1186,7 +1239,7 @@ namespace GriffinSoft.EasyRino
                     this.reconBankTextBox.Text,
                     this.reconPodZaReklTextBox.Text,
                     this.reconDatumIzmirenjaDateTimePicker.Value.Date,
-                    Decimal.Parse(this.reconIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US")),
+                    iznos,
                     this.razlogIzmeneTextBox.Text
                     );
 

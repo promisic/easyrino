@@ -32,6 +32,8 @@ namespace GriffinSoft.EasyRino.Core
     internal class RinoObligationManager
     {
 
+        #region Internal DataTable and properties region
+
         /// <summary>
         /// Internal DataTable field.
         /// </summary>
@@ -58,6 +60,8 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public bool ValidObligation { get; set; }
 
+        #endregion
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -66,6 +70,8 @@ namespace GriffinSoft.EasyRino.Core
             // Filling datatable with columns
             this.FillDataTableWithColumns();
         }
+
+        #region Convert XML to Rino List region
 
         /// <summary>
         /// Converts XmlDocument object to RinoObligationItem object.
@@ -230,6 +236,10 @@ namespace GriffinSoft.EasyRino.Core
 
             return roi;
         }
+
+        #endregion
+
+        #region Convert Rino List to XML region
 
         /// <summary>
         /// Converts list of RinoObligationItem's to RINO XmlDocument object
@@ -411,6 +421,10 @@ namespace GriffinSoft.EasyRino.Core
             return rinoXml;
         }
 
+        #endregion
+
+        #region DataTable manipulation methods region
+
         /// <summary>
         /// Destroy everything inside internal DataTable object.
         /// </summary>
@@ -536,6 +550,10 @@ namespace GriffinSoft.EasyRino.Core
             }
         }
 
+        #endregion
+
+        #region Utility method region
+
         /// <summary>
         /// Checks for uninitialized date.
         /// </summary>
@@ -559,6 +577,10 @@ namespace GriffinSoft.EasyRino.Core
             }
 
         }
+
+        #endregion
+
+        #region Rino List manipulation methods region
 
         /// <summary>
         /// Get's RinoObligationItem at selected index.
@@ -615,5 +637,7 @@ namespace GriffinSoft.EasyRino.Core
 
             return roiList;
         }
+
+        #endregion
     }
 }
