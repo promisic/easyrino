@@ -44,7 +44,7 @@
             this.jbbkGroupBox.Size = new System.Drawing.Size(201, 85);
             this.jbbkGroupBox.TabIndex = 0;
             this.jbbkGroupBox.TabStop = false;
-            this.jbbkGroupBox.Text = "JBBK/DJBK broj:";
+            this.jbbkGroupBox.Text = "JBBK broj:";
             // 
             // jbbkTextBox
             // 
