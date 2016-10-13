@@ -44,7 +44,7 @@ namespace GriffinSoft.EasyRino
         /// <returns>EasyRino version</returns>
         public static string GetEasyRinoVersion()
         {
-            return "1.0 RC";
+            return "1.0 RC 2";
         }
 
         #endregion
@@ -1059,7 +1059,7 @@ namespace GriffinSoft.EasyRino
             try
             {
                 // Trying to parse value from text box
-                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+                iznos = Decimal.Parse(this.reconIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
             }
             catch (FormatException)
             {
@@ -1215,7 +1215,7 @@ namespace GriffinSoft.EasyRino
             try
             {
                 // Trying to parse value from text box
-                iznos = Decimal.Parse(this.rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
+                iznos = Decimal.Parse(this.reconIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
             }
             catch (FormatException)
             {

@@ -9,7 +9,7 @@
 ; Application information section
 AppId=EasyRino
 AppName=EasyRino
-AppVersion=1.0 Release candidate
+AppVersion=1.0 Release candidate 2
 AppCopyright=Dusan Misic
 AppPublisher=Dusan Misic
 AppPublisherURL=https://sourceforge.net/projects/easyrino/
@@ -30,7 +30,7 @@ Compression=lzma2/ultra64
 ; Output directory (. means current directory)
 OutputDir=.
 ; Output setup filename 
-OutputBaseFilename= easyrino_1.0_release_candidate_setup
+OutputBaseFilename= easyrino_1.0_release_candidate_2_setup
 ; Specifying that minimal OS version is Windows 7
 MinVersion=0, 6.1
 ; Uninstall section
@@ -74,8 +74,8 @@ Source: "..\doc\easyrino_manual.pdf"; DestDir: "{app}\doc";
 
 [Icons]
 ; Icons to create
-Name: "{group}\EasyRino RC"; Filename: "{app}\bin\EasyRino.exe"; IconFilename: "{app}\bin\EasyRino.exe"; WorkingDir: "{app}\bin";
-Name: "{userdesktop}\EasyRino RC"; Filename: "{app}\bin\EasyRino.exe"; IconFilename: "{app}\bin\EasyRino.exe"; WorkingDir: "{app}\bin";
+Name: "{group}\EasyRino RC 2"; Filename: "{app}\bin\EasyRino.exe"; IconFilename: "{app}\bin\EasyRino.exe"; WorkingDir: "{app}\bin";
+Name: "{userdesktop}\EasyRino RC 2"; Filename: "{app}\bin\EasyRino.exe"; IconFilename: "{app}\bin\EasyRino.exe"; WorkingDir: "{app}\bin";
 Name: "{group}\EasyRino Uputstvo"; Filename: "{app}\doc\easyrino_manual.pdf"; IconFilename: "{app}\doc\easyrino_manual.pdf"; WorkingDir: "{app}\doc"; 
 Name: "{group}\GPL licenca v3"; Filename: "{app}\bin\gpl_license.txt"; IconFilename: "{app}\bin\gpl_license.txt"; WorkingDir: "{app}\bin"; 
 Name: "{group}\Uninstall EasyRino"; Filename: "{uninstallexe}"; IconFilename: "{uninstallexe}"; WorkingDir: "{app}"

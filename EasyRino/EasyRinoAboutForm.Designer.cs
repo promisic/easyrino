@@ -76,9 +76,9 @@
             this.descriptionLabel.AutoSize = true;
             this.descriptionLabel.Location = new System.Drawing.Point(134, 51);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(238, 13);
+            this.descriptionLabel.Size = new System.Drawing.Size(286, 13);
             this.descriptionLabel.TabIndex = 3;
-            this.descriptionLabel.Text = "Softer za generisanje XML fajlova za RINO portal";
+            this.descriptionLabel.Text = "Softver za generisanje i obradu XML naloga za RINO portal";
             // 
             // authorLabel
             // 
