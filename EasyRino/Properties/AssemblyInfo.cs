@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dušan Mišić")]
 [assembly: AssemblyProduct("EasyRino project")]
-[assembly: AssemblyCopyright("Dušan Mišić 2016 - 2017")]
+[assembly: AssemblyCopyright("Dušan Mišić 2016 - 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

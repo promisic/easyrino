@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO reconcilement manager class
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019 Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 using GriffinSoft.EasyRino.RinoCore;
@@ -39,24 +37,13 @@ namespace GriffinSoft.EasyRino.Core
         internal RinoReconcilementManager()
         {
             // Filling datatable with columns
-            this.FillDataTableWithColumns();
+            FillDataTableWithColumns();
         }
-
-        /// <summary>
-        /// Internal DataTable field.
-        /// </summary>
-        private DataTable rinoDt = new DataTable();
 
         /// <summary>
         /// Property to get RINO data table.
         /// </summary>
-        public DataTable RinoDataTable
-        {
-            get
-            {
-                return this.rinoDt;
-            }
-        }
+        public DataTable RinoDataTable { get; private set; }
 
         /// <summary>
         /// Property to get or set JBBK ID.
@@ -91,20 +78,13 @@ namespace GriffinSoft.EasyRino.Core
                 XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
 
                 // Setting JBBK
-                this.Jbbk = jbbkNode.InnerText;
+                Jbbk = jbbkNode.InnerText;
 
-                if (typeNode.InnerText == "Izmirenje")
-                {
-                    this.ValidReconcilement = true;
-                }
-                else
-                {
-                    this.ValidReconcilement = false;
-                }
+                ValidReconcilement = typeNode.InnerText == "Izmirenje";
             }
 
             // Execute parsing stage ONLY if it is valid obligation XML file
-            if (this.ValidReconcilement)
+            if (ValidReconcilement)
             {
                 // Doing XPath search query
                 XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Izmirenja/Izmirenje");
@@ -119,20 +99,22 @@ namespace GriffinSoft.EasyRino.Core
                     RinoReconcilementItem rriObj = new RinoReconcilementItem();
 
                     // Checking type of current XmlNode
-                    if (xmlNode.Attributes["VrstaPosla"].Value == "U")
+                    string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
+
+                    switch (xmlNodeValue)
                     {
-                        // Inserting new item
-                        rriObj.Action = RinoActionType.Unos;
-                    }
-                    else if (xmlNode.Attributes["VrstaPosla"].Value == "I")
-                    {
-                        // Changing existing item
-                        rriObj.Action = RinoActionType.Izmena;
-                    }
-                    else if (xmlNode.Attributes["VrstaPosla"].Value == "O")
-                    {
-                        // Deleting existing item
-                        rriObj.Action = RinoActionType.Otkazivanje;
+                        case "U":
+                            // Inserting new item
+                            rriObj.Action = RinoActionType.Unos;
+                            break;
+                        case "I":
+                            // Changing existing item
+                            rriObj.Action = RinoActionType.Izmena;
+                            break;
+                        case "O":
+                            // Deleting existing item
+                            rriObj.Action = RinoActionType.Otkazivanje;
+                            break;
                     }
 
                     // Getting RINO ID
@@ -183,13 +165,11 @@ namespace GriffinSoft.EasyRino.Core
                         rriObj.DatumIzmirenja = new DateTime();
                     }
 
-
-
                     // Getting ammount
                     XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
 
                     // Setting amount
-                    rriObj.Iznos = Decimal.Parse(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
+                    rriObj.Iznos = decimal.Parse(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
 
                     // This node may be missing / is optional.
                     if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
@@ -237,7 +217,7 @@ namespace GriffinSoft.EasyRino.Core
             // Creating JBBK node
             XmlNode rinoJbbkNode = rinoXml.CreateElement("JBBK");
             // Setting JBBK value
-            rinoJbbkNode.InnerText = this.Jbbk;
+            rinoJbbkNode.InnerText = Jbbk;
 
             // Append node
             rinoRootNode.AppendChild(rinoJbbkNode);
@@ -264,18 +244,19 @@ namespace GriffinSoft.EasyRino.Core
                 // Setting attribute value
                 string vrstaPosla = null;
 
-                if (rriItem.Action == RinoActionType.Unos)
+                switch (rriItem.Action)
                 {
-                    vrstaPosla = "U";
+                    case RinoActionType.Unos:
+                        vrstaPosla = "U";
+                        break;
+                    case RinoActionType.Izmena:
+                        vrstaPosla = "I";
+                        break;
+                    case RinoActionType.Otkazivanje:
+                        vrstaPosla = "O";
+                        break;
                 }
-                else if (rriItem.Action == RinoActionType.Izmena)
-                {
-                    vrstaPosla = "I";
-                }
-                else if (rriItem.Action == RinoActionType.Otkazivanje)
-                {
-                    vrstaPosla = "O";
-                }
+
                 rinoIzmirenjeAttr.Value = vrstaPosla;
                 // Appending attribute
                 rinoIzmirenjeNode.Attributes.Append(rinoIzmirenjeAttr);
@@ -332,17 +313,14 @@ namespace GriffinSoft.EasyRino.Core
                 rinoIzmirenjeNode.AppendChild(rinoIznosNode);
 
                 // Checking for optional RazlogIzmene
-                if (rriItem.RazlogIzmene != null)
+                if (rriItem.RazlogIzmene != null && rriItem.RazlogIzmene.Length > 0)
                 {
-                    if (rriItem.RazlogIzmene.Length > 0)
-                    {
-                        // Creating RazlogIzmene node
-                        XmlNode rinoRiNode = rinoXml.CreateElement("RazlogIzmene");
-                        // Setting RazlogIzmene value
-                        rinoRiNode.InnerText = rriItem.RazlogIzmene;
-                        // Append node
-                        rinoIzmirenjeNode.AppendChild(rinoRiNode);
-                    }
+                    // Creating RazlogIzmene node
+                    XmlNode rinoRiNode = rinoXml.CreateElement("RazlogIzmene");
+                    // Setting RazlogIzmene value
+                    rinoRiNode.InnerText = rriItem.RazlogIzmene;
+                    // Append node
+                    rinoIzmirenjeNode.AppendChild(rinoRiNode);
                 }
             }
 
@@ -358,7 +336,7 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public void NukeDataTable()
         {
-            this.rinoDt.Clear();
+            RinoDataTable.Clear();
         }
 
         /// <summary>
@@ -366,7 +344,7 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public void ClearDataTableRows()
         {
-            this.rinoDt.Rows.Clear();
+            RinoDataTable.Rows.Clear();
         }
 
         /// <summary>
@@ -375,15 +353,15 @@ namespace GriffinSoft.EasyRino.Core
         public void FillDataTableWithColumns()
         {
             // Adding columns to DataTable object
-            this.rinoDt.Columns.Add("rinoAction", typeof(string));
-            this.rinoDt.Columns.Add("rinoId", typeof(long));
-            this.rinoDt.Columns.Add("rinoBrojDokumenta", typeof(string));
-            this.rinoDt.Columns.Add("rinoPIB", typeof(string));
-            this.rinoDt.Columns.Add("rinoBanka", typeof(string));
-            this.rinoDt.Columns.Add("rinoReklPodZaRek", typeof(string));
-            this.rinoDt.Columns.Add("rinoDatumIzmirenja", typeof(string));
-            this.rinoDt.Columns.Add("rinoIznos", typeof(decimal));
-            this.rinoDt.Columns.Add("rinoRazlogIzmene", typeof(string));
+            RinoDataTable.Columns.Add("rinoAction", typeof(string));
+            RinoDataTable.Columns.Add("rinoId", typeof(long));
+            RinoDataTable.Columns.Add("rinoBrojDokumenta", typeof(string));
+            RinoDataTable.Columns.Add("rinoPIB", typeof(string));
+            RinoDataTable.Columns.Add("rinoBanka", typeof(string));
+            RinoDataTable.Columns.Add("rinoReklPodZaRek", typeof(string));
+            RinoDataTable.Columns.Add("rinoDatumIzmirenja", typeof(string));
+            RinoDataTable.Columns.Add("rinoIznos", typeof(decimal));
+            RinoDataTable.Columns.Add("rinoRazlogIzmene", typeof(string));
         }
 
         /// <summary>
@@ -393,32 +371,31 @@ namespace GriffinSoft.EasyRino.Core
         public void ConvertRinoListToDataTable(List<RinoReconcilementItem> rriList)
         {
             // Clearing RINO DataTable object
-            this.ClearDataTableRows();
+            ClearDataTableRows();
 
             foreach (RinoReconcilementItem listItem in rriList)
             {
                 // RINO action
                 string rinoAction = "";
 
-                if (listItem.Action == RinoActionType.Unos)
+                switch (listItem.Action)
                 {
-                    rinoAction = "Unos";
+                    case RinoActionType.Unos:
+                        rinoAction = "Unos";
+                        break;
+                    case RinoActionType.Izmena:
+                        rinoAction = "Izmena";
+                        break;
+                    case RinoActionType.Otkazivanje:
+                        rinoAction = "Otkazivanje";
+                        break;
                 }
-                else if (listItem.Action == RinoActionType.Izmena)
-                {
-                    rinoAction = "Izmena";
-                }
-                else if (listItem.Action == RinoActionType.Otkazivanje)
-                {
-                    rinoAction = "Otkazivanje";
-                }
-
 
                 // RINO paid date variable
                 string rinoPaidDate = null;
 
                 // RINO due date validity check
-                if (this.CheckUninitializedDate(listItem.DatumIzmirenja) != true)
+                if (!CheckUninitializedDate(listItem.DatumIzmirenja))
                 {
                     rinoPaidDate = listItem.DatumIzmirenja.ToString("dd.MM.yyyy");
                 }
@@ -440,7 +417,7 @@ namespace GriffinSoft.EasyRino.Core
                 }
 
                 // Adding new row to DataTable object
-                this.rinoDt.Rows.Add(
+                RinoDataTable.Rows.Add(
                     rinoAction,
                     listItem.RinoId,
                     listItem.BrojDokumenta,
@@ -474,11 +451,8 @@ namespace GriffinSoft.EasyRino.Core
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
 
+            return false;
         }
 
         #endregion
