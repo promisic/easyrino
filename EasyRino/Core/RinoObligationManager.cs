@@ -82,14 +82,7 @@ namespace GriffinSoft.EasyRino.Core
                 // Setting JBBK
                 Jbbk = jbbkNode.InnerText;
 
-                if (typeNode.InnerText == "Obaveza")
-                {
-                    ValidObligation = true;
-                }
-                else
-                {
-                    ValidObligation = false;
-                }
+                ValidObligation = typeNode.InnerText == "Obaveza";
             }
 
             // Execute parsing stage ONLY if it is valid obligation XML file
