@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO obligation item class
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016-2019  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GriffinSoft.EasyRino.RinoCore
 {
@@ -66,18 +62,18 @@ namespace GriffinSoft.EasyRino.RinoCore
             string razlogIzmene)
         {
             // Passing all values from arguments to internal fields
-            this.Action = action;
-            this.Iznos = iznos;
-            this.NazivPoverioca = nazivPoverioca;
-            this.PIBPoverioca = pibPoverioca;
-            this.MBPoverioca = mbPoverioca;
-            this.VrstaPoverioca = vrstaPoverioca;
-            this.NazivDokumenta = nazivDokumenta;
-            this.BrojDokumenta = brojDokumenta;
-            this.DatumDokumenta = datumDokumenta;
-            this.DatumNastanka = datumNastanka;
-            this.DatumRokaZaIzmirenje = datumRokaZaIzmirenje;
-            this.RazlogIzmene = razlogIzmene;
+            Action = action;
+            Iznos = iznos;
+            NazivPoverioca = nazivPoverioca;
+            PIBPoverioca = pibPoverioca;
+            MBPoverioca = mbPoverioca;
+            VrstaPoverioca = vrstaPoverioca;
+            NazivDokumenta = nazivDokumenta;
+            BrojDokumenta = brojDokumenta;
+            DatumDokumenta = datumDokumenta;
+            DatumNastanka = datumNastanka;
+            DatumRokaZaIzmirenje = datumRokaZaIzmirenje;
+            RazlogIzmene = razlogIzmene;
         }
 
         #endregion
@@ -171,14 +167,12 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <returns>True if valid, false if otherwise.</returns>
         public bool IsMbValid()
         {
-            if (this.MBPoverioca.Length == 8 || this.MBPoverioca.Length == 5 || this.MBPoverioca.Length == 13)
+            if (MBPoverioca.Length == 8 || MBPoverioca.Length == 5 || MBPoverioca.Length == 13)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -190,9 +184,9 @@ namespace GriffinSoft.EasyRino.RinoCore
             // Result holding variable
             bool result = false;
 
-            if (this.Action == RinoActionType.Izmena || this.Action == RinoActionType.Otkazivanje)
+            if (Action == RinoActionType.Izmena || Action == RinoActionType.Otkazivanje)
             {
-                if (this.RazlogIzmene.Length > 3)
+                if (RazlogIzmene.Length > 3)
                 {
                     result = true;
                 }
@@ -214,9 +208,9 @@ namespace GriffinSoft.EasyRino.RinoCore
             // Result holding variable
             bool result = false;
 
-            if (this.Iznos > 0 && this.NazivPoverioca.Length > 2 &&
-                this.IsPibValid() && this.IsMbValid() && this.NazivDokumenta.Length > 2 &&
-                this.BrojDokumenta.Length > 2)
+            if (Iznos > 0 && NazivPoverioca.Length > 2 &&
+                IsPibValid() && IsMbValid() && NazivDokumenta.Length > 2 &&
+                BrojDokumenta.Length > 2)
             {
                 result = true;
             }

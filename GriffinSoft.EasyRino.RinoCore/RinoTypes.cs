@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO specific type definition class
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
