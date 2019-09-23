@@ -1,14 +1,9 @@
 ﻿/*
  * RINO importer API class implementation
  * 
- * Copyright: Dusan Misic 2016 <promisic@outlook.com>
+ * Copyright: Dusan Misic 2016 - 2019 <promisic@outlook.com>
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using GriffinSoft.EasyRino.RinoCore;
 
