@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO reconcilement item class
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,10 +17,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GriffinSoft.EasyRino.RinoCore
 {
@@ -59,15 +55,15 @@ namespace GriffinSoft.EasyRino.RinoCore
             decimal iznos,
             string razlogIzmene)
         {
-            this.Action = action;
-            this.RinoId = rinoId;
-            this.BrojDokumenta = brojDokumenta;
-            this.PIBPoverioca = pibPoverioca;
-            this.Banka = banka;
-            this.ReklPodZaRek = reklPodZaRek;
-            this.DatumIzmirenja = datumIzmirenja;
-            this.Iznos = iznos;
-            this.RazlogIzmene = razlogIzmene;
+            Action = action;
+            RinoId = rinoId;
+            BrojDokumenta = brojDokumenta;
+            PIBPoverioca = pibPoverioca;
+            Banka = banka;
+            ReklPodZaRek = reklPodZaRek;
+            DatumIzmirenja = datumIzmirenja;
+            Iznos = iznos;
+            RazlogIzmene = razlogIzmene;
         }
 
         #endregion
@@ -134,10 +130,8 @@ namespace GriffinSoft.EasyRino.RinoCore
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -151,10 +145,8 @@ namespace GriffinSoft.EasyRino.RinoCore
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -163,22 +155,15 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <returns>True if valid, false if otherwise.</returns>
         public bool ReasonForChangeValid()
         {
-            // Result holding variable
-            bool result = false;
-
-            if (this.Action == RinoActionType.Izmena || this.Action == RinoActionType.Otkazivanje)
+            if (Action == RinoActionType.Izmena || Action == RinoActionType.Otkazivanje)
             {
-                if (this.RazlogIzmene.Length > 3)
+                if (RazlogIzmene.Length > 3)
                 {
-                    result = true;
-                }
-                else
-                {
-                    result = false;
+                    return true;
                 }
             }
 
-            return result;
+            return false;
         }
 
         /// <summary>
@@ -187,20 +172,13 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <returns>True if valid, false if not.</returns>
         public bool CheckForGeneralValidity()
         {
-            // Result holding variable
-            bool result = false;
-
-            if (this.RinoId > 0 && this.BrojDokumenta.Length > 2 && this.IsPibValid() &&
-                this.Banka.Length > 2 && this.IsReklPodZaRekValid() && this.Iznos > 0)
+            if (RinoId > 0 && BrojDokumenta.Length > 2 && IsPibValid() &&
+                Banka.Length > 2 && IsReklPodZaRekValid() && Iznos > 0)
             {
-                result = true;
-            }
-            else
-            {
-                result = false;
+                return true;
             }
 
-            return result;
+            return false;
         }
 
         #endregion

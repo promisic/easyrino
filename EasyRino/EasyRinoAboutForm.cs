@@ -1,6 +1,6 @@
 ﻿/*
  *  About form class for EasyRino
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,13 +17,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GriffinSoft.EasyRino
@@ -39,13 +32,13 @@ namespace GriffinSoft.EasyRino
         private void EasyRinoAboutForm_Load(object sender, EventArgs e)
         {
             // Setting version information
-            this.easyRinoLabel.Text = this.easyRinoLabel.Text + " " + MainForm.GetEasyRinoVersion();
+            easyRinoLabel.Text = $"{easyRinoLabel.Text} {MainForm.GetEasyRinoVersion()}";
         }
 
         // Event fired when user clicks on USC Bor link
         private void uscBorLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(this.uscBorLinkLabel.Text);
+            System.Diagnostics.Process.Start(uscBorLinkLabel.Text);
         }
     }
 }

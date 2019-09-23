@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO obligation manager class
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 using GriffinSoft.EasyRino.RinoCore;
@@ -35,20 +33,10 @@ namespace GriffinSoft.EasyRino.Core
         #region Internal DataTable and properties region
 
         /// <summary>
-        /// Internal DataTable field.
-        /// </summary>
-        private DataTable rinoDt = new DataTable();
-
-        /// <summary>
         /// Property to get RINO data table.
         /// </summary>
-        public DataTable RinoDataTable
-        {
-            get
-            {
-                return this.rinoDt;
-            }
-        }
+        public DataTable RinoDataTable { get; private set; }
+
 
         /// <summary>
         /// Property to get or set JBBK ID.
@@ -68,7 +56,7 @@ namespace GriffinSoft.EasyRino.Core
         internal RinoObligationManager()
         {
             // Filling datatable with columns
-            this.FillDataTableWithColumns();
+            FillDataTableWithColumns();
         }
 
         #region Convert XML to Rino List region
@@ -92,20 +80,20 @@ namespace GriffinSoft.EasyRino.Core
                 XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
 
                 // Setting JBBK
-                this.Jbbk = jbbkNode.InnerText;
+                Jbbk = jbbkNode.InnerText;
 
                 if (typeNode.InnerText == "Obaveza")
                 {
-                    this.ValidObligation = true;
+                    ValidObligation = true;
                 }
                 else
                 {
-                    this.ValidObligation = false;
+                    ValidObligation = false;
                 }
             }
 
             // Execute parsing stage ONLY if it is valid obligation XML file
-            if (this.ValidObligation)
+            if (ValidObligation)
             {
                 // Doing XPath search query
                 XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Obaveze/Obaveza");
@@ -120,20 +108,22 @@ namespace GriffinSoft.EasyRino.Core
                     RinoObligationItem roiObj = new RinoObligationItem();
 
                     // Checking type of current XmlNode
-                    if (xmlNode.Attributes["VrstaPosla"].Value == "U")
+                    string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
+
+                    switch (xmlNodeValue)
                     {
-                        // Inserting new item
-                        roiObj.Action = RinoActionType.Unos;
-                    }
-                    else if (xmlNode.Attributes["VrstaPosla"].Value == "I")
-                    {
-                        // Changing existing item
-                        roiObj.Action = RinoActionType.Izmena;
-                    }
-                    else if (xmlNode.Attributes["VrstaPosla"].Value == "O")
-                    {
-                        // Deleting existing item
-                        roiObj.Action = RinoActionType.Otkazivanje;
+                        case "U":
+                            // Inserting new item
+                            roiObj.Action = RinoActionType.Unos;
+                            break;
+                        case "I":
+                            // Changing existing item
+                            roiObj.Action = RinoActionType.Izmena;
+                            break;
+                        case "O":
+                            // Deleting existing item
+                            roiObj.Action = RinoActionType.Otkazivanje;
+                            break;
                     }
 
                     // Getting ammount
@@ -164,25 +154,23 @@ namespace GriffinSoft.EasyRino.Core
                     XmlNode vpNode = xmlNode.SelectSingleNode("VrstaPoverioca");
 
                     // Parsing and setting VrstaPoverioca
-                    if (vpNode.InnerText == "0")
+                    switch (vpNode.InnerText)
                     {
-                        roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
-                    }
-                    else if (vpNode.InnerText == "1")
-                    {
-                        roiObj.VrstaPoverioca = RinoVrstaPoverioca.JavniSektor;
-                    }
-                    else if (vpNode.InnerText == "8")
-                    {
-                        roiObj.VrstaPoverioca = RinoVrstaPoverioca.PoljoprivrednaGazdinstva;
-                    }
-                    else if (vpNode.InnerText == "9")
-                    {
-                        roiObj.VrstaPoverioca = RinoVrstaPoverioca.Kompenzacija;
-                    }
-                    else
-                    {
-                        roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
+                        case "0":
+                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
+                            break;
+                        case "1":
+                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.JavniSektor;
+                            break;
+                        case "8":
+                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PoljoprivrednaGazdinstva;
+                            break;
+                        case "9":
+                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.Kompenzacija;
+                            break;
+                        default:
+                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
+                            break;
                     }
 
                     // Getting document name
@@ -265,7 +253,7 @@ namespace GriffinSoft.EasyRino.Core
             // Creating JBBK node
             XmlNode rinoJbbkNode = rinoXml.CreateElement("JBBK");
             // Setting JBBK value
-            rinoJbbkNode.InnerText = this.Jbbk;
+            rinoJbbkNode.InnerText = Jbbk;
 
             // Append node
             rinoRootNode.AppendChild(rinoJbbkNode);
@@ -291,19 +279,20 @@ namespace GriffinSoft.EasyRino.Core
                 XmlAttribute rinoObavezaAttr = rinoXml.CreateAttribute("VrstaPosla");
                 // Setting attribute value
                 string vrstaPosla = null;
+                
+                switch (roiItem.Action)
+                {
+                    case RinoActionType.Unos:
+                        vrstaPosla = "U";
+                        break;
+                    case RinoActionType.Izmena:
+                        vrstaPosla = "I";
+                        break;
+                    case RinoActionType.Otkazivanje:
+                        vrstaPosla = "O";
+                        break;
+                }
 
-                if (roiItem.Action == RinoActionType.Unos)
-                {
-                    vrstaPosla = "U";
-                }
-                else if (roiItem.Action == RinoActionType.Izmena)
-                {
-                    vrstaPosla = "I";
-                }
-                else if (roiItem.Action == RinoActionType.Otkazivanje)
-                {
-                    vrstaPosla = "O";
-                }
                 rinoObavezaAttr.Value = vrstaPosla;
                 // Appending attribute
                 rinoObavezaNode.Attributes.Append(rinoObavezaAttr);
@@ -343,21 +332,20 @@ namespace GriffinSoft.EasyRino.Core
                 // Setting VrstaPosla value
                 string vrstaPoverioca = null;
 
-                if (roiItem.VrstaPoverioca == RinoVrstaPoverioca.PravnaLica)
+                switch (roiItem.VrstaPoverioca)
                 {
-                    vrstaPoverioca = "0";
-                }
-                else if (roiItem.VrstaPoverioca == RinoVrstaPoverioca.JavniSektor)
-                {
-                    vrstaPoverioca = "1";
-                }
-                else if (roiItem.VrstaPoverioca == RinoVrstaPoverioca.PoljoprivrednaGazdinstva)
-                {
-                    vrstaPoverioca = "8";
-                }
-                else if (roiItem.VrstaPoverioca == RinoVrstaPoverioca.Kompenzacija)
-                {
-                    vrstaPoverioca = "9";
+                    case RinoVrstaPoverioca.PravnaLica:
+                        vrstaPoverioca = "0";
+                        break;
+                    case RinoVrstaPoverioca.JavniSektor:
+                        vrstaPoverioca = "1";
+                        break;
+                    case RinoVrstaPoverioca.PoljoprivrednaGazdinstva:
+                        vrstaPoverioca = "8";
+                        break;
+                    case RinoVrstaPoverioca.Kompenzacija:
+                        vrstaPoverioca = "9";
+                        break;
                 }
 
                 rinoVpNode.InnerText = vrstaPoverioca;
@@ -393,7 +381,7 @@ namespace GriffinSoft.EasyRino.Core
                 rinoObavezaNode.AppendChild(rinoDnNode);
 
                 // Checking for optional DatumRokaZaIzmirenje
-                if (this.CheckUninitializedDate(roiItem.DatumRokaZaIzmirenje) != true)
+                if (CheckUninitializedDate(roiItem.DatumRokaZaIzmirenje) != true)
                 {
                     // Creating DatumRokaZaIzmirenje node
                     XmlNode rinoDrziNode = rinoXml.CreateElement("DatumRokaZaIzmirenje");
@@ -430,7 +418,7 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public void NukeDataTable()
         {
-            this.rinoDt.Clear();
+            RinoDataTable.Clear();
         }
 
         /// <summary>
@@ -438,7 +426,7 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public void ClearDataTableRows()
         {
-            this.rinoDt.Rows.Clear();
+            RinoDataTable.Rows.Clear();
         }
 
         /// <summary>
@@ -447,18 +435,18 @@ namespace GriffinSoft.EasyRino.Core
         public void FillDataTableWithColumns()
         {
             // Adding columns to DataTable object
-            this.rinoDt.Columns.Add("rinoAction", typeof(string));
-            this.rinoDt.Columns.Add("rinoIznos", typeof(decimal));
-            this.rinoDt.Columns.Add("rinoNazivPoverioca", typeof(string));
-            this.rinoDt.Columns.Add("rinoPIB", typeof(string));
-            this.rinoDt.Columns.Add("rinoMB", typeof(string));
-            this.rinoDt.Columns.Add("rinoVrstaPoverioca", typeof(string));
-            this.rinoDt.Columns.Add("rinoNazivDokumenta", typeof(string));
-            this.rinoDt.Columns.Add("rinoBrojDokumenta", typeof(string));
-            this.rinoDt.Columns.Add("rinoDatumDokumenta", typeof(string));
-            this.rinoDt.Columns.Add("rinoDatumNastanka", typeof(string));
-            this.rinoDt.Columns.Add("rinoDatumRokaZaIzmirenje", typeof(string));
-            this.rinoDt.Columns.Add("rinoRazlogIzmene", typeof(string));
+            RinoDataTable.Columns.Add("rinoAction", typeof(string));
+            RinoDataTable.Columns.Add("rinoIznos", typeof(decimal));
+            RinoDataTable.Columns.Add("rinoNazivPoverioca", typeof(string));
+            RinoDataTable.Columns.Add("rinoPIB", typeof(string));
+            RinoDataTable.Columns.Add("rinoMB", typeof(string));
+            RinoDataTable.Columns.Add("rinoVrstaPoverioca", typeof(string));
+            RinoDataTable.Columns.Add("rinoNazivDokumenta", typeof(string));
+            RinoDataTable.Columns.Add("rinoBrojDokumenta", typeof(string));
+            RinoDataTable.Columns.Add("rinoDatumDokumenta", typeof(string));
+            RinoDataTable.Columns.Add("rinoDatumNastanka", typeof(string));
+            RinoDataTable.Columns.Add("rinoDatumRokaZaIzmirenje", typeof(string));
+            RinoDataTable.Columns.Add("rinoRazlogIzmene", typeof(string));
         }
 
         /// <summary>
@@ -468,51 +456,50 @@ namespace GriffinSoft.EasyRino.Core
         public void ConvertRinoListToDataTable(List<RinoObligationItem> roiList)
         {
             // Clearing RINO DataTable object
-            this.ClearDataTableRows();
+            ClearDataTableRows();
 
             foreach (RinoObligationItem listItem in roiList)
             {
                 // RINO action
                 string rinoAction = "";
 
-                if (listItem.Action == RinoActionType.Unos)
+                switch (listItem.Action)
                 {
-                    rinoAction = "Unos";
-                }
-                else if (listItem.Action == RinoActionType.Izmena)
-                {
-                    rinoAction = "Izmena";
-                }
-                else if (listItem.Action == RinoActionType.Otkazivanje)
-                {
-                    rinoAction = "Otkazivanje";
+                    case RinoActionType.Unos:
+                        rinoAction = "Unos";
+                        break;
+                    case RinoActionType.Izmena:
+                        rinoAction = "Izmena";
+                        break;
+                    case RinoActionType.Otkazivanje:
+                        rinoAction = "Otkazivanje";
+                        break;
                 }
 
                 // RINO vrsta poverioca
                 string rinoVrstaPoverica = "";
 
-                if (listItem.VrstaPoverioca == RinoVrstaPoverioca.PravnaLica)
+                switch (listItem.VrstaPoverioca)
                 {
-                    rinoVrstaPoverica = "Pravno lice";
-                }
-                else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.JavniSektor)
-                {
-                    rinoVrstaPoverica = "Javni sektor";
-                }
-                else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.PoljoprivrednaGazdinstva)
-                {
-                    rinoVrstaPoverica = "Polj. gazdinstva";
-                }
-                else if (listItem.VrstaPoverioca == RinoVrstaPoverioca.Kompenzacija)
-                {
-                    rinoVrstaPoverica = "Kompenzacija";
+                    case RinoVrstaPoverioca.PravnaLica:
+                        rinoVrstaPoverica = "Pravno lice";
+                        break;
+                    case RinoVrstaPoverioca.JavniSektor:
+                        rinoVrstaPoverica = "Javni sektor";
+                        break;
+                    case RinoVrstaPoverioca.PoljoprivrednaGazdinstva:
+                        rinoVrstaPoverica = "Polj. gazdinstva";
+                        break;
+                    case RinoVrstaPoverioca.Kompenzacija:
+                        rinoVrstaPoverica = "Kompenzacija";
+                        break;
                 }
 
                 // RINO due date variable
                 string rinoDueDate = null;
 
                 // RINO due date validity check
-                if (this.CheckUninitializedDate(listItem.DatumRokaZaIzmirenje) != true)
+                if (!CheckUninitializedDate(listItem.DatumRokaZaIzmirenje))
                 {
                     rinoDueDate = listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy");
                 }
@@ -534,7 +521,7 @@ namespace GriffinSoft.EasyRino.Core
                 }
 
                 // Adding new row to DataTable object
-                this.rinoDt.Rows.Add(
+                RinoDataTable.Rows.Add(
                     rinoAction,
                     listItem.Iznos,
                     listItem.NazivPoverioca,
@@ -571,11 +558,8 @@ namespace GriffinSoft.EasyRino.Core
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
 
+            return false;
         }
 
         #endregion

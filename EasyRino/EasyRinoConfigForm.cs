@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO JBBK configuration form
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2019 Dusan Misic <promisic@outlook.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,13 +17,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GriffinSoft.EasyRino
@@ -39,13 +32,13 @@ namespace GriffinSoft.EasyRino
         private void EasyRinoConfigForm_Load(object sender, EventArgs e)
         {
             // Loading value from properties
-            this.jbbkTextBox.Text = Properties.Settings.Default.jbbk;
+            jbbkTextBox.Text = Properties.Settings.Default.jbbk;
         }
 
         // Event fired when user clicks save button
         private void saveJbbkBtn_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.jbbk = this.jbbkTextBox.Text;
+            Properties.Settings.Default.jbbk = jbbkTextBox.Text;
             Properties.Settings.Default.Save();
             this.Close();
         }
@@ -53,7 +46,7 @@ namespace GriffinSoft.EasyRino
         // Event fired when user clicks cancel button
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
