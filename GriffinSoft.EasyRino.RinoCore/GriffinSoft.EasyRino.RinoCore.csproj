@@ -2,5 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard20</TargetFramework>
+    <Title>EasyRino core class library</Title>
+    <Description>EasyRino core class library</Description>
+    <Company>Dušan Mišić</Company>
+    <Product>EasyRino project</Product>
+    <Copyright>Dušan Mišić 2016 - 2019</Copyright>
+    <RepositoryUrl>https://github.com/promisic/easyrino</RepositoryUrl>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 </Project>
