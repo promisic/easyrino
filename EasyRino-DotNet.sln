@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRino", "EasyRino\EasyRino.csproj", "{A5C166EE-4FD8-46C6-97B7-42BB99B127D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GriffinSoft.EasyRino.RinoCore", "GriffinSoft.EasyRino.RinoCore\GriffinSoft.EasyRino.RinoCore.csproj", "{505C42BD-2E88-4EBE-8474-0CE200691D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GriffinSoft.EasyRino.RinoCore", "GriffinSoft.EasyRino.RinoCore\GriffinSoft.EasyRino.RinoCore.csproj", "{505C42BD-2E88-4EBE-8474-0CE200691D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GriffinSoft.EasyRino.RinoXmlFilter", "GriffinSoft.EasyRino.RinoXmlFilter\GriffinSoft.EasyRino.RinoXmlFilter.csproj", "{43BE030C-33B8-468A-8145-153E6B3ABA3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GriffinSoft.EasyRino.RinoXmlFilter", "GriffinSoft.EasyRino.RinoXmlFilter\GriffinSoft.EasyRino.RinoXmlFilter.csproj", "{43BE030C-33B8-468A-8145-153E6B3ABA3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {191E4BBB-3017-4EE3-9451-7C0EFF29F9A3}
 	EndGlobalSection
 EndGlobal

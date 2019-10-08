@@ -17,6 +17,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace GriffinSoft.EasyRino
@@ -38,7 +39,7 @@ namespace GriffinSoft.EasyRino
         // Event fired when user clicks on USC Bor link
         private void uscBorLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(uscBorLinkLabel.Text);
+            Process.Start(uscBorLinkLabel.Text);
         }
     }
 }

@@ -25,15 +25,14 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Constructor region
 
         /// <summary>
-        /// Constructor.
+        ///     Constructor.
         /// </summary>
         public RinoObligationItem()
         {
-
         }
 
         /// <summary>
-        /// Constructor.
+        ///     Constructor.
         /// </summary>
         /// <param name="action">Action type</param>
         /// <param name="iznos">Amount</param>
@@ -81,62 +80,62 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Property holder region
 
         /// <summary>
-        /// Property holds requested action operation.
+        ///     Property holds requested action operation.
         /// </summary>
         public RinoActionType Action { get; set; }
 
         /// <summary>
-        /// Property holds ammount.
+        ///     Property holds ammount.
         /// </summary>
         public decimal Iznos { get; set; }
 
         /// <summary>
-        /// Property holds unique obligator holders name.
+        ///     Property holds unique obligator holders name.
         /// </summary>
         public string NazivPoverioca { get; set; }
 
         /// <summary>
-        /// Property holds PIBPoverioca.
+        ///     Property holds PIBPoverioca.
         /// </summary>
         public string PibPoverioca { get; set; }
 
         /// <summary>
-        /// Property holds MBPoverioca.
+        ///     Property holds MBPoverioca.
         /// </summary>
         public string MbPoverioca { get; set; }
 
         /// <summary>
-        /// Property holds VrstaPoverioca.
+        ///     Property holds VrstaPoverioca.
         /// </summary>
         public RinoVrstaPoverioca VrstaPoverioca { get; set; }
 
         /// <summary>
-        /// Property holds NazivDokumenta.
+        ///     Property holds NazivDokumenta.
         /// </summary>
         public string NazivDokumenta { get; set; }
 
         /// <summary>
-        /// Property holds ID of the document.
+        ///     Property holds ID of the document.
         /// </summary>
         public string BrojDokumenta { get; set; }
 
         /// <summary>
-        /// Property holds date of document creation.
+        ///     Property holds date of document creation.
         /// </summary>
         public DateTime DatumDokumenta { get; set; }
 
         /// <summary>
-        /// Property holds date when the obligation began.
+        ///     Property holds date when the obligation began.
         /// </summary>
         public DateTime DatumNastanka { get; set; }
 
         /// <summary>
-        /// Property holds date when obligation is due for payment.
+        ///     Property holds date when obligation is due for payment.
         /// </summary>
         public DateTime DatumRokaZaIzmirenje { get; set; }
 
         /// <summary>
-        /// Property holds reason for change.
+        ///     Property holds reason for change.
         /// </summary>
         public string RazlogIzmene { get; set; }
 
@@ -145,58 +144,46 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Validity checks region
 
         /// <summary>
-        /// Checks if PIB is valid.
+        ///     Checks if PIB is valid.
         /// </summary>
         /// <returns>True if PIB is 9 characters long, false if otherwise.</returns>
         public bool IsPibValid()
         {
             // Checking if PIB is 9 characters long
-            if (this.PibPoverioca.Length == 9)
-            {
+            if (PibPoverioca.Length == 9)
                 return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         /// <summary>
-        /// Checks if MB is valid.
+        ///     Checks if MB is valid.
         /// </summary>
         /// <returns>True if valid, false if otherwise.</returns>
         public bool IsMbValid()
         {
-            if (MbPoverioca.Length == 8 || MbPoverioca.Length == 5 || MbPoverioca.Length == 13)
-            {
-                return true;
-            }
+            if (MbPoverioca.Length == 8 || MbPoverioca.Length == 5 || MbPoverioca.Length == 13) return true;
 
             return false;
         }
 
         /// <summary>
-        /// Checks if RazlogIzmene is valid in given context.
+        ///     Checks if RazlogIzmene is valid in given context.
         /// </summary>
         /// <returns>True if valid, false if otherwise.</returns>
         public bool ReasonForChangeValid()
         {
             // Result holding variable
-            bool result = false;
+            var result = false;
 
             if (Action == RinoActionType.Izmena || Action == RinoActionType.Otkazivanje)
-            {
                 if (RazlogIzmene.Length > 3)
-                {
                     result = true;
-                }
-            }
 
             return result;
         }
 
         /// <summary>
-        /// Checks if all fields and properties are "filled".
+        ///     Checks if all fields and properties are "filled".
         /// </summary>
         /// <returns>True if valid, false if not.</returns>
         public bool CheckForGeneralValidity()

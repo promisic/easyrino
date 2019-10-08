@@ -25,15 +25,14 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Constructor region
 
         /// <summary>
-        /// Constructor.
+        ///     Constructor.
         /// </summary>
         public RinoReconcilementItem()
         {
-
         }
 
         /// <summary>
-        /// Constructor.
+        ///     Constructor.
         /// </summary>
         /// <param name="action">Action type</param>
         /// <param name="rinoId">Unuque RINO portal ID</param>
@@ -71,47 +70,47 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Property holder region
 
         /// <summary>
-        /// Property holds requested action operation.
+        ///     Property holds requested action operation.
         /// </summary>
         public RinoActionType Action { get; set; }
 
         /// <summary>
-        /// Property holds unique RINO ID.
+        ///     Property holds unique RINO ID.
         /// </summary>
         public long RinoId { get; set; }
 
         /// <summary>
-        /// Property holds ID of the document.
+        ///     Property holds ID of the document.
         /// </summary>
         public string BrojDokumenta { get; set; }
 
         /// <summary>
-        /// Property holds PIBPoverioca.
+        ///     Property holds PIBPoverioca.
         /// </summary>
         public string PibPoverioca { get; set; }
 
         /// <summary>
-        /// Property holds bank information.
+        ///     Property holds bank information.
         /// </summary>
         public string Banka { get; set; }
 
         /// <summary>
-        /// Property holds ReklPodZaRek.
+        ///     Property holds ReklPodZaRek.
         /// </summary>
         public string ReklPodZaRek { get; set; }
 
         /// <summary>
-        /// Property holds date of payment.
+        ///     Property holds date of payment.
         /// </summary>
         public DateTime DatumIzmirenja { get; set; }
 
         /// <summary>
-        /// Property holds ammount.
+        ///     Property holds ammount.
         /// </summary>
         public decimal Iznos { get; set; }
 
         /// <summary>
-        /// Property holds reason for change.
+        ///     Property holds reason for change.
         /// </summary>
         public string RazlogIzmene { get; set; }
 
@@ -120,63 +119,51 @@ namespace GriffinSoft.EasyRino.RinoCore
         #region Validity checks region
 
         /// <summary>
-        /// Checks if PIB is valid.
+        ///     Checks if PIB is valid.
         /// </summary>
         /// <returns>True if PIB is 9 characters long, false if otherwise.</returns>
         public bool IsPibValid()
         {
             // Checking if PIB is 9 characters long
-            if (this.PibPoverioca.Length == 9)
-            {
-                return true;
-            }
+            if (PibPoverioca.Length == 9) return true;
 
             return false;
         }
 
         /// <summary>
-        /// Check if ReklPodZaRek is valid.
+        ///     Check if ReklPodZaRek is valid.
         /// </summary>
         /// <returns>True if ReklPodZaRek is 16 character long, false if otherwise.</returns>
         public bool IsReklPodZaRekValid()
         {
             // Checking if ReklPodZaRek is 16 character long
-            if (this.ReklPodZaRek.Length == 16)
-            {
-                return true;
-            }
+            if (ReklPodZaRek.Length == 16) return true;
 
             return false;
         }
 
         /// <summary>
-        /// Checks if RazlogIzmene is valid in given context.
+        ///     Checks if RazlogIzmene is valid in given context.
         /// </summary>
         /// <returns>True if valid, false if otherwise.</returns>
         public bool ReasonForChangeValid()
         {
             if (Action == RinoActionType.Izmena || Action == RinoActionType.Otkazivanje)
-            {
                 if (RazlogIzmene.Length > 3)
-                {
                     return true;
-                }
-            }
 
             return false;
         }
 
         /// <summary>
-        /// Checks if all fields and properties are "filled".
+        ///     Checks if all fields and properties are "filled".
         /// </summary>
         /// <returns>True if valid, false if not.</returns>
         public bool CheckForGeneralValidity()
         {
             if (RinoId > 0 && BrojDokumenta.Length > 2 && IsPibValid() &&
                 Banka.Length > 2 && IsReklPodZaRekValid() && Iznos > 0)
-            {
                 return true;
-            }
 
             return false;
         }

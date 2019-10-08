@@ -18,6 +18,7 @@
 
 using System;
 using System.Windows.Forms;
+using GriffinSoft.EasyRino.Properties;
 
 namespace GriffinSoft.EasyRino
 {
@@ -32,15 +33,15 @@ namespace GriffinSoft.EasyRino
         private void EasyRinoConfigForm_Load(object sender, EventArgs e)
         {
             // Loading value from properties
-            jbbkTextBox.Text = Properties.Settings.Default.jbbk;
+            jbbkTextBox.Text = Settings.Default.jbbk;
         }
 
         // Event fired when user clicks save button
         private void saveJbbkBtn_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.jbbk = jbbkTextBox.Text;
-            Properties.Settings.Default.Save();
-            this.Close();
+            Settings.Default.jbbk = jbbkTextBox.Text;
+            Settings.Default.Save();
+            Close();
         }
 
         // Event fired when user clicks cancel button

@@ -23,13 +23,13 @@ using System.Windows.Forms;
 
 namespace GriffinSoft.EasyRino
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             // Setting "en-US" culture BEFORE the whole app starts
             SetDefaultCulture(CultureInfo.GetCultureInfo("en-US"));
@@ -40,28 +40,28 @@ namespace GriffinSoft.EasyRino
         }
 
         /// <summary>
-        /// Sets culture info for all .NET frameworks. This method is a hack :/
+        ///     Sets culture info for all .NET frameworks. This method is a hack :/
         /// </summary>
         /// <param name="culture">CultureInfo object to set.</param>
-        static void SetDefaultCulture(CultureInfo culture)
+        private static void SetDefaultCulture(CultureInfo culture)
         {
             // Using code from this URL: https://www.rastating.com/setting-default-currentculture-in-all-versions-of-net/
 
-            Type type = typeof(CultureInfo);
+            var type = typeof(CultureInfo);
 
             try
             {
                 type.InvokeMember("s_userDefaultCulture",
-                                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
-                                    null,
-                                    culture,
-                                    new object[] { culture });
+                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
+                    null,
+                    culture,
+                    new object[] {culture});
 
                 type.InvokeMember("s_userDefaultUICulture",
-                                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
-                                    null,
-                                    culture,
-                                    new object[] { culture });
+                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
+                    null,
+                    culture,
+                    new object[] {culture});
             }
             catch
             {
@@ -71,16 +71,16 @@ namespace GriffinSoft.EasyRino
             try
             {
                 type.InvokeMember("m_userDefaultCulture",
-                                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
-                                    null,
-                                    culture,
-                                    new object[] { culture });
+                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
+                    null,
+                    culture,
+                    new object[] {culture});
 
                 type.InvokeMember("m_userDefaultUICulture",
-                                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
-                                    null,
-                                    culture,
-                                    new object[] { culture });
+                    BindingFlags.SetField | BindingFlags.NonPublic | BindingFlags.Static,
+                    null,
+                    culture,
+                    new object[] {culture});
             }
             catch
             {

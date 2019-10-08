@@ -19,38 +19,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
 using System.Xml;
-
 using GriffinSoft.EasyRino.RinoCore;
 
 namespace GriffinSoft.EasyRino.Core
 {
     internal class RinoObligationManager
     {
-
-        #region Internal DataTable and properties region
-
         /// <summary>
-        /// Property to get RINO data table.
-        /// </summary>
-        public DataTable RinoDataTable { get; private set; }
-
-        /// <summary>
-        /// Property to get or set JBBK ID.
-        /// </summary>
-        public string Jbbk { get; set; }
-
-        /// <summary>
-        /// Property to get or set valid obligation field.
-        /// </summary>
-        public bool ValidObligation { get; private set; }
-
-        #endregion
-
-        /// <summary>
-        /// Constructor.
+        ///     Constructor.
         /// </summary>
         internal RinoObligationManager()
         {
@@ -61,23 +40,23 @@ namespace GriffinSoft.EasyRino.Core
         #region Convert XML to Rino List region
 
         /// <summary>
-        /// Converts XmlDocument object to RinoObligationItem object.
+        ///     Converts XmlDocument object to RinoObligationItem object.
         /// </summary>
         /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
         /// <returns>List of RinoObligationItem objects.</returns>
         internal List<RinoObligationItem> ConvertXmlToRinoList(XmlDocument rinoXmlDoc)
         {
             // Creating RinoObligationItem list object
-            List<RinoObligationItem> roi = new List<RinoObligationItem>();
+            var roi = new List<RinoObligationItem>();
 
             // Getting RINO header nodes
-            XmlNodeList rinoXmlHeaderNodes = rinoXmlDoc.SelectNodes("//RINO");
+            var rinoXmlHeaderNodes = rinoXmlDoc.SelectNodes("//RINO");
 
             if (rinoXmlHeaderNodes != null)
                 foreach (XmlNode xmlNode in rinoXmlHeaderNodes)
                 {
-                    XmlNode jbbkNode = xmlNode.SelectSingleNode("JBBK");
-                    XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
+                    var jbbkNode = xmlNode.SelectSingleNode("JBBK");
+                    var typeNode = xmlNode.SelectSingleNode("Tip");
 
                     // Setting JBBK
                     if (jbbkNode != null) Jbbk = jbbkNode.InnerText;
@@ -89,19 +68,19 @@ namespace GriffinSoft.EasyRino.Core
             if (ValidObligation)
             {
                 // Doing XPath search query
-                XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Obaveze/Obaveza");
+                var xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Obaveze/Obaveza");
 
                 // Iterating each XmlNode
                 if (xmlNodes != null)
                     foreach (XmlNode xmlNode in xmlNodes)
                     {
                         // Creating ROI object to add to existing list
-                        RinoObligationItem roiObj = new RinoObligationItem();
+                        var roiObj = new RinoObligationItem();
 
                         // Checking type of current XmlNode
                         if (xmlNode.Attributes != null)
                         {
-                            string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
+                            var xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
 
                             switch (xmlNodeValue)
                             {
@@ -121,33 +100,33 @@ namespace GriffinSoft.EasyRino.Core
                         }
 
                         // Getting ammount
-                        XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
+                        var iznosNode = xmlNode.SelectSingleNode("Iznos");
 
                         // Setting amount
                         if (iznosNode != null)
-                            roiObj.Iznos = Decimal.Parse(iznosNode.InnerText,
+                            roiObj.Iznos = decimal.Parse(iznosNode.InnerText,
                                 CultureInfo.CreateSpecificCulture("en-US"));
 
                         // Getting name
-                        XmlNode nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
+                        var nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
 
                         // Setting name
                         if (nazivNode != null) roiObj.NazivPoverioca = nazivNode.InnerText;
 
                         // Getting PIB ID
-                        XmlNode pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
+                        var pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
 
                         // Setting PIB ID
                         if (pibNode != null) roiObj.PibPoverioca = pibNode.InnerText;
 
                         // Getting MB ID
-                        XmlNode mbNode = xmlNode.SelectSingleNode("MBPoverioca");
+                        var mbNode = xmlNode.SelectSingleNode("MBPoverioca");
 
                         // Setting MB ID
                         if (mbNode != null) roiObj.MbPoverioca = mbNode.InnerText;
 
                         // Getting VrstaPoverioca
-                        XmlNode vpNode = xmlNode.SelectSingleNode("VrstaPoverioca");
+                        var vpNode = xmlNode.SelectSingleNode("VrstaPoverioca");
 
                         // Parsing and setting VrstaPoverioca
                         if (vpNode != null)
@@ -171,25 +150,25 @@ namespace GriffinSoft.EasyRino.Core
                             }
 
                         // Getting document name
-                        XmlNode ndNode = xmlNode.SelectSingleNode("NazivDokumenta");
+                        var ndNode = xmlNode.SelectSingleNode("NazivDokumenta");
 
                         // Setting document name
                         if (ndNode != null) roiObj.NazivDokumenta = ndNode.InnerText;
 
                         // Getting document number
-                        XmlNode bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
+                        var bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
 
                         // Setting document number
                         if (bdNode != null) roiObj.BrojDokumenta = bdNode.InnerText;
 
                         // Getting document creation date
-                        XmlNode ddNode = xmlNode.SelectSingleNode("DatumDokumenta");
+                        var ddNode = xmlNode.SelectSingleNode("DatumDokumenta");
 
                         // Setting document creation date
-                        roiObj.DatumDokumenta = DateTime.ParseExact(s: ddNode.InnerText, "yyyy-MM-dd", null);
+                        roiObj.DatumDokumenta = DateTime.ParseExact(ddNode.InnerText, "yyyy-MM-dd", null);
 
                         // Getting document obligation start date
-                        XmlNode dnNode = xmlNode.SelectSingleNode("DatumNastanka");
+                        var dnNode = xmlNode.SelectSingleNode("DatumNastanka");
 
                         // Setting document obligation start date
                         roiObj.DatumNastanka = DateTime.ParseExact(dnNode.InnerText, "yyyy-MM-dd", null);
@@ -198,7 +177,7 @@ namespace GriffinSoft.EasyRino.Core
                         if (xmlNode.SelectSingleNode("DatumRokaZaIzmirenje") != null)
                         {
                             // Getting document payment due date
-                            XmlNode driNode = xmlNode.SelectSingleNode("DatumRokaZaIzmirenje");
+                            var driNode = xmlNode.SelectSingleNode("DatumRokaZaIzmirenje");
 
                             // Setting document payment due date
                             roiObj.DatumRokaZaIzmirenje = DateTime.ParseExact(driNode.InnerText, "yyyy-MM-dd", null);
@@ -208,7 +187,7 @@ namespace GriffinSoft.EasyRino.Core
                         if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
                         {
                             // Getting reason for change
-                            XmlNode riNode = xmlNode.SelectSingleNode("RazlogIzmene");
+                            var riNode = xmlNode.SelectSingleNode("RazlogIzmene");
 
                             // Setting reason for change
                             roiObj.RazlogIzmene = riNode.InnerText;
@@ -227,17 +206,17 @@ namespace GriffinSoft.EasyRino.Core
         #region Convert Rino List to XML region
 
         /// <summary>
-        /// Converts list of RinoObligationItem's to RINO XmlDocument object
+        ///     Converts list of RinoObligationItem's to RINO XmlDocument object
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's object</param>
         /// <returns>RINO XmlDocument object</returns>
         internal XmlDocument ConvertRinoListToXml(List<RinoObligationItem> roiList)
         {
             // Creating RINO XML object
-            XmlDocument rinoXml = new XmlDocument();
+            var rinoXml = new XmlDocument();
 
             // Creating XML declaration
-            XmlDeclaration xmlOrderDecl = rinoXml.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+            var xmlOrderDecl = rinoXml.CreateXmlDeclaration("1.0", "UTF-8", "yes");
 
             // Creating RINO root node
             XmlNode rinoRootNode = rinoXml.CreateElement("RINO");
@@ -268,15 +247,15 @@ namespace GriffinSoft.EasyRino.Core
             rinoRootNode.AppendChild(rinoObavezeNode);
 
             // Iterating through roiList object
-            foreach (RinoObligationItem roiItem in roiList)
+            foreach (var roiItem in roiList)
             {
                 // Creating Obaveza node
                 XmlNode rinoObavezaNode = rinoXml.CreateElement("Obaveza");
                 // Creating attribute
-                XmlAttribute rinoObavezaAttr = rinoXml.CreateAttribute("VrstaPosla");
+                var rinoObavezaAttr = rinoXml.CreateAttribute("VrstaPosla");
                 // Setting attribute value
                 string vrstaPosla = null;
-                
+
                 switch (roiItem.Action)
                 {
                     case RinoActionType.Unos:
@@ -390,7 +369,6 @@ namespace GriffinSoft.EasyRino.Core
 
                 // Checking for optional RazlogIzmene
                 if (roiItem.RazlogIzmene != null)
-                {
                     if (roiItem.RazlogIzmene.Length > 0)
                     {
                         // Creating RazlogIzmene node
@@ -400,7 +378,6 @@ namespace GriffinSoft.EasyRino.Core
                         // Append node
                         rinoObavezaNode.AppendChild(rinoRiNode);
                     }
-                }
             }
 
             return rinoXml;
@@ -408,10 +385,51 @@ namespace GriffinSoft.EasyRino.Core
 
         #endregion
 
+        #region Utility method region
+
+        /// <summary>
+        ///     Checks for uninitialized date.
+        /// </summary>
+        /// <param name="dateToCheck">DateTime object to check.</param>
+        /// <returns>True if date is "default uninitialized one", fasle if otherwise.</returns>
+        public bool CheckUninitializedDate(DateTime dateToCheck)
+        {
+            // Creating DateTime object similar to uninitialized datetime
+            var uninDateTime = new DateTime(0001, 1, 1, 0, 0, 0); // Target date is: 1.1.0001. 00.00.00
+
+            // Comparing dates
+            var dateCompResult = DateTime.Compare(dateToCheck, uninDateTime);
+
+            if (dateCompResult == 0) return true;
+
+            return false;
+        }
+
+        #endregion
+
+        #region Internal DataTable and properties region
+
+        /// <summary>
+        ///     Property to get RINO data table.
+        /// </summary>
+        public DataTable RinoDataTable { get; private set; }
+
+        /// <summary>
+        ///     Property to get or set JBBK ID.
+        /// </summary>
+        public string Jbbk { get; set; }
+
+        /// <summary>
+        ///     Property to get or set valid obligation field.
+        /// </summary>
+        public bool ValidObligation { get; private set; }
+
+        #endregion
+
         #region DataTable manipulation methods region
 
         /// <summary>
-        /// Clears all rows inside internal DataTable object.
+        ///     Clears all rows inside internal DataTable object.
         /// </summary>
         private void ClearDataTableRows()
         {
@@ -419,7 +437,7 @@ namespace GriffinSoft.EasyRino.Core
         }
 
         /// <summary>
-        /// Fill's interal DataTable object with columns.
+        ///     Fill's interal DataTable object with columns.
         /// </summary>
         private void FillDataTableWithColumns()
         {
@@ -439,7 +457,7 @@ namespace GriffinSoft.EasyRino.Core
         }
 
         /// <summary>
-        /// Converts list of RinoObligationItem's objects to DataTable rows.
+        ///     Converts list of RinoObligationItem's objects to DataTable rows.
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's objects</param>
         public void ConvertRinoListToDataTable(List<RinoObligationItem> roiList)
@@ -447,10 +465,10 @@ namespace GriffinSoft.EasyRino.Core
             // Clearing RINO DataTable object
             ClearDataTableRows();
 
-            foreach (RinoObligationItem listItem in roiList)
+            foreach (var listItem in roiList)
             {
                 // RINO action
-                string rinoAction = "";
+                var rinoAction = "";
 
                 switch (listItem.Action)
                 {
@@ -466,7 +484,7 @@ namespace GriffinSoft.EasyRino.Core
                 }
 
                 // RINO vrsta poverioca
-                string rinoVrstaPoverica = "";
+                var rinoVrstaPoverica = "";
 
                 switch (listItem.VrstaPoverioca)
                 {
@@ -485,7 +503,9 @@ namespace GriffinSoft.EasyRino.Core
                 }
 
                 // RINO due date validity check
-                var rinoDueDate = !CheckUninitializedDate(listItem.DatumRokaZaIzmirenje) ? listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy") : null;
+                var rinoDueDate = !CheckUninitializedDate(listItem.DatumRokaZaIzmirenje)
+                    ? listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy")
+                    : null;
 
                 // RINO reason for change variable
                 var rinoReasonForChange = listItem.RazlogIzmene;
@@ -509,35 +529,10 @@ namespace GriffinSoft.EasyRino.Core
 
         #endregion
 
-        #region Utility method region
-
-        /// <summary>
-        /// Checks for uninitialized date.
-        /// </summary>
-        /// <param name="dateToCheck">DateTime object to check.</param>
-        /// <returns>True if date is "default uninitialized one", fasle if otherwise.</returns>
-        public bool CheckUninitializedDate(DateTime dateToCheck)
-        {
-            // Creating DateTime object similar to uninitialized datetime
-            DateTime uninDateTime = new DateTime(0001, 1, 1, 0, 0, 0); // Target date is: 1.1.0001. 00.00.00
-
-            // Comparing dates
-            int dateCompResult = DateTime.Compare(dateToCheck, uninDateTime);
-
-            if (dateCompResult == 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        #endregion
-
         #region Rino List manipulation methods region
 
         /// <summary>
-        /// Get's RinoObligationItem at selected index.
+        ///     Get's RinoObligationItem at selected index.
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's objects.</param>
         /// <param name="index">Index position in the list.</param>
@@ -548,7 +543,7 @@ namespace GriffinSoft.EasyRino.Core
         }
 
         /// <summary>
-        /// Remove RinoObligationItem object from list at selected index.
+        ///     Remove RinoObligationItem object from list at selected index.
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's objects</param>
         /// <param name="index">Index position in the list</param>
@@ -562,7 +557,7 @@ namespace GriffinSoft.EasyRino.Core
         }
 
         /// <summary>
-        /// Inserts RinoObligationItem object to list.
+        ///     Inserts RinoObligationItem object to list.
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's objects</param>
         /// <param name="roiItem">RinoObligationItem object to insert</param>
@@ -575,8 +570,8 @@ namespace GriffinSoft.EasyRino.Core
         }
 
         /// <summary>
-        /// Modifies existing list of RinoObligationItem's objects. Removes object at selected index and inserts a new 
-        /// one in its place.
+        ///     Modifies existing list of RinoObligationItem's objects. Removes object at selected index and inserts a new
+        ///     one in its place.
         /// </summary>
         /// <param name="roiList">List of RinoObligationItem's objects</param>
         /// <param name="roiItem">RinoObligationItem object</param>

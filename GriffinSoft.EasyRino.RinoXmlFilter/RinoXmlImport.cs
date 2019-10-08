@@ -14,7 +14,7 @@ namespace GriffinSoft.EasyRino.RinoXmlFilter
         public XmlDocument ImportRinoObligationXml(string inPath)
         {
             // Creating XmlDocument object
-            XmlDocument rinoXmlDoc = new XmlDocument();
+            var rinoXmlDoc = new XmlDocument();
 
             // Loading XML file into memory
             rinoXmlDoc.Load(inPath);
@@ -25,7 +25,7 @@ namespace GriffinSoft.EasyRino.RinoXmlFilter
         public XmlDocument ImportRinoReconcilementXml(string inPath)
         {
             // Creating XmlDocument object
-            XmlDocument rinoXmlDoc = new XmlDocument();
+            var rinoXmlDoc = new XmlDocument();
 
             // Loading XML file into memory
             rinoXmlDoc.Load(inPath);

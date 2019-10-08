@@ -19,43 +19,48 @@
 namespace GriffinSoft.EasyRino.RinoCore
 {
     /// <summary>
-    /// Action type enumeration.
+    ///     Action type enumeration.
     /// </summary>
     public enum RinoActionType
     {
         /// <summary>
-        /// Inserting new obligation or reconcilment.
+        ///     Inserting new obligation or reconcilment.
         /// </summary>
         Unos,
+
         /// <summary>
-        /// Changing existing obligation or reconcilement.
+        ///     Changing existing obligation or reconcilement.
         /// </summary>
         Izmena,
+
         /// <summary>
-        /// Cancel existing obligation or reconcilement.
+        ///     Cancel existing obligation or reconcilement.
         /// </summary>
         Otkazivanje
     }
 
     /// <summary>
-    /// Obligation type enumeration.
+    ///     Obligation type enumeration.
     /// </summary>
     public enum RinoVrstaPoverioca
     {
         /// <summary>
-        /// Normal business.
+        ///     Normal business.
         /// </summary>
         PravnaLica = 0,
+
         /// <summary>
-        /// Public sector.
+        ///     Public sector.
         /// </summary>
         JavniSektor = 1,
+
         /// <summary>
-        /// Agriculture and farming sector.
+        ///     Agriculture and farming sector.
         /// </summary>
         PoljoprivrednaGazdinstva = 8,
+
         /// <summary>
-        /// Compensation.
+        ///     Compensation.
         /// </summary>
         Kompenzacija = 9
     }

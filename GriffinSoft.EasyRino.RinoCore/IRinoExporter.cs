@@ -23,14 +23,14 @@ namespace GriffinSoft.EasyRino.RinoCore
     public interface IRinoExporter
     {
         /// <summary>
-        /// Exports RINO obligation XML file
+        ///     Exports RINO obligation XML file
         /// </summary>
         /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
         /// <param name="outPath">Output file path</param>
         void ExportRinoObligationXml(XmlDocument rinoXmlDoc, string outPath);
 
         /// <summary>
-        /// Exports RINO reconcilement XML file
+        ///     Exports RINO reconcilement XML file
         /// </summary>
         /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
         /// <param name="outPath">Output file path</param>
