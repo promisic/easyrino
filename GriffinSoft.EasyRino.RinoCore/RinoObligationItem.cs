@@ -65,8 +65,8 @@ namespace GriffinSoft.EasyRino.RinoCore
             Action = action;
             Iznos = iznos;
             NazivPoverioca = nazivPoverioca;
-            PIBPoverioca = pibPoverioca;
-            MBPoverioca = mbPoverioca;
+            PibPoverioca = pibPoverioca;
+            MbPoverioca = mbPoverioca;
             VrstaPoverioca = vrstaPoverioca;
             NazivDokumenta = nazivDokumenta;
             BrojDokumenta = brojDokumenta;
@@ -98,12 +98,12 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <summary>
         /// Property holds PIBPoverioca.
         /// </summary>
-        public string PIBPoverioca { get; set; }
+        public string PibPoverioca { get; set; }
 
         /// <summary>
         /// Property holds MBPoverioca.
         /// </summary>
-        public string MBPoverioca { get; set; }
+        public string MbPoverioca { get; set; }
 
         /// <summary>
         /// Property holds VrstaPoverioca.
@@ -151,7 +151,7 @@ namespace GriffinSoft.EasyRino.RinoCore
         public bool IsPibValid()
         {
             // Checking if PIB is 9 characters long
-            if (this.PIBPoverioca.Length == 9)
+            if (this.PibPoverioca.Length == 9)
             {
                 return true;
             }
@@ -167,7 +167,7 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <returns>True if valid, false if otherwise.</returns>
         public bool IsMbValid()
         {
-            if (MBPoverioca.Length == 8 || MBPoverioca.Length == 5 || MBPoverioca.Length == 13)
+            if (MbPoverioca.Length == 8 || MbPoverioca.Length == 5 || MbPoverioca.Length == 13)
             {
                 return true;
             }
@@ -190,10 +190,6 @@ namespace GriffinSoft.EasyRino.RinoCore
                 {
                     result = true;
                 }
-                else
-                {
-                    result = false;
-                }
             }
 
             return result;
@@ -206,18 +202,9 @@ namespace GriffinSoft.EasyRino.RinoCore
         public bool CheckForGeneralValidity()
         {
             // Result holding variable
-            bool result = false;
-
-            if (Iznos > 0 && NazivPoverioca.Length > 2 &&
-                IsPibValid() && IsMbValid() && NazivDokumenta.Length > 2 &&
-                BrojDokumenta.Length > 2)
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
+            var result = Iznos > 0 && NazivPoverioca.Length > 2 &&
+                         IsPibValid() && IsMbValid() && NazivDokumenta.Length > 2 &&
+                         BrojDokumenta.Length > 2;
 
             return result;
         }

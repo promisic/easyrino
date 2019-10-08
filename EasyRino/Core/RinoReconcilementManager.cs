@@ -53,7 +53,7 @@ namespace GriffinSoft.EasyRino.Core
         /// <summary>
         /// Property to get or set valid obligation field.
         /// </summary>
-        public bool ValidReconcilement { get; set; }
+        public bool ValidReconcilement { get; private set; }
 
         #endregion
 
@@ -72,16 +72,17 @@ namespace GriffinSoft.EasyRino.Core
             // Getting RINO header nodes
             XmlNodeList rinoXmlHeaderNodes = rinoXmlDoc.SelectNodes("//RINO");
 
-            foreach (XmlNode xmlNode in rinoXmlHeaderNodes)
-            {
-                XmlNode jbbkNode = xmlNode.SelectSingleNode("JBBK");
-                XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
+            if (rinoXmlHeaderNodes != null)
+                foreach (XmlNode xmlNode in rinoXmlHeaderNodes)
+                {
+                    XmlNode jbbkNode = xmlNode.SelectSingleNode("JBBK");
+                    XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
 
-                // Setting JBBK
-                Jbbk = jbbkNode.InnerText;
+                    // Setting JBBK
+                    if (jbbkNode != null) Jbbk = jbbkNode.InnerText;
 
-                ValidReconcilement = typeNode.InnerText == "Izmirenje";
-            }
+                    if (typeNode != null) ValidReconcilement = typeNode.InnerText == "Izmirenje";
+                }
 
             // Execute parsing stage ONLY if it is valid obligation XML file
             if (ValidReconcilement)
@@ -89,101 +90,99 @@ namespace GriffinSoft.EasyRino.Core
                 // Doing XPath search query
                 XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Izmirenja/Izmirenje");
 
-                // Creating CultureInfo object for date parsing
-                CultureInfo usCulture = new CultureInfo("en-US");
-
                 // Iterating each XmlNode
-                foreach (XmlNode xmlNode in xmlNodes)
-                {
-                    // Creating rri object to add to existing list
-                    RinoReconcilementItem rriObj = new RinoReconcilementItem();
-
-                    // Checking type of current XmlNode
-                    string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
-
-                    switch (xmlNodeValue)
+                if (xmlNodes != null)
+                    foreach (XmlNode xmlNode in xmlNodes)
                     {
-                        case "U":
-                            // Inserting new item
-                            rriObj.Action = RinoActionType.Unos;
-                            break;
-                        case "I":
-                            // Changing existing item
-                            rriObj.Action = RinoActionType.Izmena;
-                            break;
-                        case "O":
-                            // Deleting existing item
-                            rriObj.Action = RinoActionType.Otkazivanje;
-                            break;
+                        // Creating rri object to add to existing list
+                        RinoReconcilementItem rriObj = new RinoReconcilementItem();
+
+                        // Checking type of current XmlNode
+                        if (xmlNode.Attributes != null)
+                        {
+                            string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
+
+                            switch (xmlNodeValue)
+                            {
+                                case "U":
+                                    // Inserting new item
+                                    rriObj.Action = RinoActionType.Unos;
+                                    break;
+                                case "I":
+                                    // Changing existing item
+                                    rriObj.Action = RinoActionType.Izmena;
+                                    break;
+                                case "O":
+                                    // Deleting existing item
+                                    rriObj.Action = RinoActionType.Otkazivanje;
+                                    break;
+                            }
+                        }
+
+                        // Getting RINO ID
+                        XmlNode idNode = xmlNode.SelectSingleNode("Id");
+
+                        // Setting RINO ID
+                        if (idNode != null) rriObj.RinoId = Convert.ToInt64(idNode.InnerText);
+
+                        // Getting document number
+                        XmlNode bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
+
+                        // Setting document number
+                        if (bdNode != null) rriObj.BrojDokumenta = bdNode.InnerText;
+
+                        // Getting PIB ID
+                        XmlNode pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
+
+                        // Setting PIB ID
+                        if (pibNode != null) rriObj.PibPoverioca = pibNode.InnerText;
+
+                        // Getting bank info
+                        XmlNode bankNode = xmlNode.SelectSingleNode("Banka");
+
+                        // Setting bank info
+                        if (bankNode != null)
+                        {
+                            rriObj.Banka = bankNode.InnerText;
+
+                            // Getting ReklPodZaRek node
+                            XmlNode rpzrNode = xmlNode.SelectSingleNode("ReklPodZaRek");
+
+                            // Setting ReklPodZaRek value
+                            if (rpzrNode != null) rriObj.ReklPodZaRek = rpzrNode.InnerText;
+
+                            // Setting bank info
+                            rriObj.Banka = bankNode.InnerText;
+                        }
+
+                        // Getting document creation date
+                        XmlNode diNode = xmlNode.SelectSingleNode("DatumIzmirenja");
+
+                        // Checking if DatumIzmirenja is empty
+                        rriObj.DatumIzmirenja = diNode != null && diNode.InnerText.Length > 0
+                            ? DateTime.ParseExact(diNode.InnerText, "yyyy-MM-dd", null)
+                            : new DateTime();
+
+                        // Getting ammount
+                        XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
+
+                        // Setting amount
+                        if (iznosNode != null)
+                            rriObj.Iznos = decimal.Parse(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
+
+                        // This node may be missing / is optional.
+                        if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
+                        {
+                            // Getting reason for change
+                            XmlNode riNode = xmlNode.SelectSingleNode("RazlogIzmene");
+
+                            // Setting reason for change
+                            if (riNode != null) rriObj.RazlogIzmene = riNode.InnerText;
+                        }
+
+                        // Adding rriObj object to rri
+                        rri.Add(rriObj);
                     }
-
-                    // Getting RINO ID
-                    XmlNode idNode = xmlNode.SelectSingleNode("Id");
-
-                    // Setting RINO ID
-                    rriObj.RinoId = Convert.ToInt64(idNode.InnerText);
-
-                    // Getting document number
-                    XmlNode bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
-
-                    // Setting document number
-                    rriObj.BrojDokumenta = bdNode.InnerText;
-
-                    // Getting PIB ID
-                    XmlNode pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
-
-                    // Setting PIB ID
-                    rriObj.PIBPoverioca = pibNode.InnerText;
-
-                    // Getting bank info
-                    XmlNode bankNode = xmlNode.SelectSingleNode("Banka");
-
-                    // Setting bank info
-                    rriObj.Banka = bankNode.InnerText;
-
-                    // Getting ReklPodZaRek node
-                    XmlNode rpzrNode = xmlNode.SelectSingleNode("ReklPodZaRek");
-
-                    // Setting ReklPodZaRek value
-                    rriObj.ReklPodZaRek = rpzrNode.InnerText;
-
-                    // Setting bank info
-                    rriObj.Banka = bankNode.InnerText;
-
-                    // Getting document creation date
-                    XmlNode diNode = xmlNode.SelectSingleNode("DatumIzmirenja");
-
-                    // Checking if DatumIzmirenja is empty
-                    if (diNode.InnerText.Length > 0)
-                    {
-                        // Setting document creation date
-                        rriObj.DatumIzmirenja = DateTime.ParseExact(diNode.InnerText, "yyyy-MM-dd", null);
-                    }
-                    else
-                    {
-                        // Setting empty DateTime object
-                        rriObj.DatumIzmirenja = new DateTime();
-                    }
-
-                    // Getting ammount
-                    XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
-
-                    // Setting amount
-                    rriObj.Iznos = decimal.Parse(iznosNode.InnerText, CultureInfo.GetCultureInfo("en-US"));
-
-                    // This node may be missing / is optional.
-                    if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
-                    {
-                        // Getting reason for change
-                        XmlNode riNode = xmlNode.SelectSingleNode("RazlogIzmene");
-
-                        // Setting reason for change
-                        rriObj.RazlogIzmene = riNode.InnerText;
-                    }
-
-                    // Adding rriObj object to rri
-                    rri.Add(rriObj);
-                }
             }
 
             return rri;
@@ -259,7 +258,7 @@ namespace GriffinSoft.EasyRino.Core
 
                 rinoIzmirenjeAttr.Value = vrstaPosla;
                 // Appending attribute
-                rinoIzmirenjeNode.Attributes.Append(rinoIzmirenjeAttr);
+                rinoIzmirenjeNode.Attributes?.Append(rinoIzmirenjeAttr);
                 // Append node
                 rinoIzmirenjaNode.AppendChild(rinoIzmirenjeNode);
 
@@ -280,7 +279,7 @@ namespace GriffinSoft.EasyRino.Core
                 // Creating PIBPoverioca node
                 XmlNode rinoPibNode = rinoXml.CreateElement("PIBPoverioca");
                 // Setting PIBPoverica value
-                rinoPibNode.InnerText = rriItem.PIBPoverioca;
+                rinoPibNode.InnerText = rriItem.PibPoverioca;
                 // Append node
                 rinoIzmirenjeNode.AppendChild(rinoPibNode);
 
@@ -313,7 +312,7 @@ namespace GriffinSoft.EasyRino.Core
                 rinoIzmirenjeNode.AppendChild(rinoIznosNode);
 
                 // Checking for optional RazlogIzmene
-                if (rriItem.RazlogIzmene != null && rriItem.RazlogIzmene.Length > 0)
+                if (!string.IsNullOrEmpty(rriItem.RazlogIzmene))
                 {
                     // Creating RazlogIzmene node
                     XmlNode rinoRiNode = rinoXml.CreateElement("RazlogIzmene");
@@ -332,17 +331,9 @@ namespace GriffinSoft.EasyRino.Core
         #region DataTable manipulation methods region
 
         /// <summary>
-        /// Destroy everything inside internal DataTable object.
-        /// </summary>
-        public void NukeDataTable()
-        {
-            RinoDataTable.Clear();
-        }
-
-        /// <summary>
         /// Clears all rows inside internal DataTable object.
         /// </summary>
-        public void ClearDataTableRows()
+        private void ClearDataTableRows()
         {
             RinoDataTable.Rows.Clear();
         }
@@ -350,7 +341,7 @@ namespace GriffinSoft.EasyRino.Core
         /// <summary>
         /// Fill's interal DataTable object with columns.
         /// </summary>
-        public void FillDataTableWithColumns()
+        private void FillDataTableWithColumns()
         {
             // Adding columns to DataTable object
             RinoDataTable.Columns.Add("rinoAction", typeof(string));
@@ -391,37 +382,18 @@ namespace GriffinSoft.EasyRino.Core
                         break;
                 }
 
-                // RINO paid date variable
-                string rinoPaidDate = null;
-
                 // RINO due date validity check
-                if (!CheckUninitializedDate(listItem.DatumIzmirenja))
-                {
-                    rinoPaidDate = listItem.DatumIzmirenja.ToString("dd.MM.yyyy");
-                }
-                else
-                {
-                    rinoPaidDate = null;
-                }
+                var rinoPaidDate = !CheckUninitializedDate(listItem.DatumIzmirenja) ? listItem.DatumIzmirenja.ToString("dd.MM.yyyy") : null;
 
                 // RINO reason for change variable
-                string rinoReasonForChange = null;
-
-                if (listItem.RazlogIzmene != null)
-                {
-                    rinoReasonForChange = listItem.RazlogIzmene;
-                }
-                else
-                {
-                    rinoReasonForChange = null;
-                }
+                var rinoReasonForChange = listItem.RazlogIzmene;
 
                 // Adding new row to DataTable object
                 RinoDataTable.Rows.Add(
                     rinoAction,
                     listItem.RinoId,
                     listItem.BrojDokumenta,
-                    listItem.PIBPoverioca,
+                    listItem.PibPoverioca,
                     listItem.Banka,
                     listItem.ReklPodZaRek,
                     rinoPaidDate,
