@@ -603,7 +603,7 @@ namespace GriffinSoft.EasyRino
                 var rrm = new RinoReconcilementManager();
 
                 // Populating roiList object
-                _rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoObligationXml(xmlPath));
+                _rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoReconcilementXml(xmlPath));
 
                 // Checking if XML file is valid reconcilement type
                 if (rrm.ValidReconcilement)
