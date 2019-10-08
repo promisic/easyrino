@@ -17,11 +17,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GriffinSoft.EasyRino
@@ -66,7 +63,10 @@ namespace GriffinSoft.EasyRino
                                     culture,
                                     new object[] { culture });
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             try
             {
@@ -82,7 +82,10 @@ namespace GriffinSoft.EasyRino
                                     culture,
                                     new object[] { culture });
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

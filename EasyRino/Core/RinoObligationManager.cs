@@ -37,7 +37,6 @@ namespace GriffinSoft.EasyRino.Core
         /// </summary>
         public DataTable RinoDataTable { get; private set; }
 
-
         /// <summary>
         /// Property to get or set JBBK ID.
         /// </summary>
@@ -46,7 +45,7 @@ namespace GriffinSoft.EasyRino.Core
         /// <summary>
         /// Property to get or set valid obligation field.
         /// </summary>
-        public bool ValidObligation { get; set; }
+        public bool ValidObligation { get; private set; }
 
         #endregion
 
@@ -74,16 +73,17 @@ namespace GriffinSoft.EasyRino.Core
             // Getting RINO header nodes
             XmlNodeList rinoXmlHeaderNodes = rinoXmlDoc.SelectNodes("//RINO");
 
-            foreach (XmlNode xmlNode in rinoXmlHeaderNodes)
-            {
-                XmlNode jbbkNode = xmlNode.SelectSingleNode("JBBK");
-                XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
+            if (rinoXmlHeaderNodes != null)
+                foreach (XmlNode xmlNode in rinoXmlHeaderNodes)
+                {
+                    XmlNode jbbkNode = xmlNode.SelectSingleNode("JBBK");
+                    XmlNode typeNode = xmlNode.SelectSingleNode("Tip");
 
-                // Setting JBBK
-                Jbbk = jbbkNode.InnerText;
+                    // Setting JBBK
+                    if (jbbkNode != null) Jbbk = jbbkNode.InnerText;
 
-                ValidObligation = typeNode.InnerText == "Obaveza";
-            }
+                    if (typeNode != null) ValidObligation = typeNode.InnerText == "Obaveza";
+                }
 
             // Execute parsing stage ONLY if it is valid obligation XML file
             if (ValidObligation)
@@ -91,128 +91,132 @@ namespace GriffinSoft.EasyRino.Core
                 // Doing XPath search query
                 XmlNodeList xmlNodes = rinoXmlDoc.SelectNodes("//RINO/Obaveze/Obaveza");
 
-                // Creating CultureInfo object for date parsing
-                CultureInfo usCulture = new CultureInfo("en-US");
-
                 // Iterating each XmlNode
-                foreach (XmlNode xmlNode in xmlNodes)
-                {
-                    // Creating ROI object to add to existing list
-                    RinoObligationItem roiObj = new RinoObligationItem();
-
-                    // Checking type of current XmlNode
-                    string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
-
-                    switch (xmlNodeValue)
+                if (xmlNodes != null)
+                    foreach (XmlNode xmlNode in xmlNodes)
                     {
-                        case "U":
-                            // Inserting new item
-                            roiObj.Action = RinoActionType.Unos;
-                            break;
-                        case "I":
-                            // Changing existing item
-                            roiObj.Action = RinoActionType.Izmena;
-                            break;
-                        case "O":
-                            // Deleting existing item
-                            roiObj.Action = RinoActionType.Otkazivanje;
-                            break;
+                        // Creating ROI object to add to existing list
+                        RinoObligationItem roiObj = new RinoObligationItem();
+
+                        // Checking type of current XmlNode
+                        if (xmlNode.Attributes != null)
+                        {
+                            string xmlNodeValue = xmlNode.Attributes["VrstaPosla"].Value;
+
+                            switch (xmlNodeValue)
+                            {
+                                case "U":
+                                    // Inserting new item
+                                    roiObj.Action = RinoActionType.Unos;
+                                    break;
+                                case "I":
+                                    // Changing existing item
+                                    roiObj.Action = RinoActionType.Izmena;
+                                    break;
+                                case "O":
+                                    // Deleting existing item
+                                    roiObj.Action = RinoActionType.Otkazivanje;
+                                    break;
+                            }
+                        }
+
+                        // Getting ammount
+                        XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
+
+                        // Setting amount
+                        if (iznosNode != null)
+                            roiObj.Iznos = Decimal.Parse(iznosNode.InnerText,
+                                CultureInfo.CreateSpecificCulture("en-US"));
+
+                        // Getting name
+                        XmlNode nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
+
+                        // Setting name
+                        if (nazivNode != null) roiObj.NazivPoverioca = nazivNode.InnerText;
+
+                        // Getting PIB ID
+                        XmlNode pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
+
+                        // Setting PIB ID
+                        if (pibNode != null) roiObj.PibPoverioca = pibNode.InnerText;
+
+                        // Getting MB ID
+                        XmlNode mbNode = xmlNode.SelectSingleNode("MBPoverioca");
+
+                        // Setting MB ID
+                        if (mbNode != null) roiObj.MbPoverioca = mbNode.InnerText;
+
+                        // Getting VrstaPoverioca
+                        XmlNode vpNode = xmlNode.SelectSingleNode("VrstaPoverioca");
+
+                        // Parsing and setting VrstaPoverioca
+                        if (vpNode != null)
+                            switch (vpNode.InnerText)
+                            {
+                                case "0":
+                                    roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
+                                    break;
+                                case "1":
+                                    roiObj.VrstaPoverioca = RinoVrstaPoverioca.JavniSektor;
+                                    break;
+                                case "8":
+                                    roiObj.VrstaPoverioca = RinoVrstaPoverioca.PoljoprivrednaGazdinstva;
+                                    break;
+                                case "9":
+                                    roiObj.VrstaPoverioca = RinoVrstaPoverioca.Kompenzacija;
+                                    break;
+                                default:
+                                    roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
+                                    break;
+                            }
+
+                        // Getting document name
+                        XmlNode ndNode = xmlNode.SelectSingleNode("NazivDokumenta");
+
+                        // Setting document name
+                        if (ndNode != null) roiObj.NazivDokumenta = ndNode.InnerText;
+
+                        // Getting document number
+                        XmlNode bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
+
+                        // Setting document number
+                        if (bdNode != null) roiObj.BrojDokumenta = bdNode.InnerText;
+
+                        // Getting document creation date
+                        XmlNode ddNode = xmlNode.SelectSingleNode("DatumDokumenta");
+
+                        // Setting document creation date
+                        roiObj.DatumDokumenta = DateTime.ParseExact(s: ddNode.InnerText, "yyyy-MM-dd", null);
+
+                        // Getting document obligation start date
+                        XmlNode dnNode = xmlNode.SelectSingleNode("DatumNastanka");
+
+                        // Setting document obligation start date
+                        roiObj.DatumNastanka = DateTime.ParseExact(dnNode.InnerText, "yyyy-MM-dd", null);
+
+                        // This node may be missing / is optional.
+                        if (xmlNode.SelectSingleNode("DatumRokaZaIzmirenje") != null)
+                        {
+                            // Getting document payment due date
+                            XmlNode driNode = xmlNode.SelectSingleNode("DatumRokaZaIzmirenje");
+
+                            // Setting document payment due date
+                            roiObj.DatumRokaZaIzmirenje = DateTime.ParseExact(driNode.InnerText, "yyyy-MM-dd", null);
+                        }
+
+                        // This node may be missing / is optional.
+                        if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
+                        {
+                            // Getting reason for change
+                            XmlNode riNode = xmlNode.SelectSingleNode("RazlogIzmene");
+
+                            // Setting reason for change
+                            roiObj.RazlogIzmene = riNode.InnerText;
+                        }
+
+                        // Adding roiObj object to roi
+                        roi.Add(roiObj);
                     }
-
-                    // Getting ammount
-                    XmlNode iznosNode = xmlNode.SelectSingleNode("Iznos");
-
-                    // Setting amount
-                    roiObj.Iznos = Decimal.Parse(iznosNode.InnerText, CultureInfo.CreateSpecificCulture("en-US"));
-
-                    // Getting name
-                    XmlNode nazivNode = xmlNode.SelectSingleNode("NazivPoverioca");
-
-                    // Setting name
-                    roiObj.NazivPoverioca = nazivNode.InnerText;
-
-                    // Getting PIB ID
-                    XmlNode pibNode = xmlNode.SelectSingleNode("PIBPoverioca");
-
-                    // Setting PIB ID
-                    roiObj.PIBPoverioca = pibNode.InnerText;
-
-                    // Getting MB ID
-                    XmlNode mbNode = xmlNode.SelectSingleNode("MBPoverioca");
-
-                    // Setting MB ID
-                    roiObj.MBPoverioca = mbNode.InnerText;
-
-                    // Getting VrstaPoverioca
-                    XmlNode vpNode = xmlNode.SelectSingleNode("VrstaPoverioca");
-
-                    // Parsing and setting VrstaPoverioca
-                    switch (vpNode.InnerText)
-                    {
-                        case "0":
-                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
-                            break;
-                        case "1":
-                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.JavniSektor;
-                            break;
-                        case "8":
-                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PoljoprivrednaGazdinstva;
-                            break;
-                        case "9":
-                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.Kompenzacija;
-                            break;
-                        default:
-                            roiObj.VrstaPoverioca = RinoVrstaPoverioca.PravnaLica;
-                            break;
-                    }
-
-                    // Getting document name
-                    XmlNode ndNode = xmlNode.SelectSingleNode("NazivDokumenta");
-
-                    // Setting document name
-                    roiObj.NazivDokumenta = ndNode.InnerText;
-
-                    // Getting document number
-                    XmlNode bdNode = xmlNode.SelectSingleNode("BrojDokumenta");
-
-                    // Setting document number
-                    roiObj.BrojDokumenta = bdNode.InnerText;
-
-                    // Getting document creation date
-                    XmlNode ddNode = xmlNode.SelectSingleNode("DatumDokumenta");
-
-                    // Setting document creation date
-                    roiObj.DatumDokumenta = DateTime.ParseExact(ddNode.InnerText, "yyyy-MM-dd", null);
-
-                    // Getting document obligation start date
-                    XmlNode dnNode = xmlNode.SelectSingleNode("DatumNastanka");
-
-                    // Setting document obligation start date
-                    roiObj.DatumNastanka = DateTime.ParseExact(dnNode.InnerText, "yyyy-MM-dd", null);
-
-                    // This node may be missing / is optional.
-                    if (xmlNode.SelectSingleNode("DatumRokaZaIzmirenje") != null)
-                    {
-                        // Getting document payment due date
-                        XmlNode driNode = xmlNode.SelectSingleNode("DatumRokaZaIzmirenje");
-
-                        // Setting document payment due date
-                        roiObj.DatumRokaZaIzmirenje = DateTime.ParseExact(driNode.InnerText, "yyyy-MM-dd", null);
-                    }
-
-                    // This node may be missing / is optional.
-                    if (xmlNode.SelectSingleNode("RazlogIzmene") != null)
-                    {
-                        // Getting reason for change
-                        XmlNode riNode = xmlNode.SelectSingleNode("RazlogIzmene");
-
-                        // Setting reason for change
-                        roiObj.RazlogIzmene = riNode.InnerText;
-                    }
-
-                    // Adding roiObj object to roi
-                    roi.Add(roiObj);
-                }
             }
 
             return roi;
@@ -288,7 +292,7 @@ namespace GriffinSoft.EasyRino.Core
 
                 rinoObavezaAttr.Value = vrstaPosla;
                 // Appending attribute
-                rinoObavezaNode.Attributes.Append(rinoObavezaAttr);
+                rinoObavezaNode.Attributes?.Append(rinoObavezaAttr);
                 // Append node
                 rinoObavezeNode.AppendChild(rinoObavezaNode);
 
@@ -309,14 +313,14 @@ namespace GriffinSoft.EasyRino.Core
                 // Creating PIBPoverioca node
                 XmlNode rinoPibNode = rinoXml.CreateElement("PIBPoverioca");
                 // Setting PIBPoverica value
-                rinoPibNode.InnerText = roiItem.PIBPoverioca;
+                rinoPibNode.InnerText = roiItem.PibPoverioca;
                 // Append node
                 rinoObavezaNode.AppendChild(rinoPibNode);
 
                 // Creating MBPoverioca node
                 XmlNode rinoMbNode = rinoXml.CreateElement("MBPoverioca");
                 // Setting MBPoverioca value
-                rinoMbNode.InnerText = roiItem.MBPoverioca;
+                rinoMbNode.InnerText = roiItem.MbPoverioca;
                 // Append node
                 rinoObavezaNode.AppendChild(rinoMbNode);
 
@@ -341,7 +345,7 @@ namespace GriffinSoft.EasyRino.Core
                         break;
                 }
 
-                rinoVpNode.InnerText = vrstaPoverioca;
+                rinoVpNode.InnerText = vrstaPoverioca ?? throw new InvalidOperationException();
                 // Append node
                 rinoObavezaNode.AppendChild(rinoVpNode);
 
@@ -407,17 +411,9 @@ namespace GriffinSoft.EasyRino.Core
         #region DataTable manipulation methods region
 
         /// <summary>
-        /// Destroy everything inside internal DataTable object.
-        /// </summary>
-        public void NukeDataTable()
-        {
-            RinoDataTable.Clear();
-        }
-
-        /// <summary>
         /// Clears all rows inside internal DataTable object.
         /// </summary>
-        public void ClearDataTableRows()
+        private void ClearDataTableRows()
         {
             RinoDataTable.Rows.Clear();
         }
@@ -425,7 +421,7 @@ namespace GriffinSoft.EasyRino.Core
         /// <summary>
         /// Fill's interal DataTable object with columns.
         /// </summary>
-        public void FillDataTableWithColumns()
+        private void FillDataTableWithColumns()
         {
             // Adding columns to DataTable object
             RinoDataTable.Columns.Add("rinoAction", typeof(string));
@@ -488,38 +484,19 @@ namespace GriffinSoft.EasyRino.Core
                         break;
                 }
 
-                // RINO due date variable
-                string rinoDueDate = null;
-
                 // RINO due date validity check
-                if (!CheckUninitializedDate(listItem.DatumRokaZaIzmirenje))
-                {
-                    rinoDueDate = listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy");
-                }
-                else
-                {
-                    rinoDueDate = null;
-                }
+                var rinoDueDate = !CheckUninitializedDate(listItem.DatumRokaZaIzmirenje) ? listItem.DatumRokaZaIzmirenje.ToString("dd.MM.yyyy") : null;
 
                 // RINO reason for change variable
-                string rinoReasonForChange = null;
-
-                if (listItem.RazlogIzmene != null)
-                {
-                    rinoReasonForChange = listItem.RazlogIzmene;
-                }
-                else
-                {
-                    rinoReasonForChange = null;
-                }
+                var rinoReasonForChange = listItem.RazlogIzmene;
 
                 // Adding new row to DataTable object
                 RinoDataTable.Rows.Add(
                     rinoAction,
                     listItem.Iznos,
                     listItem.NazivPoverioca,
-                    listItem.PIBPoverioca,
-                    listItem.MBPoverioca,
+                    listItem.PibPoverioca,
+                    listItem.MbPoverioca,
                     rinoVrstaPoverica,
                     listItem.NazivDokumenta,
                     listItem.BrojDokumenta,

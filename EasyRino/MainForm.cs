@@ -48,12 +48,12 @@ namespace GriffinSoft.EasyRino
         /// <summary>
         /// Internal list of RinoObligationItem's
         /// </summary>
-        private List<RinoObligationItem> roiList = new List<RinoObligationItem>();
+        private List<RinoObligationItem> _roiList = new List<RinoObligationItem>();
 
         /// <summary>
         /// Internal list of RinoReconcilementItem's.
         /// </summary>
-        private List<RinoReconcilementItem> rriList = new List<RinoReconcilementItem>();
+        private List<RinoReconcilementItem> _rriList = new List<RinoReconcilementItem>();
 
         #endregion
 
@@ -62,12 +62,12 @@ namespace GriffinSoft.EasyRino
         /// <summary>
         /// Internal row number field.
         /// </summary>
-        private int rowNumber = 0;
+        private int _rowNumber;
 
         /// <summary>
         /// Internal reconcilation row number field.
         /// </summary>
-        private int reconRowNumber = 0;
+        private int _reconRowNumber;
 
         #endregion
 
@@ -99,13 +99,13 @@ namespace GriffinSoft.EasyRino
                 RinoObligationManager rom = new RinoObligationManager();
 
                 // Populating roiList object
-                roiList = rom.ConvertXmlToRinoList(rinoObligationXmlImport.ImportRinoObligationXml(xmlPath));
+                _roiList = rom.ConvertXmlToRinoList(rinoObligationXmlImport.ImportRinoObligationXml(xmlPath));
 
                 // Checking if XML file is valid reconcilement type
                 if (rom.ValidObligation)
                 {
                     // Converting ROI list to DataTable for display
-                    rom.ConvertRinoListToDataTable(roiList);
+                    rom.ConvertRinoListToDataTable(_roiList);
 
                     // Setting data to datagrid
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -141,7 +141,7 @@ namespace GriffinSoft.EasyRino
             }
 
             // Iznos variable
-            decimal iznos = 0;
+            decimal iznos;
 
             try
             {
@@ -179,27 +179,27 @@ namespace GriffinSoft.EasyRino
                     );
 
                 // Variable holds ROI check result
-                bool RoiDoesNotAlreadyExist = true;
+                bool roiDoesNotAlreadyExist = true;
 
-                foreach (RinoObligationItem roiItem in roiList)
+                foreach (RinoObligationItem roiItem in _roiList)
                 {
-                    if (((roi.PIBPoverioca == roiItem.PIBPoverioca) &&
+                    if (((roi.PibPoverioca == roiItem.PibPoverioca) &&
                         (roi.BrojDokumenta == roiItem.BrojDokumenta)))
                     {
                         // ROI already exists
-                        RoiDoesNotAlreadyExist = false;
+                        roiDoesNotAlreadyExist = false;
                         break;
                     }
 
                 }
 
                 // If ROI does not already exists in the list, then continue
-                if (RoiDoesNotAlreadyExist == true)
+                if (roiDoesNotAlreadyExist)
                 {
                     // Checking for data validity
-                    if (roi.IsPibValid() == true)
+                    if (roi.IsPibValid())
                     {
-                        if (roi.IsMbValid() == true)
+                        if (roi.IsMbValid())
                         {
                             if (roi.Action == RinoActionType.Izmena || roi.Action == RinoActionType.Otkazivanje)
                             {
@@ -211,10 +211,10 @@ namespace GriffinSoft.EasyRino
                                         RinoObligationManager rom = new RinoObligationManager();
 
                                         // Inserting new item and setting new value to roiList object
-                                        roiList = rom.InsertNewItem(roiList, roi);
+                                        _roiList = rom.InsertNewItem(_roiList, roi);
 
                                         // Converting roiList to DataTable object to display data
-                                        rom.ConvertRinoListToDataTable(roiList);
+                                        rom.ConvertRinoListToDataTable(_roiList);
 
                                         // Setting DataSource property to dataGridView object
                                         rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -241,10 +241,10 @@ namespace GriffinSoft.EasyRino
                                     RinoObligationManager rom = new RinoObligationManager();
 
                                     // Inserting new item and setting new value to roiList object
-                                    roiList = rom.InsertNewItem(roiList, roi);
+                                    _roiList = rom.InsertNewItem(_roiList, roi);
 
                                     // Converting roiList to DataTable object to display data
-                                    rom.ConvertRinoListToDataTable(roiList);
+                                    rom.ConvertRinoListToDataTable(_roiList);
 
                                     // Setting DataSource property to dataGridView object
                                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -272,7 +272,7 @@ namespace GriffinSoft.EasyRino
                     }
 
                     // Setting row index to 0
-                    rowNumber = 0;
+                    _rowNumber = 0;
 
                     // Reset fields
                     ResetObligationFields();
@@ -372,19 +372,18 @@ namespace GriffinSoft.EasyRino
         private void modifyObligationBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (roiList.Capacity > 0)
+            if (_roiList.Capacity > 0)
             {
                 // Get row position
-                rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
+                _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
 
                 // Creating RinoObligationManager object
                 RinoObligationManager rom = new RinoObligationManager();
 
                 // Declaring RinoObligationItem object
-                RinoObligationItem roi;
 
                 // Getting ROI object
-                roi = rom.GetRoiItemAt(roiList, rowNumber);
+                var roi = rom.GetRoiItemAt(_roiList, _rowNumber);
 
                 // Setting values to all UI fields
                 // Setting action type
@@ -408,10 +407,10 @@ namespace GriffinSoft.EasyRino
                 nazivPoveriocaTextBox.Text = roi.NazivPoverioca;
 
                 // Setting PIBPoverioca
-                pibTextBox.Text = roi.PIBPoverioca;
+                pibTextBox.Text = roi.PibPoverioca;
 
                 // Setting MBPoverioca
-                mbTextBox.Text = roi.MBPoverioca;
+                mbTextBox.Text = roi.MbPoverioca;
 
                 // Setting VrstaPoverioca
                 switch (roi.VrstaPoverioca)
@@ -461,14 +460,7 @@ namespace GriffinSoft.EasyRino
                 }
 
                 // Setting RazlogIzmene
-                if (roi.RazlogIzmene != null && roi.RazlogIzmene.Length > 0)
-                {
-                    razlogIzmeneTextBox.Text = roi.RazlogIzmene;
-                }
-                else
-                {
-                    razlogIzmeneTextBox.Text = null;
-                }
+                razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(roi.RazlogIzmene) ? roi.RazlogIzmene : null;
 
                 // Enabling save obligation changes button
                 saveObligationChangesBtn.Visible = true;
@@ -486,7 +478,7 @@ namespace GriffinSoft.EasyRino
         private void deleteObligationBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (roiList.Capacity > 0)
+            if (_roiList.Capacity > 0)
             {
                 DialogResult diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sledeću stavku?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -495,22 +487,22 @@ namespace GriffinSoft.EasyRino
                 if (diagResult == DialogResult.Yes)
                 {
                     // Get row position
-                    rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
+                    _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
 
                     // Creating RinoObligationManager object
                     RinoObligationManager rom = new RinoObligationManager();
 
                     // Remove item at selected index position
-                    roiList = rom.RemoveItemAt(roiList, rowNumber);
+                    _roiList = rom.RemoveItemAt(_roiList, _rowNumber);
 
                     // Converting roiList to DataTable object to display data
-                    rom.ConvertRinoListToDataTable(roiList);
+                    rom.ConvertRinoListToDataTable(_roiList);
 
                     // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
 
                     // Setting row index to 0
-                    rowNumber = 0;
+                    _rowNumber = 0;
 
                     // Reset fields
                     ResetObligationFields();
@@ -525,7 +517,7 @@ namespace GriffinSoft.EasyRino
         private void deleteAllObligationsBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (roiList.Capacity > 0)
+            if (_roiList.Capacity > 0)
             {
                 DialogResult diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sve stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -534,13 +526,13 @@ namespace GriffinSoft.EasyRino
                 if (diagResult == DialogResult.Yes)
                 {
                     // Clearing roiList object
-                    roiList.Clear();
+                    _roiList.Clear();
 
                     // Creating RinoObligationManager object
                     RinoObligationManager rom = new RinoObligationManager();
 
                     // Converting roiList to DataTable object to display data
-                    rom.ConvertRinoListToDataTable(roiList);
+                    rom.ConvertRinoListToDataTable(_roiList);
 
                     // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -559,7 +551,7 @@ namespace GriffinSoft.EasyRino
         {
             if (CheckIfJbbkSettingsExist())
             {
-                if (roiList.Capacity > 0)
+                if (_roiList.Capacity > 0)
                 {
                     // Clearing existing path if program is already running
                     saveObligationXmlDialog.FileName = "";
@@ -572,17 +564,14 @@ namespace GriffinSoft.EasyRino
                         // Getting JBBK number from settings file
                         string jbbk = Properties.Settings.Default.jbbk;
 
-                        // Creating RinoObligationManager object
-                        RinoObligationManager rom = new RinoObligationManager();
-
-                        // Setting JBBK number
-                        rom.Jbbk = jbbk;
+                        // Creating RinoObligationManager object and setting JBBK number
+                        RinoObligationManager rom = new RinoObligationManager {Jbbk = jbbk};
 
                         // Creating RinoXmlExport object
                         IRinoExporter rinoXmlExport = new RinoXmlExport();
 
                         // Saving file to filesystem
-                        rinoXmlExport.ExportRinoObligationXml(rom.ConvertRinoListToXml(roiList),
+                        rinoXmlExport.ExportRinoObligationXml(rom.ConvertRinoListToXml(_roiList),
                             xmlPath);
 
                         // Reset fields
@@ -625,7 +614,7 @@ namespace GriffinSoft.EasyRino
             }
 
             // Iznos variable
-            decimal iznos = 0;
+            decimal iznos;
 
             try
             {
@@ -678,10 +667,10 @@ namespace GriffinSoft.EasyRino
                                     RinoObligationManager rom = new RinoObligationManager();
 
                                     // Inserting new item and setting new value to roiList object
-                                    roiList = rom.ModifyExistingItem(roiList, roi, rowNumber);
+                                    _roiList = rom.ModifyExistingItem(_roiList, roi, _rowNumber);
 
                                     // Converting roiList to DataTable object to display data
-                                    rom.ConvertRinoListToDataTable(roiList);
+                                    rom.ConvertRinoListToDataTable(_roiList);
 
                                     // Setting DataSource property to dataGridView object
                                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -708,10 +697,10 @@ namespace GriffinSoft.EasyRino
                                 RinoObligationManager rom = new RinoObligationManager();
 
                                 // Inserting new item and setting new value to roiList object
-                                roiList = rom.ModifyExistingItem(roiList, roi, rowNumber);
+                                _roiList = rom.ModifyExistingItem(_roiList, roi, _rowNumber);
 
                                 // Converting roiList to DataTable object to display data
-                                rom.ConvertRinoListToDataTable(roiList);
+                                rom.ConvertRinoListToDataTable(_roiList);
 
                                 // Setting DataSource property to dataGridView object
                                 rinoObligationDataGridView.DataSource = rom.RinoDataTable;
@@ -739,7 +728,7 @@ namespace GriffinSoft.EasyRino
                 }
 
                 // Setting row index to 0
-                rowNumber = 0;
+                _rowNumber = 0;
 
                 // Hide save obligation changes button
                 saveObligationChangesBtn.Visible = false;
@@ -764,19 +753,18 @@ namespace GriffinSoft.EasyRino
         private void cloneObliationBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (roiList.Capacity > 0)
+            if (_roiList.Capacity > 0)
             {
                 // Get row position
-                rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
+                _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
 
                 // Creating RinoObligationManager object
                 RinoObligationManager rom = new RinoObligationManager();
 
                 // Declaring RinoObligationItem object
-                RinoObligationItem roi;
 
                 // Getting RIO object
-                roi = rom.GetRoiItemAt(roiList, rowNumber);
+                var roi = rom.GetRoiItemAt(_roiList, _rowNumber);
 
                 // Setting values to all UI fields
                 // Setting action type
@@ -800,10 +788,10 @@ namespace GriffinSoft.EasyRino
                 nazivPoveriocaTextBox.Text = roi.NazivPoverioca;
 
                 // Setting PIBPoverioca
-                pibTextBox.Text = roi.PIBPoverioca;
+                pibTextBox.Text = roi.PibPoverioca;
 
                 // Setting MBPoverioca
-                mbTextBox.Text = roi.MBPoverioca;
+                mbTextBox.Text = roi.MbPoverioca;
 
                 // Setting VrstaPoverioca
                 switch (roi.VrstaPoverioca)
@@ -853,14 +841,7 @@ namespace GriffinSoft.EasyRino
                 }
 
                 // Setting RazlogIzmene
-                if (roi.RazlogIzmene != null && roi.RazlogIzmene.Length > 0)
-                {
-                    razlogIzmeneTextBox.Text = roi.RazlogIzmene;
-                }
-                else
-                {
-                    razlogIzmeneTextBox.Text = null;
-                }
+                razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(roi.RazlogIzmene) ? roi.RazlogIzmene : null;
             }
         }
 
@@ -886,13 +867,13 @@ namespace GriffinSoft.EasyRino
                 RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                 // Populating roiList object
-                rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoObligationXml(xmlPath));
+                _rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoObligationXml(xmlPath));
 
                 // Checking if XML file is valid reconcilement type
                 if (rrm.ValidReconcilement)
                 {
                     // Converting ROI list to DataTable for display
-                    rrm.ConvertRinoListToDataTable(rriList);
+                    rrm.ConvertRinoListToDataTable(_rriList);
 
                     // Setting data to datagrid
                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -917,7 +898,7 @@ namespace GriffinSoft.EasyRino
         {
             if (CheckIfJbbkSettingsExist())
             {
-                if (rriList.Capacity > 0)
+                if (_rriList.Capacity > 0)
                 {
                     // Clearing existing path if program is already running
                     saveReconcilementXmlDialog.FileName = "";
@@ -930,17 +911,14 @@ namespace GriffinSoft.EasyRino
                         // Getting JBBK number from settings file
                         string jbbk = Properties.Settings.Default.jbbk;
 
-                        // Creating RinoReconcilementManager object
-                        RinoReconcilementManager rrm = new RinoReconcilementManager();
-
-                        // Setting JBBK number
-                        rrm.Jbbk = jbbk;
+                        // Creating RinoReconcilementManager object and setting JBBK number
+                        RinoReconcilementManager rrm = new RinoReconcilementManager {Jbbk = jbbk};
 
                         // Creating RinoXmlExport object
                         IRinoExporter rinoXmlExport = new RinoXmlExport();
 
                         // Saving file to filesystem
-                        rinoXmlExport.ExportRinoObligationXml(rrm.ConvertRinoListToXml(rriList),
+                        rinoXmlExport.ExportRinoReconcilementXml(rrm.ConvertRinoListToXml(_rriList),
                             xmlPath);
 
                         // Reset fields
@@ -973,7 +951,7 @@ namespace GriffinSoft.EasyRino
             RinoActionType actionType = GetRinoActionType();
 
             // Iznos variable
-            decimal iznos = 0;
+            decimal iznos;
 
             try
             {
@@ -1021,10 +999,10 @@ namespace GriffinSoft.EasyRino
                                     RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                                     // Inserting new item and setting new value to rriList object
-                                    rriList = rrm.InsertNewItem(rriList, rri);
+                                    _rriList = rrm.InsertNewItem(_rriList, rri);
 
                                     // Converting rriList to DataTable object to display data
-                                    rrm.ConvertRinoListToDataTable(rriList);
+                                    rrm.ConvertRinoListToDataTable(_rriList);
 
                                     // Setting DataSource property to dataGridView object
                                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -1051,10 +1029,10 @@ namespace GriffinSoft.EasyRino
                                 RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                                 // Inserting new item and setting new value to rriList object
-                                rriList = rrm.InsertNewItem(rriList, rri);
+                                _rriList = rrm.InsertNewItem(_rriList, rri);
 
                                 // Converting rriList to DataTable object to display data
-                                rrm.ConvertRinoListToDataTable(rriList);
+                                rrm.ConvertRinoListToDataTable(_rriList);
 
                                 // Setting DataSource property to dataGridView object
                                 rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -1083,7 +1061,7 @@ namespace GriffinSoft.EasyRino
                 }
 
                 // Setting row index to 0
-                reconRowNumber = 0;
+                _reconRowNumber = 0;
 
                 // Hiding insert as new reconcilation button
                 insertAsNewReconBtn.Visible = false;
@@ -1108,7 +1086,7 @@ namespace GriffinSoft.EasyRino
             // Getting action type
             RinoActionType actionType = GetRinoActionType();
             // Iznos variable
-            decimal iznos = 0;
+            decimal iznos;
 
             try
             {
@@ -1156,10 +1134,10 @@ namespace GriffinSoft.EasyRino
                                     RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                                     // Inserting new item and setting new value to rriList object
-                                    rriList = rrm.ModifyExistingItem(rriList, rri, reconRowNumber);
+                                    _rriList = rrm.ModifyExistingItem(_rriList, rri, _reconRowNumber);
 
                                     // Converting rriList to DataTable object to display data
-                                    rrm.ConvertRinoListToDataTable(rriList);
+                                    rrm.ConvertRinoListToDataTable(_rriList);
 
                                     // Setting DataSource property to dataGridView object
                                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -1186,10 +1164,10 @@ namespace GriffinSoft.EasyRino
                                 RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                                 // Inserting new item and setting new value to rriList object
-                                rriList = rrm.ModifyExistingItem(rriList, rri, reconRowNumber);
+                                _rriList = rrm.ModifyExistingItem(_rriList, rri, _reconRowNumber);
 
                                 // Converting rriList to DataTable object to display data
-                                rrm.ConvertRinoListToDataTable(rriList);
+                                rrm.ConvertRinoListToDataTable(_rriList);
 
                                 // Setting DataSource property to dataGridView object
                                 rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -1220,7 +1198,7 @@ namespace GriffinSoft.EasyRino
                 saveReconcilementChangesBtn.Visible = false;
 
                 // Setting row index to 0
-                reconRowNumber = 0;
+                _reconRowNumber = 0;
 
                 // Reset fields
                 ResetReconcilementFields();
@@ -1240,19 +1218,18 @@ namespace GriffinSoft.EasyRino
         private void modifyReconcilementBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (rriList.Capacity > 0)
+            if (_rriList.Capacity > 0)
             {
                 // Get row position
-                reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
+                _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
 
                 // Creating RinoReconcilementManager object
                 RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                 // Declaring RinoObligationItem object
-                RinoReconcilementItem rri;
 
                 // Getting RRI object
-                rri = rrm.GetRriItemAt(rriList, reconRowNumber);
+                var rri = rrm.GetRriItemAt(_rriList, _reconRowNumber);
 
                 // Setting values to all UI fields
                 // Setting action type
@@ -1273,7 +1250,7 @@ namespace GriffinSoft.EasyRino
                 rinoIdTextBox.Text = rri.RinoId.ToString();
 
                 // Setting PIBPoverioca
-                reconPibTextBox.Text = rri.PIBPoverioca;
+                reconPibTextBox.Text = rri.PibPoverioca;
 
                 // Setting BrojDokumenta
                 reconBrojDokumentaTextBox.Text = rri.BrojDokumenta;
@@ -1285,29 +1262,13 @@ namespace GriffinSoft.EasyRino
                 reconPodZaReklTextBox.Text = rri.ReklPodZaRek;
 
                 // Setting DatumIzmirenja
-                if (!rrm.CheckUninitializedDate(rri.DatumIzmirenja))
-                {
-                    // Setting DatumIzmirenja
-                    reconDatumIzmirenjaDateTimePicker.Value = rri.DatumIzmirenja;
-                }
-                else
-                {
-                    // Default uninitialized value detected, put today as main date
-                    reconDatumIzmirenjaDateTimePicker.Value = DateTime.Now;
-                }
+                reconDatumIzmirenjaDateTimePicker.Value = !rrm.CheckUninitializedDate(rri.DatumIzmirenja) ? rri.DatumIzmirenja : DateTime.Now;
 
                 // Setting iznos
                 reconIznosTextBox.Text = rri.Iznos.ToString("#.##", CultureInfo.GetCultureInfo("en-US"));
 
                 // Setting RazlogIzmene
-                if (rri.RazlogIzmene != null && rri.RazlogIzmene.Length > 0)
-                {
-                    razlogIzmeneTextBox.Text = rri.RazlogIzmene;
-                }
-                else
-                {
-                    razlogIzmeneTextBox.Text = null;
-                }
+                razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(rri.RazlogIzmene) ? rri.RazlogIzmene : null;
 
                 // Enabling save reconcilement changes button
                 saveReconcilementChangesBtn.Visible = true;
@@ -1325,7 +1286,7 @@ namespace GriffinSoft.EasyRino
         private void deleteReconcilementBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (roiList.Capacity > 0)
+            if (_roiList.Capacity > 0)
             {
                 DialogResult diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sledeću stavku?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1334,22 +1295,22 @@ namespace GriffinSoft.EasyRino
                 if (diagResult == DialogResult.Yes)
                 {
                     // Get row position
-                    reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
+                    _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
 
                     // Creating RinoReconcilementManager object
                     RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                     // Remove item at selected index position
-                    rriList = rrm.RemoveItemAt(rriList, reconRowNumber);
+                    _rriList = rrm.RemoveItemAt(_rriList, _reconRowNumber);
 
                     // Converting rriList to DataTable object to display data
-                    rrm.ConvertRinoListToDataTable(rriList);
+                    rrm.ConvertRinoListToDataTable(_rriList);
 
                     // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rrm.RinoDataTable;
 
                     // Setting row index to 0
-                    reconRowNumber = 0;
+                    _reconRowNumber = 0;
 
                     // Reset fields
                     ResetReconcilementFields();
@@ -1364,19 +1325,18 @@ namespace GriffinSoft.EasyRino
         private void cloneReconcilementBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal roiList object is not empty
-            if (rriList.Capacity > 0)
+            if (_rriList.Capacity > 0)
             {
                 // Get row position
-                reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
+                _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
 
                 // Creating RinoReconcilementManager object
                 RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                 // Declaring RinoObligationItem object
-                RinoReconcilementItem rri;
 
                 // Getting RRI object
-                rri = rrm.GetRriItemAt(rriList, reconRowNumber);
+                var rri = rrm.GetRriItemAt(_rriList, _reconRowNumber);
 
                 // Setting values to all UI fields
                 // Setting action type
@@ -1397,7 +1357,7 @@ namespace GriffinSoft.EasyRino
                 rinoIdTextBox.Text = rri.RinoId.ToString();
 
                 // Setting PIBPoverioca
-                reconPibTextBox.Text = rri.PIBPoverioca;
+                reconPibTextBox.Text = rri.PibPoverioca;
 
                 // Setting BrojDokumenta
                 reconBrojDokumentaTextBox.Text = rri.BrojDokumenta;
@@ -1409,29 +1369,12 @@ namespace GriffinSoft.EasyRino
                 reconPodZaReklTextBox.Text = rri.ReklPodZaRek;
 
                 // Setting DatumIzmirenja
-                if (!rrm.CheckUninitializedDate(rri.DatumIzmirenja))
-                {
-                    // Setting DatumIzmirenja
-                    reconDatumIzmirenjaDateTimePicker.Value = rri.DatumIzmirenja;
-                }
-                else
-                {
-                    // Default uninitialized value detected, put today as main date
-                    reconDatumIzmirenjaDateTimePicker.Value = DateTime.Now;
-                }
+                reconDatumIzmirenjaDateTimePicker.Value = !rrm.CheckUninitializedDate(rri.DatumIzmirenja) ? rri.DatumIzmirenja : DateTime.Now;
                 // Setting iznos
                 reconIznosTextBox.Text = rri.Iznos.ToString("#.##", CultureInfo.GetCultureInfo("en-US"));
 
                 // Setting RazlogIzmene
-                if (rri.RazlogIzmene != null && rri.RazlogIzmene.Length > 0)
-                {
-
-                    razlogIzmeneTextBox.Text = rri.RazlogIzmene;
-                }
-                else
-                {
-                    razlogIzmeneTextBox.Text = null;
-                }
+                razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(rri.RazlogIzmene) ? rri.RazlogIzmene : null;
 
                 // Enabling save reconcilement changes button
                 insertAsNewReconBtn.Visible = true;
@@ -1446,7 +1389,7 @@ namespace GriffinSoft.EasyRino
         {
 
             // Checking if internal rriList object is not empty
-            if (rriList.Capacity > 0)
+            if (_rriList.Capacity > 0)
             {
                 DialogResult diagResult = MessageBox.Show("Da li ste sigurni da želite da uklonite prazne stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1460,7 +1403,7 @@ namespace GriffinSoft.EasyRino
                     // Creating RinoReconcilementManager object
                     RinoReconcilementManager rrm = new RinoReconcilementManager();
 
-                    foreach (RinoReconcilementItem rriItem in rriList)
+                    foreach (RinoReconcilementItem rriItem in _rriList)
                     {
                         // Checking if requested fields are NOT empty
                         if (rriItem.Banka.Length > 0 && rriItem.ReklPodZaRek.Length > 0
@@ -1473,10 +1416,10 @@ namespace GriffinSoft.EasyRino
                     }
 
                     // Set full clean list as new main list
-                    rriList = fullRriList;
+                    _rriList = fullRriList;
 
                     // Performing conversion
-                    rrm.ConvertRinoListToDataTable(rriList);
+                    rrm.ConvertRinoListToDataTable(_rriList);
 
                     // Displaying new "clean" list
                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
@@ -1494,7 +1437,7 @@ namespace GriffinSoft.EasyRino
         private void removeAllReconcilementsBtn_Click(object sender, EventArgs e)
         {
             // Checking if internal rriList object is not empty
-            if (rriList.Capacity > 0)
+            if (_rriList.Capacity > 0)
             {
                 DialogResult diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sve stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1503,13 +1446,13 @@ namespace GriffinSoft.EasyRino
                 if (diagResult == DialogResult.Yes)
                 {
                     // Clearing roiList object
-                    rriList.Clear();
+                    _rriList.Clear();
 
                     // Creating RinoReconcilementManager object
                     RinoReconcilementManager rrm = new RinoReconcilementManager();
 
                     // Converting rriList to DataTable object to display data
-                    rrm.ConvertRinoListToDataTable(rriList);
+                    rrm.ConvertRinoListToDataTable(_rriList);
 
                     // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rrm.RinoDataTable;
@@ -1530,14 +1473,7 @@ namespace GriffinSoft.EasyRino
             bool startMaximized = Properties.Settings.Default.startMaximized;
 
             // Restoring window size
-            if (startMaximized)
-            {
-                WindowState = FormWindowState.Maximized;
-            }
-            else
-            {
-                WindowState = FormWindowState.Normal;
-            }
+            WindowState = startMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
         }
 
         #endregion

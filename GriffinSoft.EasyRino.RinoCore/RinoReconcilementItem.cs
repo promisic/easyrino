@@ -58,7 +58,7 @@ namespace GriffinSoft.EasyRino.RinoCore
             Action = action;
             RinoId = rinoId;
             BrojDokumenta = brojDokumenta;
-            PIBPoverioca = pibPoverioca;
+            PibPoverioca = pibPoverioca;
             Banka = banka;
             ReklPodZaRek = reklPodZaRek;
             DatumIzmirenja = datumIzmirenja;
@@ -88,7 +88,7 @@ namespace GriffinSoft.EasyRino.RinoCore
         /// <summary>
         /// Property holds PIBPoverioca.
         /// </summary>
-        public string PIBPoverioca { get; set; }
+        public string PibPoverioca { get; set; }
 
         /// <summary>
         /// Property holds bank information.
@@ -126,7 +126,7 @@ namespace GriffinSoft.EasyRino.RinoCore
         public bool IsPibValid()
         {
             // Checking if PIB is 9 characters long
-            if (this.PIBPoverioca.Length == 9)
+            if (this.PibPoverioca.Length == 9)
             {
                 return true;
             }
