@@ -17,28 +17,7 @@
  */
 
 namespace GriffinSoft.EasyRino.RinoCore
-{
-    /// <summary>
-    ///     Action type enumeration.
-    /// </summary>
-    public enum RinoActionType
-    {
-        /// <summary>
-        ///     Inserting new obligation or reconcilment.
-        /// </summary>
-        Unos,
-
-        /// <summary>
-        ///     Changing existing obligation or reconcilement.
-        /// </summary>
-        Izmena,
-
-        /// <summary>
-        ///     Cancel existing obligation or reconcilement.
-        /// </summary>
-        Otkazivanje
-    }
-
+{ 
     /// <summary>
     ///     Obligation type enumeration.
     /// </summary>
