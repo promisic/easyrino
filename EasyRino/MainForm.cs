@@ -59,31 +59,20 @@ namespace GriffinSoft.EasyRino
 
             if (openObligationXmlDialog.ShowDialog() == DialogResult.OK)
             {
-                // RINO XML path
                 var xmlPath = openObligationXmlDialog.FileName;
-
-                // Load RINO XML file into memory
-                // Creating RINO import object
                 IRinoImport rinoObligationXmlImport = new RinoXmlImport();
-
-                // Creating RinoObligationManager object
                 var rom = new RinoObligationManager();
-
                 // Populating roiList object
                 _roiList = rom.ConvertXmlToRinoList(rinoObligationXmlImport.ImportRinoObligationXml(xmlPath));
 
-                // Checking if XML file is valid reconcilement type
                 if (rom.ValidObligation)
                 {
                     // Converting ROI list to DataTable for display
                     rom.ConvertRinoListToDataTable(_roiList);
-
-                    // Setting data to DataGrid
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                 }
                 else
                 {
-                    // Display error message
                     var errMsg = "XML fajl koji ste izabrali nije validan RINO XML fajl za zaduženje.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -297,8 +286,6 @@ namespace GriffinSoft.EasyRino
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Setting iznos to 1 din
                 iznos = 1;
             }
 
@@ -550,8 +537,6 @@ namespace GriffinSoft.EasyRino
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Setting iznos to 1 din
                 iznos = 1;
             }
 
