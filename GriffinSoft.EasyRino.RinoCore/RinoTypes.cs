@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO specific type definition class
- *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,27 +19,27 @@
 namespace GriffinSoft.EasyRino.RinoCore
 { 
     /// <summary>
-    ///     Obligation type enumeration.
+    /// Obligation type enumeration.
     /// </summary>
     public enum RinoVrstaPoverioca
     {
         /// <summary>
-        ///     Normal business.
+        /// Normal business.
         /// </summary>
         PravnaLica = 0,
 
         /// <summary>
-        ///     Public sector.
+        /// Public sector.
         /// </summary>
         JavniSektor = 1,
 
         /// <summary>
-        ///     Agriculture and farming sector.
+        /// Agriculture and farming sector.
         /// </summary>
         PoljoprivrednaGazdinstva = 8,
 
         /// <summary>
-        ///     Compensation.
+        /// Compensation.
         /// </summary>
         Kompenzacija = 9
     }

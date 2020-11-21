@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO specific type definition class
- *  Copyright (C) 2016 - 2019  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,22 +19,22 @@
 namespace GriffinSoft.EasyRino.RinoCore
 {
     /// <summary>
-    ///     Action type enumeration.
+    /// Action type enumeration.
     /// </summary>
     public enum RinoActionType
     {
         /// <summary>
-        ///     Inserting new obligation or reconcilment.
+        /// Inserting new obligation or reconcilment.
         /// </summary>
         Unos,
 
         /// <summary>
-        ///     Changing existing obligation or reconcilement.
+        /// Changing existing obligation or reconcilement.
         /// </summary>
         Izmena,
 
         /// <summary>
-        ///     Cancel existing obligation or reconcilement.
+        /// Cancel existing obligation or reconcilement.
         /// </summary>
         Otkazivanje
     }
