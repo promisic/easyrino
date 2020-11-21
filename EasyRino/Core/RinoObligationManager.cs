@@ -283,9 +283,8 @@ namespace GriffinSoft.EasyRino.Core
         {
             var uninitDateTime = new DateTime(0001, 1, 1, 0, 0, 0); // Target date is: 1.1.0001. 00.00.00
             var dateCompResult = DateTime.Compare(dateToCheck, uninitDateTime);
-            if (dateCompResult == 0) return true;
 
-            return false;
+            return dateCompResult == 0;
         }
 
         #endregion
