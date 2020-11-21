@@ -1,6 +1,6 @@
 ﻿/*
  *  Main form class of EasyRino
- *  Copyright (C) 2016 -2019 Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace GriffinSoft.EasyRino
         #region EasyRino version information region
 
         /// <summary>
-        ///     Gets EasyRino version
+        /// Gets EasyRino version
         /// </summary>
         /// <returns>EasyRino version</returns>
         public static string GetEasyRinoVersion()
@@ -78,7 +78,7 @@ namespace GriffinSoft.EasyRino
                     // Converting ROI list to DataTable for display
                     rom.ConvertRinoListToDataTable(_roiList);
 
-                    // Setting data to datagrid
+                    // Setting data to DataGrid
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                 }
                 else
@@ -118,18 +118,11 @@ namespace GriffinSoft.EasyRino
 
         private void modifyObligationBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_roiList.Capacity > 0)
             {
                 // Get row position
                 _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
-
-                // Creating RinoObligationManager object
                 var rom = new RinoObligationManager();
-
-                // Declaring RinoObligationItem object
-
-                // Getting ROI object
                 var roi = rom.GetRoiItemAt(_roiList, _rowNumber);
 
                 // Setting values to all UI fields
@@ -147,19 +140,11 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting iznos
                 rinoIznosTextBox.Text = roi.Iznos.ToString("#.##");
-
-                // Setting NazivPoverioca
                 nazivPoveriocaTextBox.Text = roi.NazivPoverioca;
-
-                // Setting PIBPoverioca
                 pibTextBox.Text = roi.PibPoverioca;
-
-                // Setting MBPoverioca
                 mbTextBox.Text = roi.MbPoverioca;
 
-                // Setting VrstaPoverioca
                 switch (roi.VrstaPoverioca)
                 {
                     case RinoVrstaPoverioca.PravnaLica:
@@ -176,40 +161,24 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting NazivDokumenta
                 nazivDokumentaTextBox.Text = roi.NazivDokumenta;
-
-                // Setting BrojDokumenta
                 brojDokumentaTextBox.Text = roi.BrojDokumenta;
-
-                // Setting DatumDokumenta
                 datumDokumentaDateTimePicker.Value = roi.DatumDokumenta;
-
-                // Setting DatumNastanka
                 datumNastankaDateTimePicker.Value = roi.DatumNastanka;
 
-                // Setting DatumRokaZaIzmirenje
                 if (!rom.CheckUninitializedDate(roi.DatumRokaZaIzmirenje))
                 {
-                    // Unchecking check box
                     noDueDateCheckBox.Checked = false;
-                    // Enabling DateTimePicker
                     datumRokaIzmirenjaDateTimePicker.Enabled = true;
-                    // Setting DatumRokaZaIzmirenje
                     datumRokaIzmirenjaDateTimePicker.Value = roi.DatumRokaZaIzmirenje;
                 }
                 else
                 {
-                    // Checking check box
                     noDueDateCheckBox.Checked = true;
-                    // Disabling DateTimePicker
                     datumRokaIzmirenjaDateTimePicker.Enabled = false;
                 }
 
-                // Setting RazlogIzmene
                 razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(roi.RazlogIzmene) ? roi.RazlogIzmene : null;
-
-                // Enabling save obligation changes button
                 saveObligationChangesBtn.Visible = true;
             }
         }
@@ -220,33 +189,22 @@ namespace GriffinSoft.EasyRino
 
         private void deleteObligationBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_roiList.Capacity > 0)
             {
                 var diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sledeću stavku?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Check if user clicked yes
                 if (diagResult == DialogResult.Yes)
                 {
                     // Get row position
                     _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
-
-                    // Creating RinoObligationManager object
                     var rom = new RinoObligationManager();
-
-                    // Remove item at selected index position
                     _roiList = rom.RemoveItemAt(_roiList, _rowNumber);
-
                     // Converting roiList to DataTable object to display data
                     rom.ConvertRinoListToDataTable(_roiList);
-
-                    // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
-
                     // Setting row index to 0
                     _rowNumber = 0;
-
                     // Reset fields
                     ResetObligationFields();
                 }
@@ -259,27 +217,18 @@ namespace GriffinSoft.EasyRino
 
         private void deleteAllObligationsBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_roiList.Capacity > 0)
             {
                 var diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sve stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Check if user clicked yes
                 if (diagResult == DialogResult.Yes)
                 {
-                    // Clearing roiList object
                     _roiList.Clear();
-
-                    // Creating RinoObligationManager object
                     var rom = new RinoObligationManager();
-
                     // Converting roiList to DataTable object to display data
                     rom.ConvertRinoListToDataTable(_roiList);
-
-                    // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
-
                     // Reset all fields
                     ResetObligationFields();
                 }
@@ -301,36 +250,24 @@ namespace GriffinSoft.EasyRino
 
                     if (saveObligationXmlDialog.ShowDialog() == DialogResult.OK)
                     {
-                        // RINO XML path
                         var xmlPath = saveObligationXmlDialog.FileName;
-
-                        // Getting JBBK number from settings file
                         var jbbk = Settings.Default.jbbk;
-
-                        // Creating RinoObligationManager object and setting JBBK number
-                        var rom = new RinoObligationManager {Jbbk = jbbk};
-
-                        // Creating RinoXmlExport object
+                        var rom = new RinoObligationManager { Jbbk = jbbk };
                         IRinoExporter rinoXmlExport = new RinoXmlExport();
-
-                        // Saving file to filesystem
                         rinoXmlExport.ExportRinoObligationXml(rom.ConvertRinoListToXml(_roiList),
                             xmlPath);
-
                         // Reset fields
                         ResetObligationFields();
                     }
                 }
                 else
                 {
-                    // Showing error
                     MessageBox.Show("Nije moguće snimanje prazne liste obaveza.", "Greška",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                // Showing error
                 MessageBox.Show(
                     "Niste uneli Vaš JBBK u program. Molimo Vas, unesite ga da bi Vam bilo omogućeno snimanje.",
                     "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -346,23 +283,17 @@ namespace GriffinSoft.EasyRino
             var actionType = GetRinoActionType();
             var vrstaPoverioca = GetRinoVrstaPoverioca();
 
-            // Creating dueDate object
             var dueDate = new DateTime();
-
-            // If due date exists, set its value
             if (!noDueDateCheckBox.Checked) dueDate = datumRokaIzmirenjaDateTimePicker.Value.Date;
 
-            // Iznos variable
             decimal iznos;
 
             try
             {
-                // Trying to parse value from text box
                 iznos = decimal.Parse(rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
             }
             catch (FormatException)
             {
-                // Error message
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -371,10 +302,8 @@ namespace GriffinSoft.EasyRino
                 iznos = 1;
             }
 
-            // Checking if Iznos is not empty
             if (rinoIznosTextBox.Text.Length > 0)
             {
-                // Creating new RinoObligationItem object
                 var roi = new RinoObligationItem(
                     actionType,
                     iznos,
@@ -390,7 +319,6 @@ namespace GriffinSoft.EasyRino
                     razlogIzmeneTextBox.Text
                 );
 
-                // Checking for data validity
                 if (roi.IsPibValid())
                 {
                     if (roi.IsMbValid())
@@ -401,28 +329,20 @@ namespace GriffinSoft.EasyRino
                             {
                                 if (roi.CheckForGeneralValidity())
                                 {
-                                    // Creating RinoObligationManager object
                                     var rom = new RinoObligationManager();
-
-                                    // Inserting new item and setting new value to roiList object
                                     _roiList = rom.ModifyExistingItem(_roiList, roi, _rowNumber);
-
                                     // Converting roiList to DataTable object to display data
                                     rom.ConvertRinoListToDataTable(_roiList);
-
-                                    // Setting DataSource property to dataGridView object
                                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                                 }
                                 else
                                 {
-                                    // Show error message
                                     var errMsg = "Niste uneli sve obavezne podatke";
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Morate uneti razlog izmene ili otkazivanja.";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -431,21 +351,14 @@ namespace GriffinSoft.EasyRino
                         {
                             if (roi.CheckForGeneralValidity())
                             {
-                                // Creating RinoObligationManager object
                                 var rom = new RinoObligationManager();
-
-                                // Inserting new item and setting new value to roiList object
                                 _roiList = rom.ModifyExistingItem(_roiList, roi, _rowNumber);
-
                                 // Converting roiList to DataTable object to display data
                                 rom.ConvertRinoListToDataTable(_roiList);
-
-                                // Setting DataSource property to dataGridView object
                                 rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Niste uneli sve obavezne podatke";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -453,30 +366,24 @@ namespace GriffinSoft.EasyRino
                     }
                     else
                     {
-                        // Show error message
                         var errMsg = "Niste uneli validan MB.";
                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    // Show error message
                     var errMsg = "Niste uneli validan PIB.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Setting row index to 0
                 _rowNumber = 0;
-
-                // Hide save obligation changes button
                 saveObligationChangesBtn.Visible = false;
-
                 // Reset fields
                 ResetObligationFields();
             }
             else
             {
-                // Show error message
                 var errMsg = "Polje iznos ne može biti prazno.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -488,18 +395,11 @@ namespace GriffinSoft.EasyRino
 
         private void cloneObliationBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_roiList.Capacity > 0)
             {
                 // Get row position
                 _rowNumber = rinoObligationDataGridView.CurrentCellAddress.Y;
-
-                // Creating RinoObligationManager object
                 var rom = new RinoObligationManager();
-
-                // Declaring RinoObligationItem object
-
-                // Getting RIO object
                 var roi = rom.GetRoiItemAt(_roiList, _rowNumber);
 
                 // Setting values to all UI fields
@@ -517,19 +417,11 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting iznos
                 rinoIznosTextBox.Text = roi.Iznos.ToString("#.##");
-
-                // Setting NazivPoverioca
                 nazivPoveriocaTextBox.Text = roi.NazivPoverioca;
-
-                // Setting PIBPoverioca
                 pibTextBox.Text = roi.PibPoverioca;
-
-                // Setting MBPoverioca
                 mbTextBox.Text = roi.MbPoverioca;
 
-                // Setting VrstaPoverioca
                 switch (roi.VrstaPoverioca)
                 {
                     case RinoVrstaPoverioca.PravnaLica:
@@ -546,37 +438,23 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting NazivDokumenta
                 nazivDokumentaTextBox.Text = roi.NazivDokumenta;
-
-                // Setting BrojDokumenta
                 brojDokumentaTextBox.Text = roi.BrojDokumenta;
-
-                // Setting DatumDokumenta
                 datumDokumentaDateTimePicker.Value = roi.DatumDokumenta;
-
-                // Setting DatumNastanka
                 datumNastankaDateTimePicker.Value = roi.DatumNastanka;
 
-                // Setting DatumRokaZaIzmirenje
                 if (!rom.CheckUninitializedDate(roi.DatumRokaZaIzmirenje))
                 {
-                    // Unchecking check box
                     noDueDateCheckBox.Checked = false;
-                    // Enabling DateTimePicker
                     datumRokaIzmirenjaDateTimePicker.Enabled = true;
-                    // Setting DatumRokaZaIzmirenje
                     datumRokaIzmirenjaDateTimePicker.Value = roi.DatumRokaZaIzmirenje;
                 }
                 else
                 {
-                    // Checking check box
                     noDueDateCheckBox.Checked = true;
-                    // Disabling DateTimePicker
                     datumRokaIzmirenjaDateTimePicker.Enabled = false;
                 }
 
-                // Setting RazlogIzmene
                 razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(roi.RazlogIzmene) ? roi.RazlogIzmene : null;
             }
         }
@@ -592,31 +470,19 @@ namespace GriffinSoft.EasyRino
 
             if (openReconcilementXmlDialog.ShowDialog() == DialogResult.OK)
             {
-                // RINO XML path
                 var xmlPath = openReconcilementXmlDialog.FileName;
-
-                // Load RINO XML file into memory
-                // Creating RINO import object
                 IRinoImport rinoReconcilementXmlImport = new RinoXmlImport();
-
-                // Creating RinoObligationManager object
                 var rrm = new RinoReconcilementManager();
-
-                // Populating roiList object
                 _rriList = rrm.ConvertXmlToRinoList(rinoReconcilementXmlImport.ImportRinoReconcilementXml(xmlPath));
 
-                // Checking if XML file is valid reconcilement type
                 if (rrm.ValidReconcilement)
                 {
                     // Converting ROI list to DataTable for display
                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                    // Setting data to datagrid
                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
                 }
                 else
                 {
-                    // Display error message
                     var errMsg = "XML fajl koji ste izabrali nije validan RINO XML fajl za razduženje.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -641,36 +507,24 @@ namespace GriffinSoft.EasyRino
 
                     if (saveReconcilementXmlDialog.ShowDialog() == DialogResult.OK)
                     {
-                        // RINO XML path
                         var xmlPath = saveReconcilementXmlDialog.FileName;
-
-                        // Getting JBBK number from settings file
                         var jbbk = Settings.Default.jbbk;
-
-                        // Creating RinoReconcilementManager object and setting JBBK number
-                        var rrm = new RinoReconcilementManager {Jbbk = jbbk};
-
-                        // Creating RinoXmlExport object
+                        var rrm = new RinoReconcilementManager { Jbbk = jbbk };
                         IRinoExporter rinoXmlExport = new RinoXmlExport();
-
-                        // Saving file to filesystem
                         rinoXmlExport.ExportRinoReconcilementXml(rrm.ConvertRinoListToXml(_rriList),
                             xmlPath);
-
                         // Reset fields
                         ResetReconcilementFields();
                     }
                 }
                 else
                 {
-                    // Showing error
                     MessageBox.Show("Nije moguće snimanje prazne liste razduženja.", "Greška",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                // Showing error
                 MessageBox.Show(
                     "Niste uneli Vaš JBBK u program. Molimo Vas, unesite ga da bi Vam bilo omogućeno snimanje.",
                     "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -683,10 +537,7 @@ namespace GriffinSoft.EasyRino
 
         private void insertAsNewReconBtn_Click(object sender, EventArgs e)
         {
-            // Getting action type
             var actionType = GetRinoActionType();
-
-            // Iznos variable
             decimal iznos;
 
             try
@@ -696,7 +547,6 @@ namespace GriffinSoft.EasyRino
             }
             catch (FormatException)
             {
-                // Error message
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -707,7 +557,6 @@ namespace GriffinSoft.EasyRino
 
             if (reconIznosTextBox.Text.Length > 0)
             {
-                // Creating new RinoReconcilementItem object
                 var rri = new RinoReconcilementItem(
                     actionType,
                     Convert.ToInt64(rinoIdTextBox.Text),
@@ -720,7 +569,6 @@ namespace GriffinSoft.EasyRino
                     razlogIzmeneTextBox.Text
                 );
 
-                // Checking for data validity
                 if (rri.IsPibValid())
                 {
                     if (rri.IsReklPodZaRekValid())
@@ -731,28 +579,20 @@ namespace GriffinSoft.EasyRino
                             {
                                 if (rri.CheckForGeneralValidity())
                                 {
-                                    // Creating RinoReconcilementManager object
                                     var rrm = new RinoReconcilementManager();
-
-                                    // Inserting new item and setting new value to rriList object
                                     _rriList = rrm.InsertNewItem(_rriList, rri);
-
                                     // Converting rriList to DataTable object to display data
                                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                                    // Setting DataSource property to dataGridView object
                                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
                                 }
                                 else
                                 {
-                                    // Show error message
                                     var errMsg = "Niste uneli sve obavezne podatke";
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Morate uneti razlog izmene ili otkazivanja.";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -761,21 +601,14 @@ namespace GriffinSoft.EasyRino
                         {
                             if (rri.CheckForGeneralValidity())
                             {
-                                // Creating RinoReconcilementManager object
                                 var rrm = new RinoReconcilementManager();
-
-                                // Inserting new item and setting new value to rriList object
                                 _rriList = rrm.InsertNewItem(_rriList, rri);
-
                                 // Converting rriList to DataTable object to display data
                                 rrm.ConvertRinoListToDataTable(_rriList);
-
-                                // Setting DataSource property to dataGridView object
                                 rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Niste uneli sve obavezne podatke";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -783,7 +616,6 @@ namespace GriffinSoft.EasyRino
                     }
                     else
                     {
-                        // Show error message
                         var errMsg = "Niste uneli podatak za reklamaciju.";
                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -791,23 +623,18 @@ namespace GriffinSoft.EasyRino
 
                 else
                 {
-                    // Show error message
                     var errMsg = "Niste uneli validan PIB.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Setting row index to 0
                 _reconRowNumber = 0;
-
-                // Hiding insert as new reconcilation button
                 insertAsNewReconBtn.Visible = false;
-
                 // Reset fields
                 ResetReconcilementFields();
             }
             else
             {
-                // Show error message
                 var errMsg = "Polje iznos ne može biti prazno.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -819,9 +646,7 @@ namespace GriffinSoft.EasyRino
 
         private void saveReconcilementChangesBtn_Click(object sender, EventArgs e)
         {
-            // Getting action type
             var actionType = GetRinoActionType();
-            // Iznos variable
             decimal iznos;
 
             try
@@ -831,18 +656,14 @@ namespace GriffinSoft.EasyRino
             }
             catch (FormatException)
             {
-                // Error message
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Setting iznos to 1 din
                 iznos = 1;
             }
 
             if (reconIznosTextBox.Text.Length > 0)
             {
-                // Creating new RinoReconcilementItem object
                 var rri = new RinoReconcilementItem(
                     actionType,
                     long.Parse(rinoIdTextBox.Text),
@@ -855,7 +676,6 @@ namespace GriffinSoft.EasyRino
                     razlogIzmeneTextBox.Text
                 );
 
-                // Checking for data validity
                 if (rri.IsPibValid())
                 {
                     if (rri.IsReklPodZaRekValid())
@@ -866,28 +686,20 @@ namespace GriffinSoft.EasyRino
                             {
                                 if (rri.CheckForGeneralValidity())
                                 {
-                                    // Creating RinoReconcilementManager object
                                     var rrm = new RinoReconcilementManager();
-
-                                    // Inserting new item and setting new value to rriList object
                                     _rriList = rrm.ModifyExistingItem(_rriList, rri, _reconRowNumber);
-
                                     // Converting rriList to DataTable object to display data
                                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                                    // Setting DataSource property to dataGridView object
                                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
                                 }
                                 else
                                 {
-                                    // Show error message
                                     var errMsg = "Niste uneli sve obavezne podatke";
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Morate uneti razlog izmene ili otkazivanja.";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -896,21 +708,14 @@ namespace GriffinSoft.EasyRino
                         {
                             if (rri.CheckForGeneralValidity())
                             {
-                                // Creating RinoReconcilementManager object
                                 var rrm = new RinoReconcilementManager();
-
-                                // Inserting new item and setting new value to rriList object
                                 _rriList = rrm.ModifyExistingItem(_rriList, rri, _reconRowNumber);
-
                                 // Converting rriList to DataTable object to display data
                                 rrm.ConvertRinoListToDataTable(_rriList);
-
-                                // Setting DataSource property to dataGridView object
                                 rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
                             }
                             else
                             {
-                                // Show error message
                                 var errMsg = "Niste uneli sve obavezne podatke";
                                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
@@ -918,30 +723,24 @@ namespace GriffinSoft.EasyRino
                     }
                     else
                     {
-                        // Show error message
                         var errMsg = "Niste uneli podatak za reklamaciju.";
                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    // Show error message
                     var errMsg = "Niste uneli validan PIB.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                // Hiding save reconcilation changes button
                 saveReconcilementChangesBtn.Visible = false;
-
                 // Setting row index to 0
                 _reconRowNumber = 0;
-
                 // Reset fields
                 ResetReconcilementFields();
             }
             else
             {
-                // Show error message
                 var errMsg = "Polje iznos ne može biti prazno.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -953,18 +752,10 @@ namespace GriffinSoft.EasyRino
 
         private void modifyReconcilementBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_rriList.Capacity > 0)
             {
-                // Get row position
                 _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
-
-                // Creating RinoReconcilementManager object
                 var rrm = new RinoReconcilementManager();
-
-                // Declaring RinoObligationItem object
-
-                // Getting RRI object
                 var rri = rrm.GetRriItemAt(_rriList, _reconRowNumber);
 
                 // Setting values to all UI fields
@@ -982,33 +773,16 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting RINO ID
                 rinoIdTextBox.Text = rri.RinoId.ToString();
-
-                // Setting PIBPoverioca
                 reconPibTextBox.Text = rri.PibPoverioca;
-
-                // Setting BrojDokumenta
                 reconBrojDokumentaTextBox.Text = rri.BrojDokumenta;
-
-                // Setting Banka
                 reconBankTextBox.Text = rri.Banka;
-
-                // Setting ReklPodZaRek
                 reconPodZaReklTextBox.Text = rri.ReklPodZaRek;
-
-                // Setting DatumIzmirenja
                 reconDatumIzmirenjaDateTimePicker.Value = !rrm.CheckUninitializedDate(rri.DatumIzmirenja)
                     ? rri.DatumIzmirenja
                     : DateTime.Now;
-
-                // Setting iznos
                 reconIznosTextBox.Text = rri.Iznos.ToString("#.##", CultureInfo.GetCultureInfo("en-US"));
-
-                // Setting RazlogIzmene
                 razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(rri.RazlogIzmene) ? rri.RazlogIzmene : null;
-
-                // Enabling save reconcilement changes button
                 saveReconcilementChangesBtn.Visible = true;
             }
         }
@@ -1019,33 +793,23 @@ namespace GriffinSoft.EasyRino
 
         private void deleteReconcilementBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_roiList.Capacity > 0)
             {
                 var diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sledeću stavku?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Check if user clicked yes
                 if (diagResult == DialogResult.Yes)
                 {
                     // Get row position
                     _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
-
-                    // Creating RinoReconcilementManager object
                     var rrm = new RinoReconcilementManager();
-
                     // Remove item at selected index position
                     _rriList = rrm.RemoveItemAt(_rriList, _reconRowNumber);
-
                     // Converting rriList to DataTable object to display data
                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                    // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rrm.RinoDataTable;
-
                     // Setting row index to 0
                     _reconRowNumber = 0;
-
                     // Reset fields
                     ResetReconcilementFields();
                 }
@@ -1058,18 +822,11 @@ namespace GriffinSoft.EasyRino
 
         private void cloneReconcilementBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal roiList object is not empty
             if (_rriList.Capacity > 0)
             {
                 // Get row position
                 _reconRowNumber = rinoReconcilementDataGridView.CurrentCellAddress.Y;
-
-                // Creating RinoReconcilementManager object
                 var rrm = new RinoReconcilementManager();
-
-                // Declaring RinoObligationItem object
-
-                // Getting RRI object
                 var rri = rrm.GetRriItemAt(_rriList, _reconRowNumber);
 
                 // Setting values to all UI fields
@@ -1087,32 +844,16 @@ namespace GriffinSoft.EasyRino
                         break;
                 }
 
-                // Setting RINO ID
                 rinoIdTextBox.Text = rri.RinoId.ToString();
-
-                // Setting PIBPoverioca
                 reconPibTextBox.Text = rri.PibPoverioca;
-
-                // Setting BrojDokumenta
                 reconBrojDokumentaTextBox.Text = rri.BrojDokumenta;
-
-                // Setting Banka
                 reconBankTextBox.Text = rri.Banka;
-
-                // Setting ReklPodZaRek
                 reconPodZaReklTextBox.Text = rri.ReklPodZaRek;
-
-                // Setting DatumIzmirenja
                 reconDatumIzmirenjaDateTimePicker.Value = !rrm.CheckUninitializedDate(rri.DatumIzmirenja)
                     ? rri.DatumIzmirenja
                     : DateTime.Now;
-                // Setting iznos
                 reconIznosTextBox.Text = rri.Iznos.ToString("#.##", CultureInfo.GetCultureInfo("en-US"));
-
-                // Setting RazlogIzmene
                 razlogIzmeneTextBox.Text = !string.IsNullOrEmpty(rri.RazlogIzmene) ? rri.RazlogIzmene : null;
-
-                // Enabling save reconcilement changes button
                 insertAsNewReconBtn.Visible = true;
             }
         }
@@ -1123,39 +864,26 @@ namespace GriffinSoft.EasyRino
 
         private void removeUnpopReconBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal rriList object is not empty
             if (_rriList.Capacity > 0)
             {
                 var diagResult = MessageBox.Show("Da li ste sigurni da želite da uklonite prazne stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Check if user clicked yes
                 if (diagResult == DialogResult.Yes)
                 {
-                    // Creting RinoReconcilement object
                     var fullRriList = new List<RinoReconcilementItem>();
-
-                    // Creating RinoReconcilementManager object
                     var rrm = new RinoReconcilementManager();
 
                     foreach (var rriItem in _rriList)
-                        // Checking if requested fields are NOT empty
                         if (rriItem.Banka.Length > 0 && rriItem.ReklPodZaRek.Length > 0
                                                      && !rrm.CheckUninitializedDate(rriItem.DatumIzmirenja) &&
                                                      rriItem.Iznos > 0)
-                            // Add RRI item to list
                             fullRriList.Add(rriItem);
 
-                    // Set full clean list as new main list
                     _rriList = fullRriList;
-
                     // Performing conversion
                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                    // Displaying new "clean" list
                     rinoReconcilementDataGridView.DataSource = rrm.RinoDataTable;
-
-                    // Reset fields
                     ResetReconcilementFields();
                 }
             }
@@ -1167,27 +895,18 @@ namespace GriffinSoft.EasyRino
 
         private void removeAllReconcilementsBtn_Click(object sender, EventArgs e)
         {
-            // Checking if internal rriList object is not empty
             if (_rriList.Capacity > 0)
             {
                 var diagResult = MessageBox.Show("Da li ste sigurni da želite da obrišete sve stavke?",
                     "Upozorenje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                // Check if user clicked yes
                 if (diagResult == DialogResult.Yes)
                 {
-                    // Clearing roiList object
                     _rriList.Clear();
-
-                    // Creating RinoReconcilementManager object
                     var rrm = new RinoReconcilementManager();
-
                     // Converting rriList to DataTable object to display data
                     rrm.ConvertRinoListToDataTable(_rriList);
-
-                    // Setting DataSource property to dataGridView object
                     rinoObligationDataGridView.DataSource = rrm.RinoDataTable;
-
                     // Reset fields
                     ResetReconcilementFields();
                 }
@@ -1200,10 +919,7 @@ namespace GriffinSoft.EasyRino
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Getting startMaximized flag
             var startMaximized = Settings.Default.startMaximized;
-
-            // Restoring window size
             WindowState = startMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
         }
 
@@ -1243,7 +959,6 @@ namespace GriffinSoft.EasyRino
 
         private void aboutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Creating about window
             var aboutForm = new EasyRinoAboutForm();
             aboutForm.ShowDialog();
         }
@@ -1253,12 +968,12 @@ namespace GriffinSoft.EasyRino
         #region Internal lists of RINO obligation and reconcilement objects region
 
         /// <summary>
-        ///     Internal list of RinoObligationItem's
+        /// Internal list of RinoObligationItem's
         /// </summary>
         private List<RinoObligationItem> _roiList = new List<RinoObligationItem>();
 
         /// <summary>
-        ///     Internal list of RinoReconcilementItem's.
+        /// Internal list of RinoReconcilementItem's.
         /// </summary>
         private List<RinoReconcilementItem> _rriList = new List<RinoReconcilementItem>();
 
@@ -1267,12 +982,12 @@ namespace GriffinSoft.EasyRino
         #region Internal row number index field's region
 
         /// <summary>
-        ///     Internal row number field.
+        /// Internal row number field.
         /// </summary>
         private int _rowNumber;
 
         /// <summary>
-        ///     Internal reconcilation row number field.
+        /// Internal reconciliation row number field.
         /// </summary>
         private int _reconRowNumber;
 
@@ -1284,36 +999,24 @@ namespace GriffinSoft.EasyRino
         {
             var actionType = GetRinoActionType();
             var vrstaPoverioca = GetRinoVrstaPoverioca();
-
-            // Creating dueDate object
             var dueDate = new DateTime();
-
-            // If due date exists, set its value
             if (noDueDateCheckBox.Checked == false) dueDate = datumRokaIzmirenjaDateTimePicker.Value.Date;
-
-            // Iznos variable
             decimal iznos;
 
             try
             {
-                // Trying to parse value from text box
                 iznos = decimal.Parse(rinoIznosTextBox.Text, CultureInfo.GetCultureInfo("en-US"));
             }
             catch (FormatException)
             {
-                // Error message
                 var errMsg = "Podatak koji ste uneli kao iznos nije validan broj ili nije u validnom formatu. \n\n" +
                              "Iznos će biti postavljen na 1 din. Na Vama je da izmenite iznos kroz komandu za izmenu stavke.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Setting iznos to 1 din
                 iznos = 1;
             }
 
-            // Checking if Iznos is not empty
             if (rinoIznosTextBox.Text.Length > 0)
             {
-                // Creating new RinoObligationItem object
                 var roi = new RinoObligationItem(
                     actionType,
                     iznos,
@@ -1329,22 +1032,18 @@ namespace GriffinSoft.EasyRino
                     razlogIzmeneTextBox.Text
                 );
 
-                // Variable holds ROI check result
                 var roiDoesNotAlreadyExist = true;
 
                 foreach (var roiItem in _roiList)
                     if (roi.PibPoverioca == roiItem.PibPoverioca &&
                         roi.BrojDokumenta == roiItem.BrojDokumenta)
                     {
-                        // ROI already exists
                         roiDoesNotAlreadyExist = false;
                         break;
                     }
 
-                // If ROI does not already exists in the list, then continue
                 if (roiDoesNotAlreadyExist)
                 {
-                    // Checking for data validity
                     if (roi.IsPibValid())
                     {
                         if (roi.IsMbValid())
@@ -1355,28 +1054,20 @@ namespace GriffinSoft.EasyRino
                                 {
                                     if (roi.CheckForGeneralValidity())
                                     {
-                                        // Creating RinoObligationManager object
                                         var rom = new RinoObligationManager();
-
-                                        // Inserting new item and setting new value to roiList object
                                         _roiList = rom.InsertNewItem(_roiList, roi);
-
                                         // Converting roiList to DataTable object to display data
                                         rom.ConvertRinoListToDataTable(_roiList);
-
-                                        // Setting DataSource property to dataGridView object
                                         rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                                     }
                                     else
                                     {
-                                        // Show error message
                                         var errMsg = "Niste uneli sve obavezne podatke";
                                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 else
                                 {
-                                    // Show error message
                                     var errMsg = "Morate uneti razlog izmene ili otkazivanja.";
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
@@ -1385,21 +1076,14 @@ namespace GriffinSoft.EasyRino
                             {
                                 if (roi.CheckForGeneralValidity())
                                 {
-                                    // Creating RinoObligationManager object
                                     var rom = new RinoObligationManager();
-
-                                    // Inserting new item and setting new value to roiList object
                                     _roiList = rom.InsertNewItem(_roiList, roi);
-
                                     // Converting roiList to DataTable object to display data
                                     rom.ConvertRinoListToDataTable(_roiList);
-
-                                    // Setting DataSource property to dataGridView object
                                     rinoObligationDataGridView.DataSource = rom.RinoDataTable;
                                 }
                                 else
                                 {
-                                    // Show error message
                                     var errMsg = "Niste uneli sve obavezne podatke";
                                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
@@ -1407,34 +1091,28 @@ namespace GriffinSoft.EasyRino
                         }
                         else
                         {
-                            // Show error message
                             var errMsg = "Niste uneli validan MB.";
                             MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        // Show error message
                         var errMsg = "Niste uneli validan PIB.";
                         MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    // Setting row index to 0
                     _rowNumber = 0;
-
                     // Reset fields
                     ResetObligationFields();
                 }
                 else
                 {
-                    // Show error message
                     var errMsg = "Već ste uneli jedno zaduženje koje ima isti PIB i broj računa u listu obaveza.";
                     MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                // Show error message
                 var errMsg = "Polje iznos ne može biti prazno.";
                 MessageBox.Show(errMsg, "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -1523,8 +1201,6 @@ namespace GriffinSoft.EasyRino
             reconPibTextBox.Text = "";
             reconBankTextBox.Text = "";
             reconPodZaReklTextBox.Text = "";
-            // DatumIzmirenjaDateTimePicker is not reseted by design, because of faster reconcilation times
-            // reconDatumIzmirenjaDateTimePicker.Value = DateTime.Now;
             reconIznosTextBox.Text = "";
             reconRazlogIzmeneTextBox.Text = "";
         }

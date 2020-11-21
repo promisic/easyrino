@@ -1,6 +1,6 @@
 ﻿/*
  *  RINO exporter interface
- *  Copyright (C) 2016-2019  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ namespace GriffinSoft.EasyRino.RinoCore
     public interface IRinoExporter
     {
         /// <summary>
-        ///     Exports RINO obligation XML file
+        /// Exports RINO obligation XML file
         /// </summary>
         /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
         /// <param name="outPath">Output file path</param>
         void ExportRinoObligationXml(XmlDocument rinoXmlDoc, string outPath);
 
         /// <summary>
-        ///     Exports RINO reconcilement XML file
+        /// Exports RINO reconcilement XML file
         /// </summary>
         /// <param name="rinoXmlDoc">RINO XmlDocument object</param>
         /// <param name="outPath">Output file path</param>

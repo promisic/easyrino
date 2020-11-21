@@ -1,6 +1,6 @@
 ﻿/*
  *  Main program of EasyRino
- *  Copyright (C) 2016  Dusan Misic <promisic@outlook.com>
+ *  Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ namespace GriffinSoft.EasyRino
     internal static class Program
     {
         /// <summary>
-        ///     The main entry point for the application.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
@@ -40,7 +40,7 @@ namespace GriffinSoft.EasyRino
         }
 
         /// <summary>
-        ///     Sets culture info for all .NET frameworks. This method is a hack :/
+        ///  Sets culture info for all .NET frameworks. This method is a hack :/
         /// </summary>
         /// <param name="culture">CultureInfo object to set.</param>
         private static void SetDefaultCulture(CultureInfo culture)

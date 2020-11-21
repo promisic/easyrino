@@ -1,7 +1,7 @@
 ﻿/*
  * RINO importer API class implementation
  * 
- * Copyright: Dusan Misic 2016 - 2019 <promisic@outlook.com>
+ * Copyright (C) 2016 - 2020 Dusan Misic <promisic@gmail.com>
  */
 
 using System.Xml;
@@ -13,10 +13,7 @@ namespace GriffinSoft.EasyRino.RinoXmlFilter
     {
         public XmlDocument ImportRinoObligationXml(string inPath)
         {
-            // Creating XmlDocument object
             var rinoXmlDoc = new XmlDocument();
-
-            // Loading XML file into memory
             rinoXmlDoc.Load(inPath);
 
             return rinoXmlDoc;
@@ -24,10 +21,7 @@ namespace GriffinSoft.EasyRino.RinoXmlFilter
 
         public XmlDocument ImportRinoReconcilementXml(string inPath)
         {
-            // Creating XmlDocument object
             var rinoXmlDoc = new XmlDocument();
-
-            // Loading XML file into memory
             rinoXmlDoc.Load(inPath);
 
             return rinoXmlDoc;
